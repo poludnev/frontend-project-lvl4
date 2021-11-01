@@ -2,12 +2,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
+import AuthPtovider from './components/authProvider/authProvider.jsx';
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
 // @ts-ignore
+
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
@@ -31,6 +33,11 @@ if (process.env.NODE_ENV !== 'production') {
 const container = document.querySelector('#chat');
 // container.append(card);
 
-ReactDOM.render(<App />, container);
+ReactDOM.render(
+  <AuthPtovider>
+    <App />
+  </AuthPtovider>,
+  container,
+);
 // console.log('it works!');
 //
