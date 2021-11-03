@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Formik, Form, Field } from 'formik';
-import UserContext from '../../context/userContext';
+import UserContext from '../contexts/userContext';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -38,30 +38,22 @@ const SignInForm = () => {
       <Formik
         initialValues={{
           username: 'admin',
-          password: 'admin123',
+          password: 'admin',
         }}
         validationSchema={SignupSchema}
         onSubmit={async (values) => {
-          // console.log(values);
           const { username, password } = values;
           try {
             const response = await axios.post('/api/v1/login', { username, password });
-            // console.log('response', response.data);
-            // const { username, token } = response.data;
+            console.log('response', response.data);
+            const { token } = response.data;
+            console.log('token', token);
             setCurrentUser(response.data);
             logIn(response.data);
             history.replace('/');
-
-            // console.log(user);
-            //
-
-            // console.log(history);
           } catch (e) {
-            // console.log('auth failed', e);
             setAuthFailed(true);
           }
-
-          //   // logIn();
         }}
       >
         {({ errors, touched }) => (

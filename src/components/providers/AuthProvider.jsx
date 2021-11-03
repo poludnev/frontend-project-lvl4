@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-import UserContext from '../../context/userContext.jsx';
+import UserContext from '../../contexts/userContext';
 
 const getUser = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -16,19 +16,32 @@ const AuthProvider = ({ children }) => {
   // console.log('AuthProvder user', user);
 
   const logIn = (userData) => {
-    console.log('loggin: ', userData);
+    // console.log('loggin: ', userData);
     const user = { ...userData };
-    console.log('login user', user)
+    // console.log('login user', user);
     setUser(user);
     localStorage.setItem('user', JSON.stringify(user));
   };
 
   const logOut = () => {
+    // console.log('logOut clicked');
     setUser(null);
     localStorage.removeItem('user');
   };
 
-  return <UserContext.Provider value={{ user, logIn, logOut }}>{children}</UserContext.Provider>;
+  const AuthHeader = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    // console.log('AuthHeader run', user);
+    if (user && user.token) return { 'Authorization': `Bearer ${user.token}` };
+    return {};
+  };
+  // }
+
+  return (
+    <UserContext.Provider value={{ user, logIn, logOut, AuthHeader }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export default AuthProvider;

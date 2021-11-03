@@ -1,18 +1,37 @@
 // @ts-check
-import React from 'react';
+// import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
-import AuthPtovider from './components/authProvider/authProvider.jsx';
-import 'core-js/stable/index.js';
-import 'regenerator-runtime/runtime.js';
-
+import { io } from 'socket.io-client';
 import '../assets/application.scss';
+
+// import App from './App.jsx';
+// import AuthPtovider from './components/authProvider/authProvider.jsx';
+// import { store } from './store.js';
+// import { Provider } from 'react-redux';
+
+// import 'core-js/stable/index.js';
+// import 'regenerator-runtime/runtime.js';
+
+// import '../assets/application.scss';
+
+import init from './init.jsx';
 
 // @ts-ignore
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
+
+const app = () => {
+  // console.log('test');
+  const socketClient = io();
+
+  return init(socketClient);
+};
+
+ReactDOM.render(app(), document.querySelector('#chat'));
+
+export default app;
 
 // const p = document.createElement('p');
 // p.classList.add('card-text');
@@ -30,14 +49,17 @@ if (process.env.NODE_ENV !== 'production') {
 // card.classList.add('card', 'text-center');
 // card.append(cardBody);
 
-const container = document.querySelector('#chat');
+// const container = document.querySelector('#chat');
 // container.append(card);
 
-ReactDOM.render(
-  <AuthPtovider>
-    <App />
-  </AuthPtovider>,
-  container,
-);
+// ReactDOM.render(
+// <Provider store={store}>
+//   <AuthPtovider>
+//     <App />
+//   </AuthPtovider>
+// </Provider>,
+
+//   container,
+// );
 // console.log('it works!');
 //
