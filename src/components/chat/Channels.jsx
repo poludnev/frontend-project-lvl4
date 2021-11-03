@@ -1,17 +1,41 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { upLoadChannels, setCurrentChannel } from '../../slices/channelsSlice';
+import { showModal, hideModal } from '../../slices/modalSlice';
+import modals from '../modal/modals';
 
 import './Channels.styles.scss';
 
 const Channels = () => {
-  console.log('Channels is initialised');
+  // console.log('Channels is initialised');
   const { channelsData, currentChannelID } = useSelector((state) => state.channels);
-  console.log('Channels data in Channels', channelsData);
+  const { isShown, type } = useSelector((state) => state.modal);
+  // console.log('Channels data in Channels', channelsData);
+  console.log('modal in channels', isShown, type);
+  const dispatch = useDispatch();
+
+  const selectChannelHandler = (id) => (evt) => {
+    dispatch(setCurrentChannel(id));
+  };
+
+  const addNewChannelHandler = () => {
+    console.log('add new channel');
+    dispatch(showModal({ type: 'add' }));
+  };
+
+  const renderModal = (type) => {
+    return modals(type);
+  };
+
   return (
     <div className='channels col-4 col-md-2 border-end pt-5 px-0 bg-light'>
       <div className='d-flex justify-content-between mb-2 pl-4 pr-2'>
         <span>Каналы</span>
-        <button type='button' className='p-0 text-primary btn btn-group-vertical'>
+        <button
+          type='button'
+          className='p-0 text-primary btn btn-group-vertical'
+          onClick={addNewChannelHandler}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 16 16'
@@ -29,6 +53,7 @@ const Channels = () => {
         {channelsData.map(({ id, name, removable }) => (
           <li key={id} className='nav-item w-100'>
             <button
+              onClick={selectChannelHandler(id)}
               className={`w-100 rounded-0 text-left btn ${
                 id === currentChannelID && 'btn-secondary'
               }`}
@@ -39,6 +64,7 @@ const Channels = () => {
           </li>
         ))}
       </ul>
+      {isShown && renderModal(type)}
     </div>
   );
 };

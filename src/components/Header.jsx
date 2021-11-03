@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import UserContext from '../contexts/userContext';
 const Header = () => {
   const { user, logOut } = useContext(UserContext);
-
+  // add forwarding to login page after click on exit button
   return (
     <Navbar className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
       <div className='container' style={{ paddingRight: '0.75rem', paddingLeft: '0.75rem' }}>

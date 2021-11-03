@@ -15,7 +15,7 @@ const MessageSchema = Yup.object().shape({
 });
 
 const Messages = () => {
-  console.log('Messages initialised');
+  // console.log('Messages initialised');
   const inputRef = useRef();
   const dispatch = useDispatch();
   const { user, logIn, AuthHeader } = useContext(UserContext);
@@ -31,7 +31,7 @@ const Messages = () => {
   const currentChannelData = channelsData.find(({ id }) => id === currentChannelID);
   const currentChannelName = currentChannelData ? currentChannelData.name : null;
 
-  console.log('messages Data in Messages', messagesData, channelsData, currentChannelName);
+  // console.log('messages Data in Messages', messagesData, channelsData, currentChannelName);
 
   const messagesByCurrentChannel = messagesData.filter(
     ({ channelID }) => channelID === currentChannelID,
@@ -53,7 +53,7 @@ const Messages = () => {
 
   return (
     <div className='col p-0 h-100'>
-      {console.log('MESSAGES RENDERED')}
+      {/* {console.log('MESSAGES RENDERED')} */}
       <div className='d-flex flex-column h-100'>
         <div className='bg-light mb-4 p-3 shadow-sm small'>
           <p className='m-0'># {currentChannelName}</p>
@@ -70,14 +70,14 @@ const Messages = () => {
             validationSchema={MessageSchema}
             onSubmit={async (values, actions) => {
               setSubmitting(true);
-              console.log('message from submitted with values:', values);
-              console.log('socket in submit', socket);
+              // console.log('message from submitted with values:', values);
+              // console.log('socket in submit', socket);
               await socket.sendMessage({
                 username: user.username,
                 text: values.message,
                 channelID: currentChannelID,
               });
-              console.log('actions', actions);
+              // console.log('actions', actions);
               actions.resetForm({
                 values: {
                   message: '',

@@ -18,6 +18,6 @@ export const channelsSlice = createSlice({
   },
 });
 
-export const { upLoadChannels } = channelsSlice.actions;
+export const { upLoadChannels, setCurrentChannel } = channelsSlice.actions;
 
 export default channelsSlice.reducer;

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import UserContext from '../contexts/userContext';
 import { useSelector, useDispatch } from 'react-redux';
-import { upLoadChannels } from '../slices/channelsSlice';
+import { upLoadChannels, setCurrentChannel } from '../slices/channelsSlice';
 import { upLoadMessages } from '../slices/messagesSlice';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
