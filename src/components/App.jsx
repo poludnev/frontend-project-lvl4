@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-ro
 import UserContext from '../contexts/userContext';
 import Chat from './Chat';
 // import Chat
+import { useTranslation } from 'react-i18next';
 
 import Header from './Header';
 

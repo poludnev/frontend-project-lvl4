@@ -13,10 +13,12 @@ import { hideModal } from '../../slices/modalSlice';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
 import { removeChannel } from '../../slices/channelsSlice';
+import { useTranslation } from 'react-i18next';
 
 import * as Yup from 'yup';
 
 const RemoveChannelModal = () => {
+  const { t } = useTranslation();
   const [isValid, setValid] = useState(true);
   const { user, logIn, AuthHeader } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -26,7 +28,7 @@ const RemoveChannelModal = () => {
   // }, []);
   const isShown = useSelector((state) => state.modal.isShown);
   const { id } = useSelector((state) => state.modal.extra);
-  console.log('id', id);
+  // console.log('id', id);
   const dispatch = useDispatch();
 
   const [isSubmitting, setSubmitting] = useState(false);
@@ -37,7 +39,7 @@ const RemoveChannelModal = () => {
   const removeChannelHandler = async () => {
     setSubmitting(true);
 
-    console.log('remove channel');
+    // console.log('remove channel');
     await socket.removeChannel({ id });
     setSubmitting(false);
     handleClose();
@@ -51,16 +53,16 @@ const RemoveChannelModal = () => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>{'Удалить канал'}</Modal.Title>
+        <Modal.Title>{t('modals.remove.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {'Are you sure?'}
+        {t('modals.remove.confirmation')}
         <div className='d-flex justify-content-end'>
           <Button variant='secondary' onClick={handleClose} className={'me-2'}>
-            {'Отменить'}
+            {t('modals.remove.cancelButton')}
           </Button>
           <Button variant='danger' disabled={isSubmitting} onClick={removeChannelHandler}>
-            {'Удалить'}
+            {t('modals.remove.submitButton')}
           </Button>
         </div>
       </Modal.Body>

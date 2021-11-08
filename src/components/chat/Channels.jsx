@@ -6,14 +6,14 @@ import modals from '../modal/modals';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 // import AddChannelModal from '../modal/AddChannel';
 import AddChannelTest from '../modal/AddChannelTest';
-
+import { useTranslation } from 'react-i18next';
 import './Channels.styles.scss';
-
 
 const Channels = () => {
   // console.log('Channels is initialised');
   const { channelsData, currentChannelID } = useSelector((state) => state.channels);
-  console.log(channelsData);
+  // console.log(channelsData);
+  const { t } = useTranslation();
   const { isShown, type } = useSelector((state) => state.modal);
   // console.log('Channels data in Channels', channelsData);
   console.log('modal in channels', isShown, type);
@@ -49,7 +49,7 @@ const Channels = () => {
   return (
     <div className='channels col-4 col-md-2 border-end pt-5 px-0 bg-light'>
       <div className='d-flex justify-content-between mb-2 ps-4 pe-2'>
-        <span>Каналы</span>
+        <span>{t('channels.title')}</span>
         <button
           type='button'
           className='p-0 text-primary btn btn-group-vertical'
@@ -87,8 +87,12 @@ const Channels = () => {
                   className={`flex-grow-0 dropdown-toggle dropdown-toggle-split btn`}
                 />
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={removeChannelHandler(id)}>{'Удалить'}</Dropdown.Item>
-                  <Dropdown.Item onClick={renameChannelHandler(id)}>{'Rename'}</Dropdown.Item>
+                  <Dropdown.Item onClick={removeChannelHandler(id)}>
+                    {t('channels.remove')}
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={renameChannelHandler(id)}>
+                    {t('channels.rename')}
+                  </Dropdown.Item>
                 </Dropdown.Menu>
 
                 {/* <Button

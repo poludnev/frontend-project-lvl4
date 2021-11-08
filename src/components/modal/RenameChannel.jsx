@@ -12,10 +12,12 @@ import { Formik, Form, Field } from 'formik';
 import { hideModal } from '../../slices/modalSlice';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
+import { useTranslation } from 'react-i18next';
 
 import * as Yup from 'yup';
 
 const RenameChannelModal = () => {
+  const { t } = useTranslation();
   const [isValid, setValid] = useState(true);
   const { user, logIn, AuthHeader } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -32,9 +34,9 @@ const RenameChannelModal = () => {
   const channelsNames = useSelector((state) => state.channels.channelsData.map((ch) => ch.name));
   const NewChannelSchema = Yup.object().shape({
     channelName: Yup.string()
-      .required('Required')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
+      .required(t('errors.required'))
+      .min(3, t('errors.tooShort'))
+      .max(20, t('errors.tooLong'))
 
       .notOneOf(channelsNames, 'already exists'),
   });
@@ -46,7 +48,7 @@ const RenameChannelModal = () => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>{'Rename channel'}</Modal.Title>
+        <Modal.Title>{t('modals.rename.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
@@ -55,7 +57,7 @@ const RenameChannelModal = () => {
           }}
           validationSchema={NewChannelSchema}
           onSubmit={async (values, actions) => {
-            console.log('new channel add submitte');
+            // console.log('new channel add submitte');
 
             actions.resetForm({
               values: {
@@ -63,7 +65,7 @@ const RenameChannelModal = () => {
               },
             });
             await socket.renameChannel({
-              id, 
+              id,
               name: values.channelName,
             });
             handleClose();
@@ -97,7 +99,7 @@ const RenameChannelModal = () => {
                 <div className='form-group'>
                   <Field
                     name='channelName'
-                    placeholder='Введите название канала...'
+                    placeholder={t('modals.rename.inputPlaceholder')}
                     innerRef={inputRef}
                     className={`mb-2 form-control ${submitCount > 0 && dirty ? 'is-invalid' : ''}`}
                   />
@@ -110,10 +112,10 @@ const RenameChannelModal = () => {
                 </div>
                 <div className='d-flex justify-content-end'>
                   <button type='button' onClick={handleClose} className='me-2 btn btn-secondary'>
-                    Отменить
+                    {t('modals.rename.cancelButton')}
                   </button>
                   <button type='submit' className='btn btn-primary'>
-                    Отправить
+                    {t('modals.rename.submitButton')}
                   </button>
                 </div>
               </Form>

@@ -6,18 +6,26 @@ import { Card, Form, FloatingLabel, Button } from 'react-bootstrap';
 import UserContext from '../contexts/userContext';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const SignUpForm = () => {
+  const { t } = useTranslation();
   const userInput = useRef();
   useEffect(() => {
     userInput.current.focus();
   }, []);
   const SignupSchema = Yup.object().shape({
-    username: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-    password: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+    username: Yup.string()
+      .min(3, t('errors.tooShort'))
+      .max(20, t('errors.tooLong'))
+      .required(t('errors.required')),
+    password: Yup.string()
+      .min(6, t('errors.passwordTooShort'))
+      .max(20, t('errors.tooLong'))
+      .required(t('errors.required')),
     passwordConfirmation: Yup.string()
-      .required()
-      .oneOf([Yup.ref('password'), null], 'Password must match'),
+      .required(t('errors.required'))
+      .oneOf([Yup.ref('password'), null], t('errors.passwordNotMatch')),
   });
   const [isSubmitting, setSubmitting] = useState(false);
   const { logIn } = useContext(UserContext);
@@ -33,7 +41,7 @@ const SignUpForm = () => {
               <Formik
                 validationSchema={SignupSchema}
                 onSubmit={async (values, actions) => {
-                  console.log(values), console.log(actions);
+                  // console.log(values), console.log(actions);
                   const { username, password } = values;
                   setSubmitting(true);
                   try {
@@ -59,16 +67,20 @@ const SignUpForm = () => {
                 }}
               >
                 {({ errors, touched, handleChange, values, handleSubmit }) => {
-                  console.log(errors);
+                  // console.log(errors);
                   return (
                     <Form noValidate onSubmit={handleSubmit} className='w-100'>
-                      <h1 className='text-center mb-4'>{'Registration'}</h1>
+                      <h1 className='text-center mb-4'>{t('signUp.title')}</h1>
 
-                      <FloatingLabel controlId='userName' label={'user name'} className='mb-3'>
+                      <FloatingLabel
+                        controlId='userName'
+                        label={t('signUp.usernamePlaceholder')}
+                        className='mb-3'
+                      >
                         <Form.Control
                           type='text'
                           name='username'
-                          placeholder='user name'
+                          placeholder={t('signUp.usernamePlaceholder')}
                           autoComplete='off'
                           isInvalid={isSignUpFailed || !!errors.username}
                           value={values.username}
@@ -76,14 +88,18 @@ const SignUpForm = () => {
                           ref={userInput}
                         />
                         <Form.Control.Feedback type='invalid' tooltip>
-                          {isSignUpFailed ? 'user exists' : errors.username}
+                          {isSignUpFailed ? t('errors.userExists') : errors.username}
                         </Form.Control.Feedback>
                       </FloatingLabel>
-                      <FloatingLabel controlId='password' label={'password'} className='mb-3'>
+                      <FloatingLabel
+                        controlId='password'
+                        label={t('signUp.passwordPlaceholder')}
+                        className='mb-3'
+                      >
                         <Form.Control
                           type='password'
                           name='password'
-                          placeholder='name@example.com'
+                          placeholder={t('signUp.passwordPlaceholder')}
                           isInvalid={!!errors.password}
                           value={values.password}
                           onChange={handleChange}
@@ -94,13 +110,13 @@ const SignUpForm = () => {
                       </FloatingLabel>
                       <FloatingLabel
                         controlId='passwordConfirmation'
-                        label={'repeat password'}
+                        label={t('signUp.passwordConfirmationPlaceholder')}
                         className='mb-3'
                       >
                         <Form.Control
                           type='password'
-                          name='passwordConfirmation'
-                          placeholder='name@example.com'
+                          name={t('signUp.title')}
+                          placeholder={t('signUp.passwordConfirmationPlaceholder')}
                           isInvalid={!!errors.passwordConfirmation}
                           value={values.passwordConfirmation}
                           onChange={handleChange}
@@ -115,19 +131,13 @@ const SignUpForm = () => {
                         className='w-100'
                         disabled={isSubmitting}
                       >
-                        Submit
+                        {t('signUp.submitButton')}
                       </Button>
                     </Form>
                   );
                 }}
               </Formik>
             </Card.Body>
-            <Card.Footer className='p-4'>
-              <div className='text-center'>
-                <span>{'no account?'}</span>&nbsp;
-                <Link to='/signup'>{'get registration'}</Link>
-              </div>
-            </Card.Footer>
           </Card>
         </div>
       </div>

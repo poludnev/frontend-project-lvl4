@@ -8,6 +8,7 @@ import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
 import { upLoadMessages, addMessage } from '../../slices/messagesSlice';
 import store from '../../store.js';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 const MessageSchema = Yup.object().shape({
@@ -16,6 +17,7 @@ const MessageSchema = Yup.object().shape({
 
 const Messages = () => {
   // console.log('Messages initialised');
+  const { t } = useTranslation();
   const inputRef = useRef();
   const dispatch = useDispatch();
   const { user, logIn, AuthHeader } = useContext(UserContext);
@@ -57,7 +59,9 @@ const Messages = () => {
       <div className='d-flex flex-column h-100'>
         <div className='bg-light mb-4 p-3 shadow-sm small'>
           <p className='m-0'># {currentChannelName}</p>
-          <span className='text-muted'>{messagesByCurrentChannel.length} messages</span>
+          <span className='text-muted'>
+            {messagesByCurrentChannel.length} {t('messages.counter')}
+          </span>
         </div>
         <div id='messages-box' className='chat-messages overflow-auto px-5'>
           {messagesByCurrentChannel.map(renderMessage)}
@@ -92,7 +96,7 @@ const Messages = () => {
                 <div className='input-group has-validation'>
                   <Field
                     name='message'
-                    placeholder='Введите сообщение...'
+                    placeholder={t('messages.mesagePlaceHolder')}
                     className='border-0 p-0 pl-2 form-control'
                     data-testid='new-message'
                     innerRef={formikInput}
@@ -116,7 +120,7 @@ const Messages = () => {
                           d='M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z'
                         ></path>
                       </svg>
-                      <span className='visually-hidden'>Отправить</span>
+                      <span className='visually-hidden'>{t('messages.submitButtonLabel')}</span>
                     </button>
                   </div>
                 </div>

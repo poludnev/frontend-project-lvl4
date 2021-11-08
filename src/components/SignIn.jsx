@@ -6,11 +6,7 @@ import { Card } from 'react-bootstrap';
 import UserContext from '../contexts/userContext';
 import * as Yup from 'yup';
 import axios from 'axios';
-
-const SignupSchema = Yup.object().shape({
-  username: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-  password: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-});
+import { useTranslation } from 'react-i18next';
 
 // const logIn = async () => {
 // console.log('logging run');
@@ -32,17 +28,29 @@ const SignInForm = () => {
   const [currnetUser, setCurrentUser] = useState(user);
   const [authFailed, setAuthFailed] = useState(false);
   const history = useHistory();
+  const { t } = useTranslation();
+
+  const SignupSchema = Yup.object().shape({
+    username: Yup.string()
+      .required(t('errors.required'))
+      .min(2, t('errors.tooShort'))
+      .max(50, t('errors.tooLong')),
+    password: Yup.string()
+      .min(2, t('errors.tooShort'))
+      .max(50, t('errors.tooLong'))
+      .required(t('errors.required')),
+  });
   // console.log(user, logIn);
   return (
     <div className='container=fluid h-100'>
       <div className='row justify-content-center align-content-center h-100'>
         <div className='col-12 col-md-8 col-xxl-6'>
           <Card>
-            <h1>SignIn</h1>
+            <h1>{t('logIn.title')}</h1>
             <Formik
               initialValues={{
-                username: 'admin',
-                password: 'admin',
+                username: '',
+                password: '',
               }}
               validationSchema={SignupSchema}
               onSubmit={async (values) => {
@@ -62,19 +70,23 @@ const SignInForm = () => {
             >
               {({ errors, touched }) => (
                 <Form>
-                  <Field name='username' />
+                  <Field name='username' placeholder={t('logIn.usernamePlaceholder')} />
                   {errors.username && touched.username ? <div>{errors.username}</div> : null}
-                  <Field name='password' type='password' />
+                  <Field
+                    name='password'
+                    type='password'
+                    placeholder={t('logIn.passwordPlaceholder')}
+                  />
                   {errors.password && touched.password ? <div>{errors.password}</div> : null}
                   {authFailed ? <div>{'неверный пароль'}</div> : null}
-                  <button type='submit'>Submit</button>
+                  <button type='submit'>{t('logIn.submitButton')}</button>
                 </Form>
               )}
             </Formik>
             <Card.Footer className='p-4'>
               <div className='text-center'>
-                <span>{'no account?'}</span>
-                <Link to='/signup'>{'get registration'}</Link>
+                <span>{t('logIn.signUpTitle')}</span>&nbsp;
+                <Link to='/signup'>{t('logIn.signUpLink')}</Link>
               </div>
             </Card.Footer>
           </Card>

@@ -7,6 +7,9 @@ import AuthProvider from './components/providers/AuthProvider.jsx';
 import SocketProvider from './components/providers/SocketProvider.jsx';
 import store from './store.js';
 import { Provider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n.js';
+
 import { addMessage } from './slices/messagesSlice.js';
 import {
   addChannel,
@@ -16,6 +19,7 @@ import {
 } from './slices/channelsSlice.js';
 
 import '../assets/application.scss';
+import { async } from 'regenerator-runtime';
 // console.log(store);
 // console.log('remove Channesl', deleteChannel);
 
@@ -71,16 +75,18 @@ const init = (socketClient) => {
 
   return (
     <Provider store={store}>
-      <AuthProvider>
-        <SocketProvider
-          sendMessage={sendMessage}
-          createChannel={createChannel}
-          removeChannel={removeChannel}
-          renameChannel={renameChannel}
-        >
-          <App />
-        </SocketProvider>
-      </AuthProvider>
+      <I18nextProvider i18n={i18n}>
+        <AuthProvider>
+          <SocketProvider
+            sendMessage={sendMessage}
+            createChannel={createChannel}
+            removeChannel={removeChannel}
+            renameChannel={renameChannel}
+          >
+            <App />
+          </SocketProvider>
+        </AuthProvider>
+      </I18nextProvider>
     </Provider>
   );
 };
