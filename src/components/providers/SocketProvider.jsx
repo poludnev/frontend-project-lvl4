@@ -7,9 +7,9 @@ const SocketProvider = ({ sendMessage, createChannel, removeChannel, renameChann
     <SocketContext.Provider
       value={{
         sendMessage,
-        // createChannel,
-        // removeChannel,
-        // renameChannel,
+        createChannel,
+        removeChannel,
+        renameChannel,
       }}
     >
       {children}

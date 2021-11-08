@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isShown: true,
+  isShown: false,
   type: 'add',
+  extra: null,
 };
 
 export const modalSlice = createSlice({
@@ -10,10 +11,11 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     showModal: (state, action) => {
-      return { isShown: true, type: action.payload.type };
+      return { isShown: true, type: action.payload.type, extra: action.payload.extra };
     },
     hideModal: (state, action) => {
-      return { isShown: true, type: null };
+      console.log('hide modal dispatched');
+      return { isShown: false, type: null, extra: null };
     },
   },
 });

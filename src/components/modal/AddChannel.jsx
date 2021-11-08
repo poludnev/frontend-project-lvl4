@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+
+import * as Yup from 'yup';
+
+const NewChannelSchema = Yup.object().shape({
+  channelName: Yup.string().min(2, 'Short').max(20, 'Too Long!').required('Required'),
+});
 
 const AddChannelModal = () => {
+  // const [isInvalid, setInvalid] = useState(false);
+
   const show = true;
   const handleClose = () => {};
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // }, []);
   return (
     <>
       <Modal
@@ -23,35 +35,70 @@ const AddChannelModal = () => {
         {/* <div className='modal-content'> */}
         <Modal.Header closeButton>
           {/* <div className='modal-header'> */}
-          <Modal.Title>Modal heading</Modal.Title>
-          {/* <div className='modal-title h4'>Добавить канал</div> */}
-          {/* <button
-              aria-label='Close'
-              data-bs-dismiss='modal'
-              type='button'
-              className='btn btn-close'
-            ></button> */}
-          {/* </div> */}
+          <Modal.Title>Добавить канал</Modal.Title>
         </Modal.Header>
-        <div className='modal-body'>
-          <form className=''>
-            <div className='form-group'>
-              <input name='name' data-testid='add-channel' className='mb-2 form-control' />
-              <div className='invalid-feedback'></div>
-              <div className='d-flex justify-content-end'>
-                <button type='button' className='me-2 btn btn-secondary'>
-                  Отменить
-                </button>
-                <button type='submit' className='btn btn-primary'>
-                  Отправить
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-        {/* </div> */}
-        {/* </div> */}
-        {/* </div> */}
+        <Modal.Body>
+          <Formik
+            initialValues={{
+              channelName: '',
+            }}
+            validationSchema={NewChannelSchema}
+            onSubmit={async (values, actions) => {
+              console.log('new channel add submitte');
+              actions.resetForm({
+                values: {
+                  channelName: '',
+                },
+              });
+            }}
+          >
+            {(props) => {
+              console.log(props);
+              const {
+                dirty,
+                errors,
+                touched,
+                values,
+                isSubmitting,
+                isValid,
+                isValidating,
+                status,
+                submitCount,
+              } = props;
+              console.log(errors, 'dirty:', dirty, 'isValid', isValid, 'submitcount', submitCount);
+
+              return (
+                <Form>
+                  <div className='form-group'>
+                    <Field
+                      name='channelName'
+                      ref={inputRef}
+                      placeholder='Введите название канала...'
+                      className={`mb-2 form-control ${
+                        submitCount > 0 && dirty ? 'is-invalid' : ''
+                      }`}
+                    />
+                  </div>
+                  <div
+                    className='invalid-feedback'
+                    style={submitCount > 0 && dirty ? { display: 'block' } : null}
+                  >
+                    {`От 3 до 20 символов`}
+                  </div>
+
+                  <div className='d-flex justify-content-end'>
+                    <button type='button' onClick={handleClose} className='me-2 btn btn-secondary'>
+                      Отменить
+                    </button>
+                    <button type='submit' className='btn btn-primary'>
+                      Отправить
+                    </button>
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Modal.Body>
       </Modal>
       <div className='fade modal-backdrop show'></div>
     </>

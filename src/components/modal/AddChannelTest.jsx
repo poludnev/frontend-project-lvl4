@@ -1,10 +1,3 @@
-// import React from 'react';
-
-// const RemoveChannelModal = () => {
-//   return <div>Remove Channel</div>;
-// };
-
-// export default RemoveChannelModal;
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
@@ -15,7 +8,7 @@ import SocketContext from '../../contexts/socketContext';
 
 import * as Yup from 'yup';
 
-const RenameChannelModal = () => {
+const AddChannelTest = () => {
   const [isValid, setValid] = useState(true);
   const { user, logIn, AuthHeader } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -24,7 +17,6 @@ const RenameChannelModal = () => {
     inputRef.current.focus();
   }, []);
   const isShown = useSelector((state) => state.modal.isShown);
-  const { id } = useSelector((state) => state.modal.extra);
   const dispatch = useDispatch();
 
   const handleClose = () => dispatch(hideModal());
@@ -33,7 +25,7 @@ const RenameChannelModal = () => {
   const NewChannelSchema = Yup.object().shape({
     channelName: Yup.string()
       .required('Required')
-      .min(3, 'От 3 до 20 символов')
+      .min(2, 'От 3 до 20 символов')
       .max(20, 'От 3 до 20 символов')
 
       .notOneOf(channelsNames, 'already exists'),
@@ -46,7 +38,7 @@ const RenameChannelModal = () => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>{'Rename channel'}</Modal.Title>
+        <Modal.Title>Добавить канал {isValid ? 'valid' : 'invalid'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
@@ -62,9 +54,9 @@ const RenameChannelModal = () => {
                 channelName: '',
               },
             });
-            await socket.renameChannel({
-              id, 
+            await socket.createChannel({
               name: values.channelName,
+              creator: user.username,
             });
             handleClose();
           }}
@@ -125,4 +117,4 @@ const RenameChannelModal = () => {
   );
 };
 
-export default RenameChannelModal;
+export default AddChannelTest;
