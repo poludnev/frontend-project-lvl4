@@ -17,12 +17,12 @@ import {
 
 import '../assets/application.scss';
 // console.log(store);
-console.log('remove Channesl', deleteChannel);
+// console.log('remove Channesl', deleteChannel);
 
 const init = (socketClient) => {
   // console.log('some text');
 
-  console.log('remove', deleteChannel, setCurrentChannel, renameChannel);
+  // console.log('remove', deleteChannel, setCurrentChannel, renameChannel);
 
   const socket = socketClient;
 

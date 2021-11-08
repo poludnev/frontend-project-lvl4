@@ -9,6 +9,7 @@ import Chat from './Chat';
 import Header from './Header';
 
 import SignInForm from './SignIn';
+import SignUpForm from './SignUp';
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -35,6 +36,13 @@ const App = () => {
             path='/login'
             render={() => {
               return isAuth(user) ? <Redirect to='/' /> : <SignInForm />;
+            }}
+          ></Route>
+          <Route
+            exact
+            path='/signup'
+            render={() => {
+              return isAuth(user) ? <Redirect to='/' /> : <SignUpForm />;
             }}
           ></Route>
           <Route path='*'>
