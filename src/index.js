@@ -37,7 +37,8 @@ const app = async () => {
   const socketClient = io();
   const vdom = await init(socketClient);
 
-  ReactDOM.render(vdom, document.querySelector('#chat'));
+  // ReactDOM.render(vdom, document.querySelector('#chat'));
+  return vdom;
 
   // return init(socketClient);
 };
