@@ -47,11 +47,14 @@ const Messages = () => {
     inputRef.current.focus();
   });
 
-  const renderMessage = ({ id, username, text }) => (
-    <div key={id} className='text-break mb-2'>
-      <b>{username}</b>&nbsp;:&nbsp;{text}
-    </div>
-  );
+  const renderMessage = ({ id, username, text }) => {
+    console.log('render message ran');
+    return (
+      <div key={id} className='text-break mb-2'>
+        <b>{username}</b>&nbsp;:&nbsp;{text}
+      </div>
+    );
+  };
 
   // const [isSubmitting, setSubmitting] = useState(false);
 
