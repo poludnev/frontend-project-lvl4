@@ -10,7 +10,6 @@
     "build": "NODE_ENV=production npx webpack --mode production",
     "start": "node bin/slack.js"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poludnev/frontend-project-lvl4.git"
@@ -49,6 +48,7 @@
     "point-of-view": "^4.14.0",
     "popper.js": "^1.16.1",
     "pug": "^3.0.2",
+    "react": "^17.0.2",
     "react-bootstrap": "^2.0.1",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.13.0",
