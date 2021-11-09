@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
+import { Card, Form, FloatingLabel, Button, InputGroup } from 'react-bootstrap';
 import { io } from 'socket.io-client';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
@@ -18,6 +19,7 @@ const MessageSchema = Yup.object().shape({
 const Messages = () => {
   // console.log('Messages initialised');
   const { t } = useTranslation();
+  // const inputRef = useRef();
   const inputRef = useRef();
   const dispatch = useDispatch();
   const { user, logIn, AuthHeader } = useContext(UserContext);
@@ -39,10 +41,10 @@ const Messages = () => {
     ({ channelID }) => channelID === currentChannelID,
   );
 
-  const formikInput = useRef();
+  // const formikInput = useRef();
 
   useEffect(() => {
-    formikInput.current.focus();
+    inputRef.current.focus();
   });
 
   const renderMessage = ({ id, username, text }) => (
@@ -91,21 +93,30 @@ const Messages = () => {
               setSubmitting(false);
             }}
           >
-            {({ errors, touched }) => (
-              <Form className='py-1 border rounded-2'>
-                <div className='input-group has-validation'>
-                  <Field
-                    name='message'
-                    placeholder={t('messages.mesagePlaceHolder')}
-                    className='border-0 p-0 pl-2 form-control'
-                    data-testid='new-message'
-                    innerRef={formikInput}
-                  />
+            {({ errors, touched, handleSubmit, values, handleChange }) => {
+              console.log(isSubmitting, errors, touched);
+              console.log(isSubmitting || errors.message || !touched.message);
+              return (
+                <Form noValidate onSubmit={handleSubmit} className='py-1 border rounded-2'>
+                  {/* <div className='input-group has-validation'> */}
+                  <InputGroup>
+                    <Form.Control
+                      className='border-0 p-0 ps-2'
+                      type='text'
+                      name='message'
+                      placeholder={t('messages.mesagePlaceHolder')}
+                      ref={inputRef}
+                      data-testid='new-message'
+                      value={values.message}
+                      onChange={handleChange}
+                      isInvalid={!!errors.message}
+                    />
 
-                  <div className='input-group-append'>
-                    <button
-                      className='btn btn-group-vertical'
-                      disabled={isSubmitting || errors.message || !touched.message}
+                    {/* <div className='input-group-append'> */}
+                    <Button
+                      variant='light'
+                      className='btn-group-vertical'
+                      disabled={isSubmitting}
                       type='submit'
                     >
                       <svg
@@ -121,11 +132,13 @@ const Messages = () => {
                         ></path>
                       </svg>
                       <span className='visually-hidden'>{t('messages.submitButtonLabel')}</span>
-                    </button>
-                  </div>
-                </div>
-              </Form>
-            )}
+                    </Button>
+                  </InputGroup>
+                  {/* </div> */}
+                  {/* </div> */}
+                </Form>
+              );
+            }}
           </Formik>
         </div>
       </div>
