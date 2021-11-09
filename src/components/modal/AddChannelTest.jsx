@@ -63,7 +63,7 @@ const AddChannelTest = () => {
           }}
         >
           {(props) => {
-            console.log(props);
+            // console.log(props);
             const {
               dirty,
               errors,
