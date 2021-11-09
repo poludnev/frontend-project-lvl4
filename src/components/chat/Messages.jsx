@@ -58,6 +58,9 @@ const Messages = () => {
 
   // const [isSubmitting, setSubmitting] = useState(false);
   console.log('rendering messages');
+  console.log('current channel', currentChannelName);
+  console.log('messagesByCurrentChannel', messagesByCurrentChannel);
+
   return (
     <div className='col p-0 h-100'>
       {/* {console.log('MESSAGES RENDERED')} */}
@@ -97,7 +100,7 @@ const Messages = () => {
             }}
           >
             {({ errors, touched, handleSubmit, values, handleChange }) => {
-              console.log('values in message', values);
+              // console.log('values in message', values);
               // console.log(isSubmitting, errors, touched);
               // console.log(isSubmitting || errors.message || !touched.message);
               return (
