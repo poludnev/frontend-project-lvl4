@@ -19,7 +19,7 @@ import {
 } from './slices/channelsSlice.js';
 
 import '../assets/application.scss';
-import { async } from 'regenerator-runtime';
+
 // console.log(store);
 // console.log('remove Channesl', deleteChannel);
 
