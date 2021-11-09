@@ -57,7 +57,7 @@ const Messages = () => {
   };
 
   // const [isSubmitting, setSubmitting] = useState(false);
-
+  console.log('rendering messages');
   return (
     <div className='col p-0 h-100'>
       {/* {console.log('MESSAGES RENDERED')} */}
