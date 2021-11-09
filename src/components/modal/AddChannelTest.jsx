@@ -45,7 +45,7 @@ const AddChannelTest = () => {
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <Formik
+        <Formik
           initialValues={{
             channelName: '',
           }}
@@ -116,7 +116,7 @@ const AddChannelTest = () => {
               </Form>
             );
           }}
-        </Formik> */}
+        </Formik>
       </Modal.Body>
     </Modal>
   );
