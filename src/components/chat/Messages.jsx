@@ -60,6 +60,7 @@ const Messages = () => {
   console.log('rendering messages');
   console.log('current channel', currentChannelName);
   console.log('messagesByCurrentChannel', messagesByCurrentChannel);
+  console.log('messagesData', messagesData);
 
   return (
     <div className='col p-0 h-100'>
