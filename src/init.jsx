@@ -23,18 +23,18 @@ import { async } from 'regenerator-runtime';
 // console.log(store);
 // console.log('remove Channesl', deleteChannel);
 
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+// import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 // import Rollbar from 'rollbar';
 
 // heroku addons:create deployhooks:http --url="https://api.rollbar.com/api/1/deploy/?access_token=cb90c916b6474920ab9d4c1c12b8d126&environment=production"
-const rollbarConfig = {
-  accessToken: 'cb90c916b6474920ab9d4c1c12b8d126',
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  payload: {
-    environment: 'production',
-  },
-};
+// const rollbarConfig = {
+//   accessToken: 'cb90c916b6474920ab9d4c1c12b8d126',
+//   captureUncaught: true,
+//   captureUnhandledRejections: true,
+//   payload: {
+//     environment: 'production',
+//   },
+// };
 
 const init = async (socketClient) => {
   // console.log('some text');
@@ -89,24 +89,24 @@ const init = async (socketClient) => {
   // Rollbar.error('Something went wrong');
 
   return (
-    <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
-        <Provider store={store}>
-          <I18nextProvider i18n={i18n}>
-            <AuthProvider>
-              <SocketProvider
-                sendMessage={sendMessage}
-                createChannel={createChannel}
-                removeChannel={removeChannel}
-                renameChannel={renameChannel}
-              >
-                <App />
-              </SocketProvider>
-            </AuthProvider>
-          </I18nextProvider>
-        </Provider>
-      </ErrorBoundary>
-    </RollbarProvider>
+    // <RollbarProvider config={rollbarConfig}>
+    // <ErrorBoundary>
+    <Provider store={store}>
+      <I18nextProvider i18n={i18n}>
+        <AuthProvider>
+          <SocketProvider
+            sendMessage={sendMessage}
+            createChannel={createChannel}
+            removeChannel={removeChannel}
+            renameChannel={renameChannel}
+          >
+            <App />
+          </SocketProvider>
+        </AuthProvider>
+      </I18nextProvider>
+    </Provider>
+    // </ErrorBoundary>
+    // </RollbarProvider>
   );
 };
 
