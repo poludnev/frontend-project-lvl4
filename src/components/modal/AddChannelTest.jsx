@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import { Formik, Form, Field } from 'formik';
 import { hideModal } from '../../slices/modalSlice';
 import { useTranslation } from 'react-i18next';
@@ -15,8 +15,10 @@ const AddChannelTest = () => {
   const { user, logIn, AuthHeader } = useContext(UserContext);
   const socket = useContext(SocketContext);
   const inputRef = useRef();
+  // Modal.setAppElement('#root');
+  console.log(Modal);
   useEffect(() => {
-    inputRef.current.focus();
+    // inputRef.current.focus();
   }, []);
   const isShown = useSelector((state) => state.modal.isShown);
   const dispatch = useDispatch();
@@ -35,14 +37,15 @@ const AddChannelTest = () => {
     <Modal
       show={isShown}
       onHide={handleClose}
-      aria-labelledby='contained-modal-title-vcenter'
+      aria-hidden='true'
+      // aria-labelledby='contained-modal-title-vcenter'
       centered
     >
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Formik
+        {/* <Formik
           initialValues={{
             channelName: '',
           }}
@@ -113,7 +116,7 @@ const AddChannelTest = () => {
               </Form>
             );
           }}
-        </Formik>
+        </Formik> */}
       </Modal.Body>
     </Modal>
   );

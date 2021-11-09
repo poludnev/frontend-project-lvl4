@@ -28,6 +28,7 @@ const Messages = () => {
   const messagesData = useSelector((state) => state.messages.messagesData);
   // console.log('messages data in messages', messagesData);
   const { currentChannelID, channelsData } = useSelector((state) => state.channels);
+  const isShown = useSelector((state) => state.modal.isShown);
   // console.log('channels data in messages:', currentChannelID, channelsData);
 
   // const storeInstance = store();
@@ -63,7 +64,7 @@ const Messages = () => {
   // console.log('messagesData', messagesData);
 
   return (
-    <div className='col p-0 h-100'>
+    <div className='col p-0 h-100' aria-hidden={isShown}>
       {/* {console.log('MESSAGES RENDERED')} */}
       <div className='d-flex flex-column h-100'>
         <div className='bg-light mb-4 p-3 shadow-sm small'>
