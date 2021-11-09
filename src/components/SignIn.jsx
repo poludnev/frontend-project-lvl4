@@ -95,9 +95,9 @@ const SignInForm = () => {
                         onChange={handleChange}
                         ref={userInput}
                       />
-                      <Form.Control.Feedback type='invalid' tooltip>
+                      {/* <Form.Control.Feedback type='invalid' tooltip>
                         {isAuthFailed ? t('logIn.signInFailure') : errors.username}
-                      </Form.Control.Feedback>
+                      </Form.Control.Feedback> */}
                     </FloatingLabel>
                     <FloatingLabel
                       controlId='password'
