@@ -32,16 +32,17 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-const app = () => {
+const app = async () => {
   // console.log('test');
   const socketClient = io();
+  const vdom = await init(socketClient);
 
-  return init(socketClient);
+  ReactDOM.render(vdom, document.querySelector('#chat'));
+
+  // return init(socketClient);
 };
 
-ReactDOM.render(app(), document.querySelector('#chat'));
-
-export default app;
+export default app();
 
 // const p = document.createElement('p');
 // p.classList.add('card-text');

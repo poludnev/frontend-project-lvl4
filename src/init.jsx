@@ -36,7 +36,7 @@ const rollbarConfig = {
   },
 };
 
-const init = (socketClient) => {
+const init = async (socketClient) => {
   // console.log('some text');
 
   // console.log('remove', deleteChannel, setCurrentChannel, renameChannel);
