@@ -64,7 +64,7 @@ const Messages = () => {
   // console.log('messagesData', messagesData);
 
   return (
-    <div className='col p-0 h-100' aria-hidden={isShown}>
+    <div className='col p-0 h-100'>
       {/* {console.log('MESSAGES RENDERED')} */}
       <div className='d-flex flex-column h-100'>
         <div className='bg-light mb-4 p-3 shadow-sm small'>
@@ -131,6 +131,7 @@ const Messages = () => {
                       disabled={isSubmitting}
                       type='submit'
                       onClick={() => console.log('message button clicked')}
+                      aria-hidden={isShown}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
