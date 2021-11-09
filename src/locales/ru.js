@@ -9,6 +9,7 @@ export default {
       submitButton: 'Войти',
       signUpTitle: 'Нет аккаунта?',
       signUpLink: 'Регистрация',
+      signInFailure: 'Неверные имя пользователя или пароль',
     },
     signUp: {
       title: 'Регистрация',
@@ -34,7 +35,7 @@ export default {
       passwordTooShort: 'Не менее 6 символов',
       passwordNotMatch: 'Пароли должны совпадать',
       userExists: 'Такой пользователь уже существует',
-      channelExists: 'Должно быть уникальным'
+      channelExists: 'Должно быть уникальным',
     },
     modals: {
       add: {
