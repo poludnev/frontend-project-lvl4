@@ -48,7 +48,7 @@ const Messages = () => {
   });
 
   const renderMessage = ({ id, username, text }) => {
-    console.log('render message ran');
+    // console.log('render message ran');
     return (
       <div key={id} className='text-break mb-2'>
         <b>{username}</b>&nbsp;:&nbsp;{text}
@@ -57,10 +57,10 @@ const Messages = () => {
   };
 
   // const [isSubmitting, setSubmitting] = useState(false);
-  console.log('rendering messages');
-  console.log('current channel', currentChannelName);
-  console.log('messagesByCurrentChannel', messagesByCurrentChannel);
-  console.log('messagesData', messagesData);
+  // console.log('rendering messages');
+  // console.log('current channel', currentChannelName);
+  // console.log('messagesByCurrentChannel', messagesByCurrentChannel);
+  // console.log('messagesData', messagesData);
 
   return (
     <div className='col p-0 h-100'>
