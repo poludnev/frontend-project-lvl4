@@ -26,6 +26,7 @@ import { async } from 'regenerator-runtime';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import Rollbar from 'rollbar';
 
+// heroku addons:create deployhooks:http --url="https://api.rollbar.com/api/1/deploy/?access_token=cb90c916b6474920ab9d4c1c12b8d126&environment=production"
 const rollbarConfig = {
   accessToken: 'cb90c916b6474920ab9d4c1c12b8d126',
   captureUncaught: true,

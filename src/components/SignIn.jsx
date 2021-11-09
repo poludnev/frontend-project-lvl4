@@ -7,6 +7,7 @@ import UserContext from '../contexts/userContext';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 
 // const logIn = async () => {
 // console.log('logging run');
@@ -24,6 +25,7 @@ import { useTranslation } from 'react-i18next';
 // };
 
 const SignInForm = () => {
+  const rollbar = useRollbar();
   const { user, logIn } = useContext(UserContext);
   const [currnetUser, setCurrentUser] = useState(user);
   const [authFailed, setAuthFailed] = useState(false);
@@ -64,6 +66,7 @@ const SignInForm = () => {
                   logIn(response.data);
                   history.replace('/');
                 } catch (e) {
+                  rollbar.error('error in auth', e, { values });
                   setAuthFailed(true);
                 }
               }}

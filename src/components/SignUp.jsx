@@ -7,9 +7,11 @@ import UserContext from '../contexts/userContext';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 
 const SignUpForm = () => {
   const { t } = useTranslation();
+  const rollbar = useRollbar();
   const userInput = useRef();
   useEffect(() => {
     userInput.current.focus();
@@ -54,6 +56,7 @@ const SignUpForm = () => {
                   } catch (error) {
                     console.log(error);
                     if (error.isAxiosError && error.response.status === 409) {
+                      rollbar.error('creating user error', error, { username, password });
                       setSubmitting(false);
                       setSignUpFailed(true);
                       userInput.current.select();
@@ -63,7 +66,7 @@ const SignUpForm = () => {
                 initialValues={{
                   username: '',
                   password: '',
-                  passwordConfirmation: '111111',
+                  passwordConfirmation: '',
                 }}
               >
                 {({ errors, touched, handleChange, values, handleSubmit }) => {
@@ -115,7 +118,7 @@ const SignUpForm = () => {
                       >
                         <Form.Control
                           type='password'
-                          name={t('signUp.title')}
+                          name='passwordConfirmation'
                           placeholder={t('signUp.passwordConfirmationPlaceholder')}
                           isInvalid={!!errors.passwordConfirmation}
                           value={values.passwordConfirmation}
