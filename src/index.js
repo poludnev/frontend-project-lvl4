@@ -32,9 +32,9 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-const app = async () => {
+const app = async (socketClient) => {
   // console.log('test');
-  const socketClient = io();
+  // const socketClient = io();
   const vdom = await init(socketClient);
 
   // ReactDOM.render(vdom, document.querySelector('#chat'));
