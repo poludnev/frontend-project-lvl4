@@ -37,7 +37,7 @@ const AddChannelTest = () => {
     <Modal
       show={isShown}
       onHide={handleClose}
-      aria-hidden='true'
+      // aria-hidden='true'
       // aria-labelledby='contained-modal-title-vcenter'
       centered
     >
