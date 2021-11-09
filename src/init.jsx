@@ -59,9 +59,9 @@ const init = async (socketClient) => {
   });
 
   const sendMessage = (msg) => {
-    // console.log('send message in init', msg);
+    console.log('||||||||||||||||||||||||||||||||||||send message in init', msg);
     socket.emit('newMessage', msg, (response) => {
-      // console.log('send message response', response.status);
+      console.log('||||||||||||||||||||||||send message response', response.status);
     });
   };
 

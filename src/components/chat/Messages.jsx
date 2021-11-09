@@ -82,7 +82,10 @@ const Messages = () => {
             }}
             validationSchema={MessageSchema}
             onSubmit={async (values, actions) => {
-              console.log('message from submitted with values:', values);
+              console.log(
+                '+++++++++++++++++++++++++++++++++++++++++++++++++++++message from submitted with values:',
+                values,
+              );
               setSubmitting(true);
               // console.log('socket in submit', socket);
               await socket.sendMessage({
