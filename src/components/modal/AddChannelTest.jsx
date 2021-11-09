@@ -48,7 +48,8 @@ const AddChannelTest = () => {
           }}
           validationSchema={NewChannelSchema}
           onSubmit={async (values, actions) => {
-            consoe.log('new channel add submitte');
+            console.log('new channel add submitte');
+            console.error('some shit happens');
 
             actions.resetForm({
               values: {
