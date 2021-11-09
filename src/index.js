@@ -18,6 +18,16 @@ import init from './init.jsx';
 
 // @ts-ignore
 
+// import Rollbar from 'rollbar';
+// var rollbar = new Rollbar({
+//   accessToken: 'a6cf783a913e42f7aec4a319f560848f',
+//   captureUncaught: true,
+//   captureUnhandledRejections: true,
+// });
+
+// // record a generic message and send it to Rollbar
+// rollbar.log('Hello world!');
+
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }

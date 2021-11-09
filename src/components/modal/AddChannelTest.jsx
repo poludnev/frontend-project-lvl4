@@ -48,7 +48,7 @@ const AddChannelTest = () => {
           }}
           validationSchema={NewChannelSchema}
           onSubmit={async (values, actions) => {
-            console.log('new channel add submitte');
+            consoe.log('new channel add submitte');
 
             actions.resetForm({
               values: {
@@ -63,7 +63,7 @@ const AddChannelTest = () => {
           }}
         >
           {(props) => {
-            // console.log(props);
+            console.log(props);
             const {
               dirty,
               errors,

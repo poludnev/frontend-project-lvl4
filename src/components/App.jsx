@@ -12,6 +12,8 @@ import Header from './Header';
 import SignInForm from './SignIn';
 import SignUpForm from './SignUp';
 
+// import React from 'react';
+
 const App = () => {
   const { user } = useContext(UserContext);
   const isAuth = (user) => {
@@ -23,6 +25,7 @@ const App = () => {
     <Router>
       <div className='d-flex flex-column h-100'>
         <Header />
+        
 
         <Switch>
           <Route

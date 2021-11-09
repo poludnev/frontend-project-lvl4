@@ -63,7 +63,7 @@ const SignUpForm = () => {
                 initialValues={{
                   username: '',
                   password: '',
-                  passwordConfirmation: '',
+                  passwordConfirmation: '111111',
                 }}
               >
                 {({ errors, touched, handleChange, values, handleSubmit }) => {

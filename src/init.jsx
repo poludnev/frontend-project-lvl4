@@ -23,6 +23,18 @@ import { async } from 'regenerator-runtime';
 // console.log(store);
 // console.log('remove Channesl', deleteChannel);
 
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import Rollbar from 'rollbar';
+
+const rollbarConfig = {
+  accessToken: 'cb90c916b6474920ab9d4c1c12b8d126',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: 'production',
+  },
+};
+
 const init = (socketClient) => {
   // console.log('some text');
 
@@ -73,21 +85,27 @@ const init = (socketClient) => {
     });
   };
 
+  // Rollbar.error('Something went wrong');
+
   return (
-    <Provider store={store}>
-      <I18nextProvider i18n={i18n}>
-        <AuthProvider>
-          <SocketProvider
-            sendMessage={sendMessage}
-            createChannel={createChannel}
-            removeChannel={removeChannel}
-            renameChannel={renameChannel}
-          >
-            <App />
-          </SocketProvider>
-        </AuthProvider>
-      </I18nextProvider>
-    </Provider>
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <I18nextProvider i18n={i18n}>
+            <AuthProvider>
+              <SocketProvider
+                sendMessage={sendMessage}
+                createChannel={createChannel}
+                removeChannel={removeChannel}
+                renameChannel={renameChannel}
+              >
+                <App />
+              </SocketProvider>
+            </AuthProvider>
+          </I18nextProvider>
+        </Provider>
+      </ErrorBoundary>
+    </RollbarProvider>
   );
 };
 
