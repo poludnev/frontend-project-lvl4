@@ -10,10 +10,7 @@
     "build": "NODE_ENV=production npx webpack --mode production",
     "start": "node bin/slack.js"
   },
-  "engines": {
-    "node": "14.x",
-    "npm": "6.x"
-  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poludnev/frontend-project-lvl4.git"
