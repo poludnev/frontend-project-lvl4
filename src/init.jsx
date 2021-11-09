@@ -51,7 +51,7 @@ const init = async (socketClient) => {
     store.dispatch(setCurrentChannel(channel.id));
   });
   socket.on('removeChannel', ({ id }) => {
-    console.log('remove channel dispatch id', id);
+    // console.log('remove channel dispatch id', id);
     store.dispatch(deleteChannel(id));
   });
   socket.on('renameChannel', (channel) => {
@@ -59,30 +59,30 @@ const init = async (socketClient) => {
   });
 
   const sendMessage = (msg) => {
-    console.log('send message in init', msg);
+    // console.log('send message in init', msg);
     socket.emit('newMessage', msg, (response) => {
-      console.log('send message response', response.status);
+      // console.log('send message response', response.status);
     });
   };
 
   const createChannel = (channel) => {
-    console.log('create Channle,', channel);
+    // console.log('create Channle,', channel);
     socket.emit('newChannel', channel, (response) => {
-      console.log(response.status);
+      // console.log(response.status);
     });
   };
 
   const removeChannel = (channel) => {
-    console.log('socket remove', channel);
+    // console.log('socket remove', channel);
     socket.emit('removeChannel', channel, (response) => {
-      console.log('removed Channel', response.status);
+      // console.log('removed Channel', response.status);
     });
   };
 
   const renameChannel = (channel) => {
-    console.log('rename channel', channel);
+    // console.log('rename channel', channel);
     socket.emit('renameChannel', channel, (response) => {
-      console.log(response.status);
+      // console.log(response.status);
     });
   };
 

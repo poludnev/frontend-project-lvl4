@@ -62,9 +62,9 @@ const SignInForm = () => {
                 setSubmitting(true);
                 try {
                   const response = await axios.post('/api/v1/login', { username, password });
-                  console.log('response', response.data);
+                  // console.log('response', response.data);
                   const { token } = response.data;
-                  console.log('token', token);
+                  // console.log('token', token);
                   setCurrentUser(response.data);
                   logIn(response.data);
                   history.replace('/');
@@ -76,7 +76,7 @@ const SignInForm = () => {
               }}
             >
               {({ errors, touched, handleSubmit, handleChange, values }) => {
-                console.log(errors);
+                // console.log(errors);
                 return (
                   // <Form>
                   <Form noValidate onSubmit={handleSubmit} className='w-100'>

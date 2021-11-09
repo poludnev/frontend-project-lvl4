@@ -75,8 +75,8 @@ const Messages = () => {
             }}
             validationSchema={MessageSchema}
             onSubmit={async (values, actions) => {
+              console.log('message from submitted with values:', values);
               setSubmitting(true);
-              // console.log('message from submitted with values:', values);
               // console.log('socket in submit', socket);
               await socket.sendMessage({
                 username: user.username,
@@ -94,8 +94,9 @@ const Messages = () => {
             }}
           >
             {({ errors, touched, handleSubmit, values, handleChange }) => {
-              console.log(isSubmitting, errors, touched);
-              console.log(isSubmitting || errors.message || !touched.message);
+              console.log('values in message', values);
+              // console.log(isSubmitting, errors, touched);
+              // console.log(isSubmitting || errors.message || !touched.message);
               return (
                 <Form noValidate onSubmit={handleSubmit} className='py-1 border rounded-2'>
                   {/* <div className='input-group has-validation'> */}
@@ -118,6 +119,7 @@ const Messages = () => {
                       className='btn-group-vertical'
                       disabled={isSubmitting}
                       type='submit'
+                      onClick={() => console.log('message button clicked')}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'

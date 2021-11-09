@@ -43,6 +43,7 @@ const app = async () => {
   // return init(socketClient);
 };
 
+// export default app();
 export default app;
 
 // const p = document.createElement('p');

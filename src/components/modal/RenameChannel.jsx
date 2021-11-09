@@ -102,6 +102,7 @@ const RenameChannelModal = () => {
                     placeholder={t('modals.rename.inputPlaceholder')}
                     innerRef={inputRef}
                     className={`mb-2 form-control ${submitCount > 0 && dirty ? 'is-invalid' : ''}`}
+                    data-testid='rename-channel'
                   />
                 </div>
                 <div

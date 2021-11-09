@@ -93,6 +93,7 @@ const AddChannelTest = () => {
                     placeholder={t('modals.add.inputPlaceholder')}
                     innerRef={inputRef}
                     className={`mb-2 form-control ${submitCount > 0 && dirty ? 'is-invalid' : ''}`}
+                    data-testid='add-channel'
                   />
                 </div>
                 <div

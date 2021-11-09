@@ -16,7 +16,7 @@ const Channels = () => {
   const { t } = useTranslation();
   const { isShown, type } = useSelector((state) => state.modal);
   // console.log('Channels data in Channels', channelsData);
-  console.log('modal in channels', isShown, type);
+  // console.log('modal in channels', isShown, type);
   const dispatch = useDispatch();
 
   const selectChannelHandler = (id) => (evt) => {
@@ -24,17 +24,17 @@ const Channels = () => {
   };
 
   const addNewChannelHandler = () => {
-    console.log('add new channel');
+    // console.log('add new channel');
     dispatch(showModal({ type: 'add', extra: null }));
   };
 
   const removeChannelHandler = (id) => () => {
-    console.log('remove channel');
+    // console.log('remove channel');
     dispatch(showModal({ type: 'remove', extra: { id } }));
   };
 
   const renameChannelHandler = (id) => () => {
-    console.log('rename channel');
+    // console.log('rename channel');
     dispatch(showModal({ type: 'rename', extra: { id } }));
   };
 

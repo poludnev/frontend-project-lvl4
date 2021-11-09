@@ -28,14 +28,14 @@ const Chat = () => {
         //       // console.log('!!!!!headers:', header);
         const header = AuthHeader();
         const { data } = await axios.get('/api/v1/data', { headers: { ...header } });
-        console.log('data from requesst', data);
+        // console.log('data from requesst', data);
         dispatch(upLoadChannels(data.channels));
         dispatch(upLoadMessages(data.messages));
         setLoading(false);
 
         // console.log('set loading', setLoading(false));
       } catch (e) {
-        console.error('Error in fetch content', e);
+        // console.error('Error in fetch content', e);
       }
     };
     fetchContent();
