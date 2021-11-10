@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import UserContext from '../contexts/userContext';
 
 const AuthProvider = ({ children }) => {
-  const initUser = JSON.parse(localStorage.getItem('user'));
+  const getUser = () => {
+    return JSON.parse(localStorage.getItem('user'));
+  };
+
+  const initUser = getUser();
 
   const [user, setUser] = useState(initUser);
 
-  const logIn = ({ user }) => {
-    // console.log('loggin: ', userData);
-    // const user = { ...userData };
-    // console.log('login user', user);
+  const logIn = (user) => {
     setUser(user);
     localStorage.setItem('user', JSON.stringify(user));
   };
@@ -21,8 +22,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const AuthHeader = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    // console.log('AuthHeader run', user);
+    const user = getUser();
     if (user && user.token) return { 'Authorization': `Bearer ${user.token}` };
     return {};
   };
