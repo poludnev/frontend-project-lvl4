@@ -23,7 +23,7 @@ const LogInForm = () => {
 
   useEffect(() => {
     userInputRef.current.focus();
-    setSubmitting(false);
+    return () => setSubmitting(false);
   });
 
   return (

@@ -34,9 +34,7 @@ const Chat = () => {
       }
     };
     fetchContent();
-    return () => {
-      setLoading(false);
-    };
+    return () => setLoading(false);
   });
 
   return (

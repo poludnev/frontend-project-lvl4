@@ -1,48 +1,36 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { upLoadChannels, setCurrentChannel } from '../../slices/channelsSlice';
-import { showModal, hideModal } from '../../slices/modalSlice';
+import { setCurrentChannel } from '../../slices/channelsSlice';
+import { showModal } from '../../slices/modalSlice';
 import modals from '../modal/modals';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 // import AddChannelModal from '../modal/AddChannel';
 import AddChannelTest from '../modal/AddChannelTest';
 import { useTranslation } from 'react-i18next';
-import './Channels.styles.scss';
 
 const Channels = () => {
-  // console.log('Channels is initialised');
   const { channelsData, currentChannelID } = useSelector((state) => state.channels);
-  // console.log(channelsData);
   const { t } = useTranslation();
   const { isShown, type } = useSelector((state) => state.modal);
-  // console.log('Channels data in Channels', channelsData);
-  // console.log('modal in channels', isShown, type);
   const dispatch = useDispatch();
 
-  const selectChannelHandler = (id) => (evt) => {
+  const selectChannelHandler = (id) => () => {
     dispatch(setCurrentChannel(id));
   };
-
   const addNewChannelHandler = () => {
-    // console.log('add new channel');
     dispatch(showModal({ type: 'add', extra: null }));
   };
 
   const removeChannelHandler = (id) => () => {
-    // console.log('remove channel');
     dispatch(showModal({ type: 'remove', extra: { id } }));
   };
 
   const renameChannelHandler = (id) => () => {
-    // console.log('rename channel');
     dispatch(showModal({ type: 'rename', extra: { id } }));
   };
 
-  const renderModal = (isShown, type) => {
-    if (!isShown) return null;
-
+  const renderModal = (type) => {
     const Modal = modals(type);
-
     return <Modal />;
   };
 
@@ -94,14 +82,6 @@ const Channels = () => {
                     {t('channels.rename')}
                   </Dropdown.Item>
                 </Dropdown.Menu>
-
-                {/* <Button
-                  aria-haspopup='true'
-                  aria-expanded='false'
-                  type='button'
-                  variant={id === currentChannelID ? 'secondary' : 'light'}
-                  className={`flex-grow-0 dropdown-toggle dropdown-toggle-split btn`}
-                ></Button> */}
               </Dropdown>
             </li>
           ) : (
@@ -113,12 +93,11 @@ const Channels = () => {
               >
                 <span className='me-1'>#</span>&nbsp;{name}
               </Button>
-              {/* {removable ? <button>---</button> : null} */}
             </li>
           ),
         )}
       </ul>
-      {renderModal(isShown, type)}
+      {isShown && renderModal(type)}
     </div>
   );
 };
