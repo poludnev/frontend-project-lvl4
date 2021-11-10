@@ -29,7 +29,7 @@ const SignUpForm = () => {
   });
   useEffect(() => {
     userInput.current.focus();
-    setSubmitting(false);
+    return () => setSubmitting(false);
   });
 
   return (
@@ -53,7 +53,6 @@ const SignUpForm = () => {
                   } catch (error) {
                     // console.log(error);
                     if (error.isAxiosError && error.response.status === 409) {
-                      // rollbar.error('creating user error', error, { username, password });
                       setSignUpFailed(true);
                       userInput.current.select();
                       return;
@@ -67,7 +66,7 @@ const SignUpForm = () => {
                   passwordConfirmation: '',
                 }}
               >
-                {({ errors, touched, handleChange, values, handleSubmit }) => {
+                {({ errors, handleChange, values, handleSubmit }) => {
                   // console.log(errors);
                   return (
                     <Form noValidate onSubmit={handleSubmit} className='w-100'>

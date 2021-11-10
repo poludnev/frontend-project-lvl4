@@ -1,23 +1,26 @@
 import React, { useContext, useState, useEffect } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 import UserContext from '../contexts/userContext';
-import { useSelector, useDispatch } from 'react-redux';
-import { upLoadChannels, setCurrentChannel } from '../slices/channelsSlice';
+import { useDispatch } from 'react-redux';
+// import { useHistory } from 'react-router-dom';
+// import { Formik, Form, Field } from 'formik';
+// import { io } from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+
+import { upLoadChannels } from '../slices/channelsSlice';
 import { upLoadMessages } from '../slices/messagesSlice';
-import { useHistory } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
-import { io } from 'socket.io-client';
 import Channels from './chat/Channels';
 import Messages from './chat/Messages';
-
-import axios from 'axios';
 
 const Chat = () => {
   // console.log('HOMEPAGEE INITIALISED');
   const { user, logIn, logOut, AuthHeader } = useContext(UserContext);
   const [isLoading, setLoading] = useState(true);
 
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   // const header = AuthHeader();
 
   useEffect(() => {
@@ -28,16 +31,17 @@ const Chat = () => {
         //       // console.log('!!!!!headers:', header);
         const header = AuthHeader();
         const { data } = await axios.get('/api/v1/data', { headers: { ...header } });
-        // console.log('data from requesst', data);
         dispatch(upLoadChannels(data.channels));
         dispatch(upLoadMessages(data.messages));
         setLoading(false);
 
         // console.log('set loading', setLoading(false));
-      } catch (e) {
-        console.error('Authorisation error', e);
-        logOut();
-        // history.push('/login');
+      } catch (error) {
+        if (error.isAxiosError && error.response.status === 401) {
+          logOut();
+          return;
+        }
+        throw error;
       }
     };
     fetchContent();
@@ -47,17 +51,22 @@ const Chat = () => {
   });
 
   return (
-    <div className='container h-100 my-4 overflow-hidden rounded shadow'>
-      {/* {console.log('HOMEPAGEE RENDERED')} */}
+    <>
       {isLoading ? (
-        <div>{'Page is loading...'}</div>
+        <div className='row justify-content-center align-content-center h-100'>
+          <Spinner animation='grow'>
+            <span className='visually-hidden'>{t('spinner')}</span>
+          </Spinner>
+        </div>
       ) : (
-        <div className='row h-100 bg-white flex-md-row'>
-          <Channels />
-          <Messages />
+        <div className='container h-100 my-4 overflow-hidden rounded shadow'>
+          <div className='row h-100 bg-white flex-md-row'>
+            <Channels />
+            <Messages />
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

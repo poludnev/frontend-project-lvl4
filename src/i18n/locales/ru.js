@@ -1,6 +1,7 @@
 export default {
   translation: {
     title: 'Hexlet Chat',
+    spinner: 'Загрузка...',
     page404: {
       title: '404',
       text: 'Страница не найдена',
