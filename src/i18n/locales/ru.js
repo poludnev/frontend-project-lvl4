@@ -29,7 +29,11 @@ export default {
       rename: 'Переименовать',
     },
     messages: {
-      counter: 'сообщений',
+      counter: {
+        count_one: '{{count}} сообщение',
+        count_few: '{{count}} сообщения',
+        count_many: '{{count}} сообщений',
+      },
       mesagePlaceHolder: 'Введите сообщение...',
       submitButtonLabel: 'Отправить',
     },

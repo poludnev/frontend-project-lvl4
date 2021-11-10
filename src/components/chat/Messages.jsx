@@ -3,12 +3,12 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Formik } from 'formik';
-import { Card, Form, FloatingLabel, Button, InputGroup } from 'react-bootstrap';
-import { io } from 'socket.io-client';
+import { Form, Button, InputGroup } from 'react-bootstrap';
+// import { io } from 'socket.io-client';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
-import { upLoadMessages, addMessage } from '../../slices/messagesSlice';
-import store from '../../store.js';
+// import { upLoadMessages, addMessage } from '../../slices/messagesSlice';
+// import store from '../../store.js';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
@@ -17,18 +17,15 @@ const MessageSchema = Yup.object().shape({
 });
 
 const Messages = () => {
-  // console.log('Messages initialised');
   const { t } = useTranslation();
-  // const inputRef = useRef();
   const inputRef = useRef();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { user, logIn, AuthHeader } = useContext(UserContext);
   const socket = useContext(SocketContext);
   const [isSubmitting, setSubmitting] = useState(false);
   const messagesData = useSelector((state) => state.messages.messagesData);
   // console.log('messages data in messages', messagesData);
   const { currentChannelID, channelsData } = useSelector((state) => state.channels);
-  const isShown = useSelector((state) => state.modal.isShown);
   // console.log('channels data in messages:', currentChannelID, channelsData);
 
   // const storeInstance = store();
@@ -70,7 +67,8 @@ const Messages = () => {
         <div className='bg-light mb-4 p-3 shadow-sm small'>
           <p className='m-0'># {currentChannelName}</p>
           <span className='text-muted'>
-            {messagesByCurrentChannel.length} {t('messages.counter')}
+            {/* {messagesByCurrentChannel.length}{' '} */}
+            {t('messages.counter.count', { count: messagesByCurrentChannel.length })}
           </span>
         </div>
         <div id='messages-box' className='chat-messages overflow-auto px-5'>
@@ -83,10 +81,10 @@ const Messages = () => {
             }}
             validationSchema={MessageSchema}
             onSubmit={async (values, actions) => {
-              console.log(
-                '+++++++++++++++++++++++++++++++++++++++++++++++++++++message from submitted with values:',
-                values,
-              );
+              // console.log(
+              //   '+++++++++++++++++++++++++++++++++++++++++++++++++++++message from submitted with values:',
+              //   values,
+              // );
               setSubmitting(true);
               // console.log('socket in submit', socket);
               await socket.sendMessage({
@@ -131,7 +129,7 @@ const Messages = () => {
                       disabled={isSubmitting}
                       type='submit'
                       onClick={() => console.log('message button clicked')}
-                      aria-hidden={isShown}
+                      // aria-hidden={isShown}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'

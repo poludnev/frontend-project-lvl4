@@ -17,6 +17,7 @@ const Chat = () => {
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  
 
   useEffect(() => {
     const fetchContent = async () => {
