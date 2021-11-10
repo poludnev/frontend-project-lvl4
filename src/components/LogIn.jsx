@@ -14,7 +14,7 @@ const LogInForm = () => {
   const history = useHistory();
 
   const { t } = useTranslation();
-  const userInput = useRef();
+  const userInputRef = useRef();
 
   const LogInSchema = Yup.object().shape({
     username: Yup.string().required(t('errors.required')),
@@ -22,7 +22,7 @@ const LogInForm = () => {
   });
 
   useEffect(() => {
-    userInput.current.focus();
+    userInputRef.current.focus();
     setSubmitting(false);
   });
 
@@ -46,8 +46,13 @@ const LogInForm = () => {
                     const response = await axios.post('/api/v1/login', { username, password });
                     logIn(response.data);
                     history.replace('/');
-                  } catch (e) {
-                    setAuthFailed(true);
+                  } catch (error) {
+                    if (error.isAxiosError && error.response.status === 401) {
+                      setAuthFailed(true);
+                      userInputRef.current.select();
+                      return;
+                    }
+                    throw error;
                   }
                 }}
               >
@@ -71,7 +76,7 @@ const LogInForm = () => {
                           isInvalid={isAuthFailed || !!errors.username}
                           value={values.username}
                           onChange={handleChange}
-                          ref={userInput}
+                          ref={userInputRef}
                         />
                       </FloatingLabel>
                       <FloatingLabel

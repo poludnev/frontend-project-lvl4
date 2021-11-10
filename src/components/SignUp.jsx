@@ -1,22 +1,20 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Card, Form, FloatingLabel, Button } from 'react-bootstrap';
-import UserContext from '../contexts/userContext';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-// import { useRollbar } from '@rollbar/react';
+import UserContext from '../contexts/userContext';
 
 const SignUpForm = () => {
   const { t } = useTranslation();
-  // const rollbar = useRollbar();
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [isSignUpFailed, setSignUpFailed] = useState(false);
   const userInput = useRef();
-  useEffect(() => {
-    userInput.current.focus();
-  }, []);
-  const SignupSchema = Yup.object().shape({
+  const { logIn } = useContext(UserContext);
+  const history = useHistory();
+  const SignUpSchema = Yup.object().shape({
     username: Yup.string()
       .min(3, t('errors.tooShort'))
       .max(20, t('errors.tooLong'))
@@ -29,10 +27,10 @@ const SignUpForm = () => {
       .required(t('errors.required'))
       .oneOf([Yup.ref('password'), null], t('errors.passwordNotMatch')),
   });
-  const [isSubmitting, setSubmitting] = useState(false);
-  const { logIn } = useContext(UserContext);
-  const [isSignUpFailed, setSignUpFailed] = useState(false);
-  const history = useHistory();
+  useEffect(() => {
+    userInput.current.focus();
+    setSubmitting(false);
+  });
 
   return (
     <div className='container-fluid h-100'>
@@ -41,26 +39,26 @@ const SignUpForm = () => {
           <Card className='shadow-sm'>
             <Card.Body className='d-flex flex-column flex-md-row justify-content-around align-items-center p-5'>
               <Formik
-                validationSchema={SignupSchema}
+                validationSchema={SignUpSchema}
                 onSubmit={async (values, actions) => {
                   // console.log(values), console.log(actions);
                   const { username, password } = values;
                   setSubmitting(true);
                   try {
-                    const res = await axios.post('api/v1/signup', { username, password });
-                    console.log(res.data);
-                    logIn(res.data);
+                    const response = await axios.post('api/v1/signup', { username, password });
+                    // console.log(res.data);
+                    logIn(response.data);
                     history.replace('/');
-                    setSubmitting(false);
-                    setSignUpFailed(false);
+                    // setSignUpFailed(false);
                   } catch (error) {
-                    console.log(error);
+                    // console.log(error);
                     if (error.isAxiosError && error.response.status === 409) {
                       // rollbar.error('creating user error', error, { username, password });
-                      setSubmitting(false);
                       setSignUpFailed(true);
                       userInput.current.select();
+                      return;
                     }
+                    throw error;
                   }
                 }}
                 initialValues={{
