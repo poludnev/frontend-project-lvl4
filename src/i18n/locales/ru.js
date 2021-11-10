@@ -1,6 +1,10 @@
 export default {
   translation: {
     title: 'Hexlet Chat',
+    page404: {
+      title: '404',
+      text: 'Страница не найдена',
+    },
     logOut: 'Выйти',
     logIn: {
       title: 'Войти',
