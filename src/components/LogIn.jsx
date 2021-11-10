@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import UserContext from '../contexts/userContext';
+import routes from '../routes';
 
 const LogInForm = () => {
   const [isAuthFailed, setAuthFailed] = useState(false);
@@ -43,7 +44,7 @@ const LogInForm = () => {
                   const { username, password } = values;
                   setSubmitting(true);
                   try {
-                    const response = await axios.post('/api/v1/login', { username, password });
+                    const response = await axios.post(routes.logInPath(), { username, password });
                     logIn(response.data);
                     history.replace('/');
                   } catch (error) {
@@ -65,13 +66,13 @@ const LogInForm = () => {
                     >
                       <FloatingLabel
                         controlId='username'
-                        label={t('logIn.usernamePlaceholder')}
+                        label={t('logIn.usernameLabel')}
                         className='mb-3'
                       >
                         <Form.Control
                           type='text'
                           name='username'
-                          placeholder={t('logIn.usernamePlaceholder')}
+                          placeholder={t('logIn.usernameLabel')}
                           autoComplete='off'
                           isInvalid={isAuthFailed || !!errors.username}
                           value={values.username}
@@ -81,13 +82,13 @@ const LogInForm = () => {
                       </FloatingLabel>
                       <FloatingLabel
                         controlId='password'
-                        label={t('logIn.passwordPlaceholder')}
+                        label={t('logIn.passwordLabel')}
                         className='mb-3'
                       >
                         <Form.Control
                           type='password'
                           name='password'
-                          placeholder={t('logIn.passwordPlaceholder')}
+                          placeholder={t('logIn.passwordLabel')}
                           autoComplete='off'
                           isInvalid={isAuthFailed || errors.password}
                           value={values.password}

@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../contexts/userContext';
+import routes from '../routes';
 
 const SignUpForm = () => {
   const { t } = useTranslation();
@@ -40,18 +41,14 @@ const SignUpForm = () => {
             <Card.Body className='d-flex flex-column flex-md-row justify-content-around align-items-center p-5'>
               <Formik
                 validationSchema={SignUpSchema}
-                onSubmit={async (values, actions) => {
-                  // console.log(values), console.log(actions);
+                onSubmit={async (values) => {
                   const { username, password } = values;
                   setSubmitting(true);
                   try {
-                    const response = await axios.post('api/v1/signup', { username, password });
-                    // console.log(res.data);
+                    const response = await axios.post(routes.signUpPath(), { username, password });
                     logIn(response.data);
                     history.replace('/');
-                    // setSignUpFailed(false);
                   } catch (error) {
-                    // console.log(error);
                     if (error.isAxiosError && error.response.status === 409) {
                       setSignUpFailed(true);
                       userInput.current.select();
@@ -67,20 +64,19 @@ const SignUpForm = () => {
                 }}
               >
                 {({ errors, handleChange, values, handleSubmit }) => {
-                  // console.log(errors);
                   return (
                     <Form noValidate onSubmit={handleSubmit} className='w-100'>
                       <h1 className='text-center mb-4'>{t('signUp.title')}</h1>
 
                       <FloatingLabel
                         controlId='userName'
-                        label={t('signUp.usernamePlaceholder')}
+                        label={t('signUp.usernameLabel')}
                         className='mb-3'
                       >
                         <Form.Control
                           type='text'
                           name='username'
-                          placeholder={t('signUp.usernamePlaceholder')}
+                          placeholder={t('signUp.usernameLabel')}
                           autoComplete='off'
                           isInvalid={isSignUpFailed || !!errors.username}
                           value={values.username}
@@ -93,13 +89,13 @@ const SignUpForm = () => {
                       </FloatingLabel>
                       <FloatingLabel
                         controlId='password'
-                        label={t('signUp.passwordPlaceholder')}
+                        label={t('signUp.passwordLabel')}
                         className='mb-3'
                       >
                         <Form.Control
                           type='password'
                           name='password'
-                          placeholder={t('signUp.passwordPlaceholder')}
+                          placeholder={t('signUp.passwordLabel')}
                           isInvalid={!!errors.password}
                           value={values.password}
                           onChange={handleChange}
@@ -110,13 +106,13 @@ const SignUpForm = () => {
                       </FloatingLabel>
                       <FloatingLabel
                         controlId='passwordConfirmation'
-                        label={t('signUp.passwordConfirmationPlaceholder')}
+                        label={t('signUp.passwordConfirmationLabel')}
                         className='mb-3'
                       >
                         <Form.Control
                           type='password'
                           name='passwordConfirmation'
-                          placeholder={t('signUp.passwordConfirmationPlaceholder')}
+                          placeholder={t('signUp.passwordConfirmationLabel')}
                           isInvalid={!!errors.passwordConfirmation}
                           value={values.passwordConfirmation}
                           onChange={handleChange}

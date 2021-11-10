@@ -1,16 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { setCurrentChannel } from '../../slices/channelsSlice';
 import { showModal } from '../../slices/modalSlice';
 import modals from '../modal/modals';
-import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
-// import AddChannelModal from '../modal/AddChannel';
-import AddChannelTest from '../modal/AddChannelTest';
-import { useTranslation } from 'react-i18next';
 
 const Channels = () => {
-  const { channelsData, currentChannelID } = useSelector((state) => state.channels);
   const { t } = useTranslation();
+  const { channelsData, currentChannelID } = useSelector((state) => state.channels);
   const { isShown, type } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 

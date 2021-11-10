@@ -9,8 +9,8 @@ export default {
     logOut: 'Выйти',
     logIn: {
       title: 'Войти',
-      usernamePlaceholder: 'Ваш ник',
-      passwordPlaceholder: 'Пароль',
+      usernameLabel: 'Ваш ник',
+      passwordLabel: 'Пароль',
       submitButton: 'Войти',
       signUpTitle: 'Нет аккаунта?',
       signUpLink: 'Регистрация',
@@ -18,9 +18,9 @@ export default {
     },
     signUp: {
       title: 'Регистрация',
-      usernamePlaceholder: 'Имя пользователя',
-      passwordPlaceholder: 'Пароль',
-      passwordConfirmationPlaceholder: 'Подтвердите пароль',
+      usernameLabel: 'Имя пользователя',
+      passwordLabel: 'Пароль',
+      passwordConfirmationLabel: 'Подтвердите пароль',
       submitButton: 'Зарегистрироваться',
     },
     channels: {
