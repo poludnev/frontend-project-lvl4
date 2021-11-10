@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-
 import UserContext from '../contexts/userContext';
 
-const AuthProvider = ({ children }) => {
-  const getUser = () => {
-    return JSON.parse(localStorage.getItem('user'));
-  };
+const getUser = () => JSON.parse(localStorage.getItem('user'));
 
+const AuthProvider = ({ children }) => {
   const initUser = getUser();
 
   const [user, setUser] = useState(initUser);

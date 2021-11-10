@@ -13,7 +13,7 @@ import axios from 'axios';
 
 const Chat = () => {
   // console.log('HOMEPAGEE INITIALISED');
-  const { user, logIn, AuthHeader } = useContext(UserContext);
+  const { user, logIn, logOut, AuthHeader } = useContext(UserContext);
   const [isLoading, setLoading] = useState(true);
 
   const history = useHistory();
@@ -35,7 +35,9 @@ const Chat = () => {
 
         // console.log('set loading', setLoading(false));
       } catch (e) {
-        // console.error('Error in fetch content', e);
+        console.error('Authorisation error', e);
+        logOut();
+        // history.push('/login');
       }
     };
     fetchContent();
