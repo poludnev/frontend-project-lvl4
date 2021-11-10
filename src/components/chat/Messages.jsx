@@ -13,7 +13,7 @@ import SocketContext from '../../contexts/socketContext';
 const Messages = () => {
   const { t } = useTranslation();
   const MessageSchema = Yup.object().shape({
-    message: Yup.string().required('Required'),
+    message: Yup.string().trim().required('Required'),
   });
   const inputRef = useRef();
   // const dispatch = useDispatch();
@@ -35,7 +35,6 @@ const Messages = () => {
   const messagesByCurrentChannel = messagesData.filter(
     ({ channelID }) => channelID === currentChannelID,
   );
-
 
   useEffect(() => {
     inputRef.current.focus();
@@ -101,9 +100,10 @@ const Messages = () => {
                     />
 
                     <Button
-                      variant='light'
-                      className='btn-group-vertical'
-                      disabled={isSubmitting}
+                      // variant='link'
+                      variant='outline-secondary'
+                      className='btn-group-vertical border-0'
+                      disabled={values.message === '' || isSubmitting || errors.message}
                       type='submit'
                       onClick={() => console.log('message button clicked')}
                     >
