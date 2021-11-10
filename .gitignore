@@ -5,5 +5,3 @@
 dist/
 
 indexLH.js
-
-webpack.config.cjs
