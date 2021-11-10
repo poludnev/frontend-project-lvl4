@@ -1,26 +1,31 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Card, Form, FloatingLabel, Button } from 'react-bootstrap';
-import UserContext from '../contexts/userContext';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
+import UserContext from '../contexts/userContext';
 
 const LogInForm = () => {
-  const { logIn } = useContext(UserContext);
-  // const [currnetUser, setCurrentUser] = useState(user);
   const [isAuthFailed, setAuthFailed] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
+  const { logIn } = useContext(UserContext);
   const history = useHistory();
+
   const { t } = useTranslation();
   const userInput = useRef();
 
-  const SignupSchema = Yup.object().shape({
+  const LogInSchema = Yup.object().shape({
     username: Yup.string().required(t('errors.required')),
     password: Yup.string().required(t('errors.required')),
   });
-  // console.log(user, logIn);
+
+  useEffect(() => {
+    userInput.current.focus();
+    setSubmitting(false);
+  });
+
   return (
     <div className='container-fluid h-100'>
       <div className='row justify-content-center align-content-center h-100'>
@@ -33,29 +38,21 @@ const LogInForm = () => {
                   username: '',
                   password: '',
                 }}
-                validationSchema={SignupSchema}
+                validationSchema={LogInSchema}
                 onSubmit={async (values) => {
                   const { username, password } = values;
                   setSubmitting(true);
                   try {
                     const response = await axios.post('/api/v1/login', { username, password });
-                    // console.log('response', response.data);
-                    // const { token } = response.data;
-                    // console.log('token', token);
-                    // setCurrentUser(response.data);
                     logIn(response.data);
                     history.replace('/');
                   } catch (e) {
-                    // rollbar.error('error in auth', e, { values });
                     setAuthFailed(true);
                   }
-                  setSubmitting(false);
                 }}
               >
                 {({ errors, handleSubmit, handleChange, values }) => {
-                  // console.log(errors);
                   return (
-                    // <Form>
                     <Form
                       noValidate
                       onSubmit={handleSubmit}
@@ -76,9 +73,6 @@ const LogInForm = () => {
                           onChange={handleChange}
                           ref={userInput}
                         />
-                        {/* <Form.Control.Feedback type='invalid' tooltip>
-                        {isAuthFailed ? t('logIn.signInFailure') : errors.username}
-                      </Form.Control.Feedback> */}
                       </FloatingLabel>
                       <FloatingLabel
                         controlId='password'
