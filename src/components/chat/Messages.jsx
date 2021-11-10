@@ -1,23 +1,20 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
-
 import { Formik } from 'formik';
 import { Form, Button, InputGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 // import { io } from 'socket.io-client';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
 // import { upLoadMessages, addMessage } from '../../slices/messagesSlice';
 // import store from '../../store.js';
-import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
-
-const MessageSchema = Yup.object().shape({
-  message: Yup.string().required('Required'),
-});
 
 const Messages = () => {
   const { t } = useTranslation();
+  const MessageSchema = Yup.object().shape({
+    message: Yup.string().required('Required'),
+  });
   const inputRef = useRef();
   // const dispatch = useDispatch();
   const { user, logIn, AuthHeader } = useContext(UserContext);
@@ -39,10 +36,10 @@ const Messages = () => {
     ({ channelID }) => channelID === currentChannelID,
   );
 
-  // const formikInput = useRef();
 
   useEffect(() => {
     inputRef.current.focus();
+    return () => setSubmitting(false);
   });
 
   const renderMessage = ({ id, username, text }) => {
@@ -54,20 +51,12 @@ const Messages = () => {
     );
   };
 
-  // const [isSubmitting, setSubmitting] = useState(false);
-  // console.log('rendering messages');
-  // console.log('current channel', currentChannelName);
-  // console.log('messagesByCurrentChannel', messagesByCurrentChannel);
-  // console.log('messagesData', messagesData);
-
   return (
     <div className='col p-0 h-100'>
-      {/* {console.log('MESSAGES RENDERED')} */}
       <div className='d-flex flex-column h-100'>
         <div className='bg-light mb-4 p-3 shadow-sm small'>
           <p className='m-0'># {currentChannelName}</p>
           <span className='text-muted'>
-            {/* {messagesByCurrentChannel.length}{' '} */}
             {t('messages.counter.count', { count: messagesByCurrentChannel.length })}
           </span>
         </div>
@@ -81,34 +70,23 @@ const Messages = () => {
             }}
             validationSchema={MessageSchema}
             onSubmit={async (values, actions) => {
-              // console.log(
-              //   '+++++++++++++++++++++++++++++++++++++++++++++++++++++message from submitted with values:',
-              //   values,
-              // );
               setSubmitting(true);
-              // console.log('socket in submit', socket);
               await socket.sendMessage({
                 username: user.username,
                 text: values.message,
                 channelID: currentChannelID,
               });
-              // console.log('actions', actions);
               actions.resetForm({
                 values: {
                   message: '',
                 },
               });
-
               setSubmitting(false);
             }}
           >
-            {({ errors, touched, handleSubmit, values, handleChange }) => {
-              // console.log('values in message', values);
-              // console.log(isSubmitting, errors, touched);
-              // console.log(isSubmitting || errors.message || !touched.message);
+            {({ errors, handleSubmit, values, handleChange }) => {
               return (
                 <Form noValidate onSubmit={handleSubmit} className='py-1 border rounded-2'>
-                  {/* <div className='input-group has-validation'> */}
                   <InputGroup>
                     <Form.Control
                       className='border-0 p-0 ps-2'
@@ -122,14 +100,12 @@ const Messages = () => {
                       isInvalid={!!errors.message}
                     />
 
-                    {/* <div className='input-group-append'> */}
                     <Button
                       variant='light'
                       className='btn-group-vertical'
                       disabled={isSubmitting}
                       type='submit'
                       onClick={() => console.log('message button clicked')}
-                      // aria-hidden={isShown}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -146,8 +122,6 @@ const Messages = () => {
                       <span className='visually-hidden'>{t('messages.submitButtonLabel')}</span>
                     </Button>
                   </InputGroup>
-                  {/* </div> */}
-                  {/* </div> */}
                 </Form>
               );
             }}
