@@ -58,36 +58,36 @@ const AddChannelModal = () => {
           {({
             errors, values, submitCount, handleChange, handleSubmit,
           }) => (
-              <Form noValidate onSubmit={handleSubmit}>
-                <Form.Control
-                  type="text"
-                  name="channelName"
-                  data-testid="add-channel"
-                  value={values.channelName}
-                  onChange={handleChange}
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Control
+                type="text"
+                name="channelName"
+                data-testid="add-channel"
+                value={values.channelName}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                isInvalid={submitCount > 0}
+                ref={inputChannelRef}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.channelName || t('errors.tooLong')}
+              </Form.Control.Feedback>
+              <div className="mt-3 d-flex justify-content-end">
+                <Button
+                  type="button"
                   disabled={isSubmitting}
-                  isInvalid={submitCount > 0}
-                  ref={inputChannelRef}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.channelName || t('errors.tooLong')}
-                </Form.Control.Feedback>
-                <div className="mt-3 d-flex justify-content-end">
-                  <Button
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={handleClose}
-                    variant="secondary"
-                    className="me-2"
-                  >
-                    {t('modals.add.cancelButton')}
-                  </Button>
-                  <Button type="submit" disabled={isSubmitting}>
-                    {t('modals.add.submitButton')}
-                  </Button>
-                </div>
-              </Form>
-            )}
+                  onClick={handleClose}
+                  variant="secondary"
+                  className="me-2"
+                >
+                  {t('modals.add.cancelButton')}
+                </Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {t('modals.add.submitButton')}
+                </Button>
+              </div>
+            </Form>
+          )}
         </Formik>
       </Modal.Body>
     </Modal>

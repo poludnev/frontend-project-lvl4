@@ -77,55 +77,55 @@ const LogInForm = () => {
                   values,
                 }) => (
                   <Form
-                      noValidate
-                      onSubmit={handleSubmit}
-                      className="col-12 col-md-6 mt-3 mt-mb-0 w-100"
+                    noValidate
+                    onSubmit={handleSubmit}
+                    className="col-12 col-md-6 mt-3 mt-mb-0 w-100"
+                  >
+                    <FloatingLabel
+                      controlId="username"
+                      label={t('logIn.usernameLabel')}
+                      className="mb-3"
                     >
-                      <FloatingLabel
-                        controlId="username"
-                        label={t('logIn.usernameLabel')}
-                        className="mb-3"
-                      >
-                        <Form.Control
-                          type="text"
-                          name="username"
-                          placeholder={t('logIn.usernameLabel')}
-                          autoComplete="off"
-                          isInvalid={isAuthFailed || !!errors.username}
-                          value={values.username}
-                          onChange={handleChange}
-                          ref={userInputRef}
-                        />
-                      </FloatingLabel>
-                      <FloatingLabel
-                        controlId="password"
-                        label={t('logIn.passwordLabel')}
-                        className="mb-3"
-                      >
-                        <Form.Control
-                          type="password"
-                          name="password"
-                          placeholder={t('logIn.passwordLabel')}
-                          autoComplete="off"
-                          isInvalid={isAuthFailed || errors.password}
-                          value={values.password}
-                          onChange={handleChange}
-                        />
-                        <Form.Control.Feedback type="invalid" tooltip>
-                          {isAuthFailed
-                            ? t('logIn.signInFailure')
-                            : errors.password}
-                        </Form.Control.Feedback>
-                      </FloatingLabel>
-                      <Button
-                        variant="outline-primary"
-                        type="submit"
-                        className="w-100"
-                        disabled={isSubmitting}
-                      >
-                        {t('logIn.submitButton')}
-                      </Button>
-                    </Form>
+                      <Form.Control
+                        type="text"
+                        name="username"
+                        placeholder={t('logIn.usernameLabel')}
+                        autoComplete="off"
+                        isInvalid={isAuthFailed || !!errors.username}
+                        value={values.username}
+                        onChange={handleChange}
+                        ref={userInputRef}
+                      />
+                    </FloatingLabel>
+                    <FloatingLabel
+                      controlId="password"
+                      label={t('logIn.passwordLabel')}
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        placeholder={t('logIn.passwordLabel')}
+                        autoComplete="off"
+                        isInvalid={isAuthFailed || errors.password}
+                        value={values.password}
+                        onChange={handleChange}
+                      />
+                      <Form.Control.Feedback type="invalid" tooltip>
+                        {isAuthFailed
+                          ? t('logIn.signInFailure')
+                          : errors.password}
+                      </Form.Control.Feedback>
+                    </FloatingLabel>
+                    <Button
+                      variant="outline-primary"
+                      type="submit"
+                      className="w-100"
+                      disabled={isSubmitting}
+                    >
+                      {t('logIn.submitButton')}
+                    </Button>
+                  </Form>
                 )}
               </Formik>
             </Card.Body>
