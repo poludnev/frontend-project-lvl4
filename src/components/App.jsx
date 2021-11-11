@@ -1,5 +1,12 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  Link,
+} from 'react-router-dom';
+
 import { useTranslation } from 'react-i18next';
 import { Navbar, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -28,8 +35,16 @@ const App = () => {
         </Navbar>
 
         <Switch>
-          <Route exact path="/" render={() => (user ? <Chat /> : <Redirect to="/login" />)} />
-          <Route exact path="/login" render={() => (user ? <Redirect to="/" /> : <LogInForm />)} />
+          <Route
+            exact
+            path="/"
+            render={() => (user ? <Chat /> : <Redirect to="/login" />)}
+          />
+          <Route
+            exact
+            path="/login"
+            render={() => (user ? <Redirect to="/" /> : <LogInForm />)}
+          />
           <Route
             exact
             path="/signup"

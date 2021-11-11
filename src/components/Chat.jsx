@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import UserContext from '../contexts/userContext';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import UserContext from '../contexts/userContext';
 import routes from '../routes';
 
 import { upLoadChannels } from '../slices/channelsSlice';
@@ -22,7 +22,9 @@ const Chat = () => {
     const fetchContent = async () => {
       try {
         const header = AuthHeader();
-        const { data } = await axios.get(routes.chatDataPath(), { headers: { ...header } });
+        const { data } = await axios.get(routes.chatDataPath(), {
+          headers: { ...header },
+        });
         dispatch(upLoadChannels(data.channels));
         dispatch(upLoadMessages(data.messages));
         setLoading(false);

@@ -44,7 +44,10 @@ const LogInForm = () => {
                   const { username, password } = values;
                   setSubmitting(true);
                   try {
-                    const response = await axios.post(routes.logInPath(), { username, password });
+                    const response = await axios.post(routes.logInPath(), {
+                      username,
+                      password,
+                    });
                     logIn(response.data);
                     history.replace('/');
                   } catch (error) {
@@ -57,8 +60,7 @@ const LogInForm = () => {
                   }
                 }}
               >
-                {({ errors, handleSubmit, handleChange, values }) => {
-                  return (
+                {({ errors, handleSubmit, handleChange, values }) => (
                     <Form
                       noValidate
                       onSubmit={handleSubmit}
@@ -95,7 +97,9 @@ const LogInForm = () => {
                           onChange={handleChange}
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
-                          {isAuthFailed ? t('logIn.signInFailure') : errors.password}
+                          {isAuthFailed
+                            ? t('logIn.signInFailure')
+                            : errors.password}
                         </Form.Control.Feedback>
                       </FloatingLabel>
                       <Button
@@ -107,8 +111,7 @@ const LogInForm = () => {
                         {t('logIn.submitButton')}
                       </Button>
                     </Form>
-                  );
-                }}
+                  )}
               </Formik>
             </Card.Body>
             <Card.Footer className="p-4">
