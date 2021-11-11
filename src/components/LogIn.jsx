@@ -76,7 +76,7 @@ const LogInForm = () => {
                   handleChange,
                   values,
                 }) => (
-                    <Form
+                  <Form
                       noValidate
                       onSubmit={handleSubmit}
                       className="col-12 col-md-6 mt-3 mt-mb-0 w-100"

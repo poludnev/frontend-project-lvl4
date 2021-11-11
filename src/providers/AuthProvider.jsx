@@ -8,9 +8,9 @@ const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(initUser);
 
-  const logIn = (user) => {
-    setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
+  const logIn = (logInUser) => {
+    setUser(logInUser);
+    localStorage.setItem('user', JSON.stringify(logInUser));
   };
 
   const logOut = () => {
@@ -19,13 +19,15 @@ const AuthProvider = ({ children }) => {
   };
 
   const AuthHeader = () => {
-    const user = getUser();
-    if (user && user.token) return { 'Authorization': `Bearer ${user.token}` };
+    const currentUser = getUser();
+    if (currentUser && currentUser.token) return { Authorization: `Bearer ${currentUser.token}` };
     return {};
   };
 
   return (
-    <UserContext.Provider value={{ user, logIn, logOut, AuthHeader }}>
+    <UserContext.Provider value={{
+      user, logIn, logOut, AuthHeader,
+    }}>
       {children}
     </UserContext.Provider>
   );

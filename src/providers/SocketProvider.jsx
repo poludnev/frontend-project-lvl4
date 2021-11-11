@@ -39,5 +39,5 @@ const SocketProvider = ({ socket, children }) => {
     </SocketContext.Provider>
   );
 };
- 
+
 export default SocketProvider;

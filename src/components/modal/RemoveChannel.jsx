@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
-import { hideModal } from '../../slices/modalSlice';
-
-// import UserContext from '../../contexts/userContext';
-import SocketContext from '../../contexts/socketContext';
 import { useTranslation } from 'react-i18next';
+import { hideModal } from '../../slices/modalSlice';
+import SocketContext from '../../contexts/socketContext';
 
 const RemoveChannelModal = () => {
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ const RemoveChannelModal = () => {
       <Modal.Body>
         {t('modals.remove.confirmation')}
         <div className="d-flex justify-content-end">
-          <Button variant="secondary" onClick={handleClose} className={'me-2'} ref={cancelRef}>
+          <Button variant="secondary" onClick={handleClose} className="me-2" ref={cancelRef}>
             {t('modals.remove.cancelButton')}
           </Button>
           <Button variant="danger" disabled={isSubmitting} onClick={removeChannelHandler}>

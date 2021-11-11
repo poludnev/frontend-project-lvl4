@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -40,7 +42,7 @@ const RenameChannelModal = () => {
             channelName: '',
           }}
           validationSchema={NewChannelNameSchema}
-          onSubmit={async (values, actions) => {
+          onSubmit={async (values) => {
             setSubmitting(true);
 
             socket.renameChannel({
@@ -52,8 +54,9 @@ const RenameChannelModal = () => {
             handleClose();
           }}
         >
-          {({ errors, values, submitCount, handleSubmit, handleChange }) => {
-            return (
+          {({
+            errors, values, submitCount, handleSubmit, handleChange,
+          }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Control
                   type="text"
@@ -83,8 +86,7 @@ const RenameChannelModal = () => {
                   </Button>
                 </div>
               </Form>
-            );
-          }}
+            )}
         </Formik>
       </Modal.Body>
     </Modal>

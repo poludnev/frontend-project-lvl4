@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -53,8 +55,9 @@ const AddChannelModal = () => {
             handleClose();
           }}
         >
-          {({ errors, values, submitCount, handleChange, handleSubmit }) => {
-            return (
+          {({
+            errors, values, submitCount, handleChange, handleSubmit,
+          }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Control
                   type="text"
@@ -84,8 +87,7 @@ const AddChannelModal = () => {
                   </Button>
                 </div>
               </Form>
-            );
-          }}
+            )}
         </Formik>
       </Modal.Body>
     </Modal>
