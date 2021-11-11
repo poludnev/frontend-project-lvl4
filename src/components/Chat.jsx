@@ -17,7 +17,6 @@ const Chat = () => {
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -42,14 +41,14 @@ const Chat = () => {
   return (
     <>
       {isLoading ? (
-        <div className='row justify-content-center align-content-center h-100'>
-          <Spinner animation='grow'>
-            <span className='visually-hidden'>{t('spinner')}</span>
+        <div className="row justify-content-center align-content-center h-100">
+          <Spinner animation="grow">
+            <span className="visually-hidden">{t('spinner')}</span>
           </Spinner>
         </div>
       ) : (
-        <div className='container h-100 my-4 overflow-hidden rounded shadow'>
-          <div className='row h-100 bg-white flex-md-row'>
+        <div className="container h-100 my-4 overflow-hidden rounded shadow">
+          <div className="row h-100 bg-white flex-md-row">
             <Channels />
             <Messages />
           </div>

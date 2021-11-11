@@ -28,11 +28,11 @@ const LogInForm = () => {
   });
 
   return (
-    <div className='container-fluid h-100'>
-      <div className='row justify-content-center align-content-center h-100'>
-        <div className='col-12 col-md-8 col-xxl-6'>
-          <Card className='shadow-sm'>
-            <Card.Body className='d-flex flex-column justify-content-around align-items-center p-5'>
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <Card.Body className="d-flex flex-column justify-content-around align-items-center p-5">
               <h1>{t('logIn.title')}</h1>
               <Formik
                 initialValues={{
@@ -62,18 +62,18 @@ const LogInForm = () => {
                     <Form
                       noValidate
                       onSubmit={handleSubmit}
-                      className='col-12 col-md-6 mt-3 mt-mb-0 w-100'
+                      className="col-12 col-md-6 mt-3 mt-mb-0 w-100"
                     >
                       <FloatingLabel
-                        controlId='username'
+                        controlId="username"
                         label={t('logIn.usernameLabel')}
-                        className='mb-3'
+                        className="mb-3"
                       >
                         <Form.Control
-                          type='text'
-                          name='username'
+                          type="text"
+                          name="username"
                           placeholder={t('logIn.usernameLabel')}
-                          autoComplete='off'
+                          autoComplete="off"
                           isInvalid={isAuthFailed || !!errors.username}
                           value={values.username}
                           onChange={handleChange}
@@ -81,27 +81,27 @@ const LogInForm = () => {
                         />
                       </FloatingLabel>
                       <FloatingLabel
-                        controlId='password'
+                        controlId="password"
                         label={t('logIn.passwordLabel')}
-                        className='mb-3'
+                        className="mb-3"
                       >
                         <Form.Control
-                          type='password'
-                          name='password'
+                          type="password"
+                          name="password"
                           placeholder={t('logIn.passwordLabel')}
-                          autoComplete='off'
+                          autoComplete="off"
                           isInvalid={isAuthFailed || errors.password}
                           value={values.password}
                           onChange={handleChange}
                         />
-                        <Form.Control.Feedback type='invalid' tooltip>
+                        <Form.Control.Feedback type="invalid" tooltip>
                           {isAuthFailed ? t('logIn.signInFailure') : errors.password}
                         </Form.Control.Feedback>
                       </FloatingLabel>
                       <Button
-                        variant='outline-primary'
-                        type='submit'
-                        className='w-100'
+                        variant="outline-primary"
+                        type="submit"
+                        className="w-100"
                         disabled={isSubmitting}
                       >
                         {t('logIn.submitButton')}
@@ -111,10 +111,10 @@ const LogInForm = () => {
                 }}
               </Formik>
             </Card.Body>
-            <Card.Footer className='p-4'>
-              <div className='text-center'>
+            <Card.Footer className="p-4">
+              <div className="text-center">
                 <span>{t('logIn.signUpTitle')}</span>&nbsp;
-                <Link to='/signup'>{t('logIn.signUpLink')}</Link>
+                <Link to="/signup">{t('logIn.signUpLink')}</Link>
               </div>
             </Card.Footer>
           </Card>

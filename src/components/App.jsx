@@ -17,10 +17,10 @@ const App = () => {
 
   return (
     <Router>
-      <div className='d-flex flex-column h-100' aria-hidden={isShown}>
-        <Navbar className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
-          <div className='container'>
-            <Navbar.Brand as={Link} to='/'>
+      <div className="d-flex flex-column h-100" aria-hidden={isShown}>
+        <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+          <div className="container">
+            <Navbar.Brand as={Link} to="/">
               {t('title')}
             </Navbar.Brand>
             {user && <Button onClick={logOut}>{t('logOut')}</Button>}
@@ -28,14 +28,14 @@ const App = () => {
         </Navbar>
 
         <Switch>
-          <Route exact path='/' render={() => (user ? <Chat /> : <Redirect to='/login' />)} />
-          <Route exact path='/login' render={() => (user ? <Redirect to='/' /> : <LogInForm />)} />
+          <Route exact path="/" render={() => (user ? <Chat /> : <Redirect to="/login" />)} />
+          <Route exact path="/login" render={() => (user ? <Redirect to="/" /> : <LogInForm />)} />
           <Route
             exact
-            path='/signup'
-            render={() => (user ? <Redirect to='/' /> : <SignUpForm />)}
+            path="/signup"
+            render={() => (user ? <Redirect to="/" /> : <SignUpForm />)}
           />
-          <Route path='*'>
+          <Route path="*">
             <Page404 />
           </Route>
           /

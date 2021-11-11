@@ -16,9 +16,7 @@
   "ignorePatterns": ["/dist/*", "/__tests__/*", "/bin/*"],
   "rules": {
     "import/extensions": 0,
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
+    "jsx-quotes": ["error", "prefer-double"],
     "no-param-reassign": 0
   }
 }
