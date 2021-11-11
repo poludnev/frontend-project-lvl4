@@ -37,7 +37,7 @@ const Messages = () => {
   const renderMessage = ({ id, username, text }) => (
     <div key={id} className="text-break mb-2">
       <b>
-      {username}
+        {username}
       </b>
       &nbsp;:&nbsp;
       {text}

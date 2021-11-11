@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 import { deleteChannel } from './channelsSlice.js';
 
@@ -12,6 +13,7 @@ export const messagesSlice = createSlice({
     upLoadMessages: (state, action) => {
       // console.log('upLoadMes', action.payload);
       state.messagesData = [...action.payload];
+      _.set(state, 'messagesData', action.payload);
     },
     addMessage: (state, action) => {
       state.messagesData.push(action.payload);
@@ -19,9 +21,10 @@ export const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(deleteChannel, (state, action) => {
-      state.messagesData = state.messagesData.filter(
+      const filteredMessages = state.messagesData.filter(
         (message) => message.channelID !== action.payload,
       );
+      _.set(state, 'messagesData', filteredMessages);
     });
   },
 });
