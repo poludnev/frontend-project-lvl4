@@ -14,7 +14,6 @@ export const modalSlice = createSlice({
       return { isShown: true, type: action.payload.type, extra: action.payload.extra };
     },
     hideModal: (state, action) => {
-      console.log('hide modal dispatched');
       return { isShown: false, type: null, extra: null };
     },
   },

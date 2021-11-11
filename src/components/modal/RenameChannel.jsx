@@ -5,12 +5,10 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { hideModal } from '../../slices/modalSlice';
-import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
 
 const RenameChannelModal = () => {
   const { t } = useTranslation();
-  // const { user, logIn, AuthHeader } = useContext(UserContext);
   const [isSubmitting, setSubmitting] = useState(false);
   const socket = useContext(SocketContext);
   const inputChannelRef = useRef();
@@ -54,31 +52,7 @@ const RenameChannelModal = () => {
             handleClose();
           }}
         >
-          {(props) => {
-            // console.log(props);
-            const {
-              dirty,
-              errors,
-              touched,
-              values,
-              isSubmitting,
-              isValid,
-              isValidating,
-              status,
-              submitCount,
-              handleSubmit,
-              handleChange,
-            } = props;
-            // console.log(
-            //   errors,
-            //   'dirty:',
-            //   dirty,
-            //   'isValid',
-            //   isValid,
-            //   'submitcount',
-            //   submitCount,
-            //   errors,
-            // );
+          {({ errors, values, submitCount, handleSubmit, handleChange }) => {
             return (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Control
