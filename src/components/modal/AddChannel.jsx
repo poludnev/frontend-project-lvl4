@@ -9,7 +9,7 @@ import SocketContext from '../../contexts/socketContext';
 
 import * as Yup from 'yup';
 
-const AddChannel = () => {
+const AddChannelModal = () => {
   const { t } = useTranslation();
   const { user, logIn, AuthHeader } = useContext(UserContext);
   const [isSubmitting, setSubmitting] = useState(false);
@@ -50,11 +50,7 @@ const AddChannel = () => {
               name: values.channelName,
               creator: user.username,
             });
-            actions.resetForm({
-              values: {
-                channelName: '',
-              },
-            });
+
             setSubmitting(false);
             handleClose();
           }}
@@ -93,4 +89,4 @@ const AddChannel = () => {
   );
 };
 
-export default AddChannel;
+export default AddChannelModal;
