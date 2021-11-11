@@ -1,108 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { Modal } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal, Form, Button } from 'react-bootstrap';
+import { Formik } from 'formik';
+import { hideModal } from '../../slices/modalSlice';
+import { useTranslation } from 'react-i18next';
+import UserContext from '../../contexts/userContext';
+import SocketContext from '../../contexts/socketContext';
 
 import * as Yup from 'yup';
 
-const NewChannelSchema = Yup.object().shape({
-  channelName: Yup.string().min(2, 'Short').max(20, 'Too Long!').required('Required'),
-});
+const AddChannel = () => {
+  const { t } = useTranslation();
+  const { user, logIn, AuthHeader } = useContext(UserContext);
+  const [isSubmitting, setSubmitting] = useState(false);
+  const socket = useContext(SocketContext);
+  const inputChannelRef = useRef();
+  const isShown = useSelector((state) => state.modal.isShown);
+  const dispatch = useDispatch();
 
-const AddChannelModal = () => {
-  // const [isInvalid, setInvalid] = useState(false);
-
-  const show = true;
-  const handleClose = () => {};
-  // useEffect(() => {
-  //   inputRef.current.focus();
-  // }, []);
+  const handleClose = () => dispatch(hideModal());
+  const channelsNames = useSelector((state) => state.channels.channelsData.map((ch) => ch.name));
+  const NewChannelSchema = Yup.object().shape({
+    channelName: Yup.string()
+      .required(t('errors.required'))
+      .trim()
+      .min(3, t('errors.tooShort'))
+      .max(20, t('errors.tooLong'))
+      .notOneOf(channelsNames, t('errors.channelExists')),
+  });
+  useEffect(() => {
+    inputChannelRef.current.focus();
+  });
   return (
-    <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        aria-labelledby='contained-modal-title-vcenter'
-        centered
-      >
-        {/* <div
-          role='dialog'
-          aria-modal='true'
-          className='fade modal show'
-          tabIndex='-1'
-          style={{ display: 'block' }}
-        > */}
-        {/* <div className='modal-dialog modal-dialog-centered'> */}
-        {/* <div className='modal-content'> */}
-        <Modal.Header closeButton>
-          {/* <div className='modal-header'> */}
-          <Modal.Title>Добавить канал</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Formik
-            initialValues={{
-              channelName: '',
-            }}
-            validationSchema={NewChannelSchema}
-            onSubmit={async (values, actions) => {
-              console.log('new channel add submitte');
-              actions.resetForm({
-                values: {
-                  channelName: '',
-                },
-              });
-            }}
-          >
-            {(props) => {
-              console.log(props);
-              const {
-                dirty,
-                errors,
-                touched,
-                values,
-                isSubmitting,
-                isValid,
-                isValidating,
-                status,
-                submitCount,
-              } = props;
-              console.log(errors, 'dirty:', dirty, 'isValid', isValid, 'submitcount', submitCount);
+    <Modal show={isShown} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>{t('modals.add.title')}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Formik
+          initialValues={{
+            channelName: '',
+          }}
+          validationSchema={NewChannelSchema}
+          onSubmit={async (values, actions) => {
+            console.log('new channel add submitte');
+            setSubmitting(true);
 
-              return (
-                <Form>
-                  <div className='form-group'>
-                    <Field
-                      name='channelName'
-                      ref={inputRef}
-                      placeholder='Введите название канала...'
-                      className={`mb-2 form-control ${
-                        submitCount > 0 && dirty ? 'is-invalid' : ''
-                      }`}
-                    />
-                  </div>
-                  <div
-                    className='invalid-feedback'
-                    style={submitCount > 0 && dirty ? { display: 'block' } : null}
-                  >
-                    {`От 3 до 20 символов`}
-                  </div>
+            socket.createChannel({
+              name: values.channelName,
+              creator: user.username,
+            });
+            actions.resetForm({
+              values: {
+                channelName: '',
+              },
+            });
+            setSubmitting(false);
+            handleClose();
+          }}
+        >
+          {(props) => {
+            const { errors, values, submitCount, handleChange, handleSubmit } = props;
 
-                  <div className='d-flex justify-content-end'>
-                    <button type='button' onClick={handleClose} className='me-2 btn btn-secondary'>
-                      Отменить
-                    </button>
-                    <button type='submit' className='btn btn-primary'>
-                      Отправить
-                    </button>
-                  </div>
-                </Form>
-              );
-            }}
-          </Formik>
-        </Modal.Body>
-      </Modal>
-      <div className='fade modal-backdrop show'></div>
-    </>
+            return (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Control
+                  type='text'
+                  name='channelName'
+                  data-testid='add-channel'
+                  value={values.channelName}
+                  onChange={handleChange}
+                  isInvalid={submitCount > 0}
+                  ref={inputChannelRef}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {errors.channelName || t('errors.tooLong')}
+                </Form.Control.Feedback>
+                <div className='mt-3 d-flex justify-content-end'>
+                  <Button type='button' onClick={handleClose} variant='secondary' className='me-2'>
+                    {t('modals.add.cancelButton')}
+                  </Button>
+                  <Button type='submit' disabled={isSubmitting}>
+                    {t('modals.add.submitButton')}
+                  </Button>
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Modal.Body>
+    </Modal>
   );
 };
 
-export default AddChannelModal;
+export default AddChannel;

@@ -11,5 +11,4 @@ export default configureStore({
     channels: channelsSlicer,
     modal: modalSlicer,
   },
-  // middleware: [logger],
 });

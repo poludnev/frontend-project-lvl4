@@ -4,11 +4,8 @@ import { Formik } from 'formik';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-// import { io } from 'socket.io-client';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
-// import { upLoadMessages, addMessage } from '../../slices/messagesSlice';
-// import store from '../../store.js';
 
 const Messages = () => {
   const { t } = useTranslation();
@@ -16,21 +13,15 @@ const Messages = () => {
     message: Yup.string().trim().required('Required'),
   });
   const inputRef = useRef();
-  // const dispatch = useDispatch();
-  const { user, logIn, AuthHeader } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const socket = useContext(SocketContext);
   const [isSubmitting, setSubmitting] = useState(false);
   const messagesData = useSelector((state) => state.messages.messagesData);
-  // console.log('messages data in messages', messagesData);
-  const { currentChannelID, channelsData } = useSelector((state) => state.channels);
-  // console.log('channels data in messages:', currentChannelID, channelsData);
 
-  // const storeInstance = store();
+  const { currentChannelID, channelsData } = useSelector((state) => state.channels);
 
   const currentChannelData = channelsData.find(({ id }) => id === currentChannelID);
   const currentChannelName = currentChannelData ? currentChannelData.name : null;
-
-  // console.log('messages Data in Messages', messagesData, channelsData, currentChannelName);
 
   const messagesByCurrentChannel = messagesData.filter(
     ({ channelID }) => channelID === currentChannelID,
@@ -42,7 +33,6 @@ const Messages = () => {
   });
 
   const renderMessage = ({ id, username, text }) => {
-    // console.log('render message ran');
     return (
       <div key={id} className='text-break mb-2'>
         <b>{username}</b>&nbsp;:&nbsp;{text}
@@ -91,7 +81,7 @@ const Messages = () => {
                       className='border-0 p-0 ps-2'
                       type='text'
                       name='message'
-                      placeholder={t('messages.mesagePlaceHolder')}
+                      placeholder={t('messages.messagePlaceHolder')}
                       ref={inputRef}
                       data-testid='new-message'
                       value={values.message}
@@ -100,12 +90,10 @@ const Messages = () => {
                     />
 
                     <Button
-                      // variant='link'
                       variant='outline-secondary'
                       className='btn-group-vertical border-0'
                       disabled={values.message === '' || isSubmitting || errors.message}
                       type='submit'
-                      onClick={() => console.log('message button clicked')}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'

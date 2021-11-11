@@ -1,4 +1,4 @@
-import AddChannelModal from './AddChannelTest.jsx';
+import AddChannelModal from './AddChannel.jsx';
 import RemoveChannelModal from './RemoveChannel.jsx';
 import RenameChannelModal from './RenameChannel.jsx';
 
