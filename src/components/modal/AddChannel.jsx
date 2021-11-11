@@ -2,16 +2,15 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
-import { hideModal } from '../../slices/modalSlice';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
+import { hideModal } from '../../slices/modalSlice';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
 
-import * as Yup from 'yup';
-
 const AddChannelModal = () => {
   const { t } = useTranslation();
-  const { user, logIn, AuthHeader } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [isSubmitting, setSubmitting] = useState(false);
   const socket = useContext(SocketContext);
   const inputChannelRef = useRef();
@@ -42,8 +41,7 @@ const AddChannelModal = () => {
             channelName: '',
           }}
           validationSchema={NewChannelSchema}
-          onSubmit={async (values, actions) => {
-            console.log('new channel add submitte');
+          onSubmit={async (values) => {
             setSubmitting(true);
 
             socket.createChannel({
@@ -55,9 +53,7 @@ const AddChannelModal = () => {
             handleClose();
           }}
         >
-          {(props) => {
-            const { errors, values, submitCount, handleChange, handleSubmit } = props;
-
+          {({ errors, values, submitCount, handleChange, handleSubmit }) => {
             return (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Control
@@ -66,6 +62,7 @@ const AddChannelModal = () => {
                   data-testid='add-channel'
                   value={values.channelName}
                   onChange={handleChange}
+                  disabled={isSubmitting}
                   isInvalid={submitCount > 0}
                   ref={inputChannelRef}
                 />
@@ -73,7 +70,13 @@ const AddChannelModal = () => {
                   {errors.channelName || t('errors.tooLong')}
                 </Form.Control.Feedback>
                 <div className='mt-3 d-flex justify-content-end'>
-                  <Button type='button' onClick={handleClose} variant='secondary' className='me-2'>
+                  <Button
+                    type='button'
+                    disabled={isSubmitting}
+                    onClick={handleClose}
+                    variant='secondary'
+                    className='me-2'
+                  >
                     {t('modals.add.cancelButton')}
                   </Button>
                   <Button type='submit' disabled={isSubmitting}>

@@ -1,52 +1,38 @@
-// import React from 'react';
-
-// const RemoveChannelModal = () => {
-//   return <div>Remove Channel</div>;
-// };
-
-// export default RemoveChannelModal;
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
+import { Modal, Form, Button } from 'react-bootstrap';
+import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 import { hideModal } from '../../slices/modalSlice';
 import UserContext from '../../contexts/userContext';
 import SocketContext from '../../contexts/socketContext';
-import { useTranslation } from 'react-i18next';
-
-import * as Yup from 'yup';
 
 const RenameChannelModal = () => {
   const { t } = useTranslation();
-  const [isValid, setValid] = useState(true);
-  const { user, logIn, AuthHeader } = useContext(UserContext);
+  // const { user, logIn, AuthHeader } = useContext(UserContext);
+  const [isSubmitting, setSubmitting] = useState(false);
   const socket = useContext(SocketContext);
-  const inputRef = useRef();
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const inputChannelRef = useRef();
   const isShown = useSelector((state) => state.modal.isShown);
   const { id } = useSelector((state) => state.modal.extra);
   const dispatch = useDispatch();
 
   const handleClose = () => dispatch(hideModal());
-  // const channelsNames = useSelector((state) => state.channels.channels.map((ch) => ch.name));
   const channelsNames = useSelector((state) => state.channels.channelsData.map((ch) => ch.name));
-  const NewChannelSchema = Yup.object().shape({
+  const NewChannelNameSchema = Yup.object().shape({
     channelName: Yup.string()
       .required(t('errors.required'))
+      .trim()
       .min(3, t('errors.tooShort'))
       .max(20, t('errors.tooLong'))
-
       .notOneOf(channelsNames, 'already exists'),
   });
+  useEffect(() => {
+    inputChannelRef.current.focus();
+  });
   return (
-    <Modal
-      show={isShown}
-      onHide={handleClose}
-      aria-labelledby='contained-modal-title-vcenter'
-      centered
-    >
+    <Modal show={isShown} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.rename.title')}</Modal.Title>
       </Modal.Header>
@@ -55,19 +41,16 @@ const RenameChannelModal = () => {
           initialValues={{
             channelName: '',
           }}
-          validationSchema={NewChannelSchema}
+          validationSchema={NewChannelNameSchema}
           onSubmit={async (values, actions) => {
-            // console.log('new channel add submitte');
+            setSubmitting(true);
 
-            actions.resetForm({
-              values: {
-                channelName: '',
-              },
-            });
-            await socket.renameChannel({
+            socket.renameChannel({
               id,
               name: values.channelName,
             });
+
+            setSubmitting(false);
             handleClose();
           }}
         >
@@ -83,6 +66,8 @@ const RenameChannelModal = () => {
               isValidating,
               status,
               submitCount,
+              handleSubmit,
+              handleChange,
             } = props;
             // console.log(
             //   errors,
@@ -95,29 +80,33 @@ const RenameChannelModal = () => {
             //   errors,
             // );
             return (
-              <Form>
-                <div className='form-group'>
-                  <Field
-                    name='channelName'
-                    placeholder={t('modals.rename.inputPlaceholder')}
-                    innerRef={inputRef}
-                    className={`mb-2 form-control ${submitCount > 0 && dirty ? 'is-invalid' : ''}`}
-                    data-testid='rename-channel'
-                  />
-                </div>
-                <div
-                  className='invalid-feedback'
-                  style={submitCount > 0 && (dirty || !isValid) ? { display: 'block' } : null}
-                >
-                  {errors.channelName ? `${errors.channelName}` : 'От 3 до 20 символов'}
-                </div>
-                <div className='d-flex justify-content-end'>
-                  <button type='button' onClick={handleClose} className='me-2 btn btn-secondary'>
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Control
+                  type='text'
+                  name='channelName'
+                  data-testid='rename-channel'
+                  value={values.channelName}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  isInvalid={submitCount > 0}
+                  ref={inputChannelRef}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {errors.channelName || t('errors.tooLong')}
+                </Form.Control.Feedback>
+                <div className='mt-3 d-flex justify-content-end'>
+                  <Button
+                    type='button'
+                    disabled={isSubmitting}
+                    onClick={handleClose}
+                    variant='secondary'
+                    className='me-2'
+                  >
                     {t('modals.rename.cancelButton')}
-                  </button>
-                  <button type='submit' className='btn btn-primary'>
+                  </Button>
+                  <Button type='submit' disabled={isSubmitting}>
                     {t('modals.rename.submitButton')}
-                  </button>
+                  </Button>
                 </div>
               </Form>
             );
