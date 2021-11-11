@@ -1,7 +1,17 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, {
+  useContext,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Card, Form, FloatingLabel, Button } from 'react-bootstrap';
+import {
+  Card,
+  Form,
+  FloatingLabel,
+  Button,
+} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -60,7 +70,12 @@ const LogInForm = () => {
                   }
                 }}
               >
-                {({ errors, handleSubmit, handleChange, values }) => (
+                {({
+                  errors,
+                  handleSubmit,
+                  handleChange,
+                  values,
+                }) => (
                     <Form
                       noValidate
                       onSubmit={handleSubmit}
@@ -111,12 +126,13 @@ const LogInForm = () => {
                         {t('logIn.submitButton')}
                       </Button>
                     </Form>
-                  )}
+                )}
               </Formik>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('logIn.signUpTitle')}</span>&nbsp;
+                <span>{t('logIn.signUpTitle')}</span>
+                &nbsp;
                 <Link to="/signup">{t('logIn.signUpLink')}</Link>
               </div>
             </Card.Footer>

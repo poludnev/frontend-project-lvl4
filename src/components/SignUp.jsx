@@ -1,7 +1,14 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, {
+  useContext, useState, useRef, useEffect,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
-import { Card, Form, FloatingLabel, Button } from 'react-bootstrap';
+import {
+  Card,
+  Form,
+  FloatingLabel,
+  Button,
+} from 'react-bootstrap';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -63,7 +70,12 @@ const SignUpForm = () => {
                   passwordConfirmation: '',
                 }}
               >
-                {({ errors, handleChange, values, handleSubmit }) => (
+                {({
+                  errors,
+                  handleChange,
+                  values,
+                  handleSubmit,
+                }) => (
                   <Form noValidate onSubmit={handleSubmit} className="w-100">
                     <h1 className="text-center mb-4">{t('signUp.title')}</h1>
 
