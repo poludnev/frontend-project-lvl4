@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "hexlet frontend project 4",
-  "main": "src/index.js",
+  "main": "src/indexLH.js",
   "type": "module",
   "engines": {"node": "16.x", "npm": "8.x"},
   "scripts": {
