@@ -1,5 +1,4 @@
 // @ts-check
-// import '../assets/application.scss';
 import init from './init.jsx';
 
 // @ts-ignore
