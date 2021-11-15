@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
+  entry: './src/indexLH.js',
   mode,
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -21,9 +22,7 @@ module.exports = {
     publicPath: '/assets/',
     historyApiFallback: true,
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-  ],
+  plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
