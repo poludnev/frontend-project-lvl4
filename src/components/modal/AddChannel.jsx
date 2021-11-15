@@ -7,8 +7,8 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { hideModal } from '../../slices/modalSlice';
-import UserContext from '../../contexts/userContext';
-import SocketContext from '../../contexts/socketContext';
+import UserContext from '../../contexts/userContext.jsx';
+import SocketContext from '../../contexts/socketContext.jsx';
 
 const AddChannelModal = () => {
   const { t } = useTranslation();

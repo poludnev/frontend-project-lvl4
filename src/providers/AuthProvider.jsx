@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UserContext from '../contexts/userContext';
+import UserContext from '../contexts/userContext.jsx';
 
 const getUser = () => JSON.parse(localStorage.getItem('user'));
 

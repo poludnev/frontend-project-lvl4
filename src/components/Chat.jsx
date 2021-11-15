@@ -3,13 +3,13 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import UserContext from '../contexts/userContext';
+import UserContext from '../contexts/userContext.jsx';
 import routes from '../routes';
 
 import { upLoadChannels } from '../slices/channelsSlice';
 import { upLoadMessages } from '../slices/messagesSlice';
-import Channels from './chat/Channels';
-import Messages from './chat/Messages';
+import Channels from './chat/Channels.jsx';
+import Messages from './chat/Messages.jsx';
 
 const Chat = () => {
   const { logOut, AuthHeader } = useContext(UserContext);

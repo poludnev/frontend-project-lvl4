@@ -6,8 +6,8 @@ import { Formik } from 'formik';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import UserContext from '../../contexts/userContext';
-import SocketContext from '../../contexts/socketContext';
+import UserContext from '../../contexts/userContext.jsx';
+import SocketContext from '../../contexts/socketContext.jsx';
 
 const Messages = () => {
   const { t } = useTranslation();

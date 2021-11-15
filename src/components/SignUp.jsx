@@ -12,7 +12,7 @@ import {
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import UserContext from '../contexts/userContext';
+import UserContext from '../contexts/userContext.jsx';
 import routes from '../routes';
 
 const SignUpForm = () => {

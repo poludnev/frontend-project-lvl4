@@ -15,7 +15,7 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import UserContext from '../contexts/userContext';
+import UserContext from '../contexts/userContext.jsx';
 import routes from '../routes';
 
 const LogInForm = () => {

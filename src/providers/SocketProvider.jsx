@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SocketContext from '../contexts/socketContext';
+import SocketContext from '../contexts/socketContext.jsx';
 
 const SocketProvider = ({ socket, children }) => {
   const sendMessage = (msg) => {

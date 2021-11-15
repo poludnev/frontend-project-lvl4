@@ -11,11 +11,11 @@ import { useTranslation } from 'react-i18next';
 import { Navbar, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import UserContext from '../contexts/userContext';
-import Chat from './Chat';
-import LogInForm from './LogIn';
-import SignUpForm from './SignUp';
-import Page404 from './Page404';
+import UserContext from '../contexts/userContext.jsx';
+import Chat from './Chat.jsx';
+import LogInForm from './LogIn.jsx';
+import SignUpForm from './SignUp.jsx';
+import Page404 from './Page404.jsx';
 
 const App = () => {
   const { user, logOut } = useContext(UserContext);
