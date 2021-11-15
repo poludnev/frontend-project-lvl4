@@ -11,8 +11,6 @@ export const messagesSlice = createSlice({
   initialState,
   reducers: {
     upLoadMessages: (state, action) => {
-      // console.log('upLoadMes', action.payload);
-      // state.messagesData = [...action.payload];
       _.set(state, 'messagesData', action.payload);
     },
     addMessage: (state, action) => {
