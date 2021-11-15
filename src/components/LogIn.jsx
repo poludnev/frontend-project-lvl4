@@ -27,7 +27,7 @@ const LogInForm = () => {
   const { t } = useTranslation();
   const userInputRef = useRef();
 
-  const LogInSchema = Yup.object().shape({
+  const logInSchema = Yup.object().shape({
     username: Yup.string().required(t('errors.required')),
     password: Yup.string().required(t('errors.required')),
   });
@@ -49,7 +49,7 @@ const LogInForm = () => {
                   username: '',
                   password: '',
                 }}
-                validationSchema={LogInSchema}
+                validationSchema={logInSchema}
                 onSubmit={async (values) => {
                   const { username, password } = values;
                   setSubmitting(true);

@@ -22,7 +22,7 @@ const SignUpForm = () => {
   const userInput = useRef();
   const { logIn } = useContext(UserContext);
   const history = useHistory();
-  const SignUpSchema = Yup.object().shape({
+  const signUpSchema = Yup.object().shape({
     username: Yup.string()
       .min(3, t('errors.tooShort'))
       .max(20, t('errors.tooLong'))
@@ -47,7 +47,7 @@ const SignUpForm = () => {
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <Formik
-                validationSchema={SignUpSchema}
+                validationSchema={signUpSchema}
                 onSubmit={async (values) => {
                   const { username, password } = values;
                   setSubmitting(true);

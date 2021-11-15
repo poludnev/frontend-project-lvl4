@@ -18,24 +18,25 @@ const Chat = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const header = AuthHeader();
-        const { data } = await axios.get(routes.chatDataPath(), {
-          headers: { ...header },
-        });
-        dispatch(upLoadChannels(data.channels));
-        dispatch(upLoadMessages(data.messages));
-        setLoading(false);
-      } catch (error) {
-        if (error.isAxiosError && error.response.status === 401) {
-          logOut();
-          return;
-        }
-        throw error;
+  const fetchContent = async () => {
+    try {
+      const header = AuthHeader();
+      const { data } = await axios.get(routes.chatDataPath(), {
+        headers: { ...header },
+      });
+      dispatch(upLoadChannels(data.channels));
+      dispatch(upLoadMessages(data.messages));
+      setLoading(false);
+    } catch (error) {
+      if (error.isAxiosError && error.response.status === 401) {
+        logOut();
+        return;
       }
-    };
+      throw error;
+    }
+  };
+
+  useEffect(() => {
     fetchContent();
     return () => setLoading(false);
   });
