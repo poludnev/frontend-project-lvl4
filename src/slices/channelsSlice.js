@@ -25,8 +25,8 @@ export const channelsSlice = createSlice({
         _.set(state, 'currentChannelID', initialState.currentChannelID);
       }
       const filteredChannels = state.channelsData.filter((ch) => ch.id !== action.payload);
-      state.channelsData.splice(0, Infinity, filteredChannels);
-      _.set(state, 'channelsData', action.payload);
+      // state.channelsData.splice(0, Infinity, filteredChannels);
+      _.set(state, 'channelsData', filteredChannels);
     },
     changeNameChannel: (state, action) => {
       const channel = state.channelsData.find((ch) => ch.id === action.payload.id);
