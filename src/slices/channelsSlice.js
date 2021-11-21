@@ -2,6 +2,9 @@ import _ from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 
 
+
+
+
 const initialState = {
   channelsData: [],
   currentChannelID: 1,
@@ -13,7 +16,25 @@ export const channelsSlice = createSlice({
   reducers: {
     upLoadChannels: (state, action) => {
       console.log('uploadChannels', action.payload);
+      
+      // console.log(_.union(action.payload, state.))
+
+
+      // const result = [...action.payload];
+
+      // const y = state.channelsData.slice(0, Infinity);
+
+      // console.log('result', result, y);
+      console.log({...JSON.parse(JSON.stringify(state.channelsData))
+        .reduce((acc, val) => { acc[val.id] = val; return acc; }, {}),
+        ...action.payload,
+      });
+
+
+
       _.set(state, 'channelsData', action.payload);
+
+      
     },
     setCurrentChannel: (state, action) => {
       _.set(state, 'currentChannelID', action.payload);

@@ -14,7 +14,6 @@ import Messages from './chat/Messages.jsx';
 const Chat = () => {
   const { logOut, AuthHeader } = useContext(UserContext);
   const [isLoading, setLoading] = useState(true);
-
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -26,6 +25,7 @@ const Chat = () => {
         headers: { ...header },
       });
       console.log('fetch result', data);
+      console.log()
       dispatch(upLoadChannels(data.channels));
       dispatch(upLoadMessages(data.messages));
       setLoading(false);
@@ -39,6 +39,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    
     fetchContent();
     return () => setLoading(false);
   });
