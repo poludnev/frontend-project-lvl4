@@ -85,6 +85,7 @@ const Messages = () => {
             }) => (
               <Form noValidate onSubmit={handleSubmit} className="py-1 border rounded-2">
                 <InputGroup>
+                  <Form.Label>Новое сообщение</Form.Label>
                   <Form.Control
                     className="border-0 p-0 ps-2"
                     type="text"
