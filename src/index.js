@@ -2,6 +2,7 @@
 import ReactDOM from 'react-dom';
 import { io } from 'socket.io-client';
 import init from './init.jsx';
+import '../assets/application.scss';
 
 // @ts-ignore
 if (process.env.NODE_ENV !== 'production') {
@@ -14,6 +15,8 @@ const app = async (socketClient) => {
   return vdom;
 };
 
-app(io());
+const socket = io();
+
+app(socket);
 
 export default app;

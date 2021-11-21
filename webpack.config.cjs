@@ -2,6 +2,7 @@
 
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { EnvironmentPlugin } = require('webpack');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -21,7 +22,9 @@ module.exports = {
     publicPath: '/assets/',
     historyApiFallback: true,
   },
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [new MiniCssExtractPlugin(), new EnvironmentPlugin({
+    ROLLBAR_TOKEN: '',
+  })],
   module: {
     rules: [
       {
