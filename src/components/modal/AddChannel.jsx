@@ -63,6 +63,7 @@ const AddChannelModal = () => {
                 type="text"
                 name="channelName"
                 data-testid="add-channel"
+                aria-label="Имя канала"
                 value={values.channelName}
                 onChange={handleChange}
                 disabled={isSubmitting}
