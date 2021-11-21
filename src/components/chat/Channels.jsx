@@ -9,6 +9,7 @@ import modals from '../modal/modals';
 const Channels = () => {
   const { t } = useTranslation();
   const { channelsData, currentChannelID } = useSelector((state) => state.channels);
+  console.log(channelsData);
   const { isShown, type } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
