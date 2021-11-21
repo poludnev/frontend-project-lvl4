@@ -13,7 +13,7 @@ import geti18nInstance from './i18n/i18n.js';
 // import getRollbarConfig from './rollbar/config.js';
 import { addChannel, deleteChannel, changeNameChannel } from './slices/channelsSlice.js';
 // console.log(process.env.NODE_ENV);
-console.log(process.env.ROLLBAR_TOKEN);
+// console.log(process.env.ROLLBAR_TOKEN);
 // const getRollbarConfig = () => ({
 //   accessToken: 'cb90c916b6474920ab9d4c1c12b8d126',
 //   captureUncaught: true,
