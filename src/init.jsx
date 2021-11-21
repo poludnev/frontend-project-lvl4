@@ -29,13 +29,13 @@ const init = async (socket) => {
   // console.log(process);
 
   const rollbarConfig = {
-  accessToken: process.env.ROLLBAR_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  payload: {
-    environment: 'production',
-  },
-}
+    accessToken: process.env.ROLLBAR_TOKEN,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    payload: {
+      environment: 'production',
+    },
+  };
   // const rollbarConfig = getRollbarConfig();
 
   socket.on('newMessage', (msg) => {
