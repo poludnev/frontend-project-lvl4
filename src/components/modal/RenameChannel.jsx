@@ -63,6 +63,8 @@ const RenameChannelModal = () => {
                 name="channelName"
                 data-testid="rename-channel"
                 label-text="Новое имя канала"
+                aria-label="Новое имя канала"
+                placeholder="Новое имя канала"
                 value={values.channelName}
                 onChange={handleChange}
                 disabled={isSubmitting}
