@@ -37,14 +37,11 @@ const init = async (socket) => {
       environment: 'production',
     },
   };
-  // const rollbarConfig = getRollbarConfig();
 
   socket.on('newMessage', (msg) => {
     store.dispatch(addMessage(msg));
   });
   socket.on('newChannel', (channel) => {
-    console.log('new channel socket1')
-
     store.dispatch(addChannel(channel));
   });
   socket.on('removeChannel', ({ id }) => {

@@ -6,24 +6,14 @@ import axios from 'axios';
 import UserContext from '../contexts/userContext.jsx';
 import routes from '../routes';
 
-import SocketContext from '../contexts/apiContext.jsx';
-
-
 import { upLoadChannels } from '../slices/channelsSlice';
 import { upLoadMessages } from '../slices/messagesSlice';
 import Channels from './chat/Channels.jsx';
 import Messages from './chat/Messages.jsx';
-import { async } from 'regenerator-runtime';
-
-
-
 
 const Chat = () => {
   const { logOut, AuthHeader } = useContext(UserContext);
   const [isLoading, setLoading] = useState(true);
-
-  const socket = useContext(SocketContext);
-
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -47,22 +37,6 @@ const Chat = () => {
       throw error;
     }
   };
-
-  socket.socket.on('newChannel', async (channel) => {
-    console.log('new channel socket2');
-    const header = AuthHeader();
-    const { data } = await axios.get(routes.chatDataPath(), {
-        headers: { ...header },
-      });
-      console.log('fetch result on socket newChannel', data);
-
-
-    // store.dispatch(addChannel(channel));
-  });
-
-
-
-
 
   useEffect(() => {
     fetchContent();
