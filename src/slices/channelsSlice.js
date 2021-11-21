@@ -12,6 +12,7 @@ export const channelsSlice = createSlice({
   initialState,
   reducers: {
     upLoadChannels: (state, action) => {
+      console.log('uploadChannels', action.payload);
       _.set(state, 'channelsData', action.payload);
     },
     setCurrentChannel: (state, action) => {
