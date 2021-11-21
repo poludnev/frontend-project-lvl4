@@ -96,6 +96,7 @@ const Messages = () => {
                     onChange={handleChange}
                     isInvalid={!!errors.message}
                   />
+                
 
                   <Button
                     variant="outline-secondary"

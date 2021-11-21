@@ -34,7 +34,7 @@ export default {
         count_few: '{{count}} сообщения',
         count_many: '{{count}} сообщений',
       },
-      messagePlaceHolder: 'Введите сообщение...',
+      messagePlaceHolder: 'Новое сообщение',
       submitButtonLabel: 'Отправить',
     },
     errors: {
