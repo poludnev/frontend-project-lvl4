@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
-import { ToastContainer, toast } from 'react-toastify';
+
 
 const initialState = {
   channelsData: [],
@@ -19,7 +19,7 @@ export const channelsSlice = createSlice({
     },
     addChannel: (state, action) => {
       console.log('add channel slice');
-      toast('Канал создан');
+      
       state.channelsData.push(action.payload);
       _.set(state, 'currentChannelID', action.payload);
     },
@@ -30,12 +30,12 @@ export const channelsSlice = createSlice({
       const filteredChannels = state.channelsData.filter((ch) => ch.id !== action.payload);
       // state.channelsData.splice(0, Infinity, filteredChannels);
       _.set(state, 'channelsData', filteredChannels);
-      toast('Канал удален');
+      // toast('Канал удален');
     },
     changeNameChannel: (state, action) => {
       const channel = state.channelsData.find((ch) => ch.id === action.payload.id);
       _.set(channel, 'name', action.payload.name);
-      toast('Канал переименован');
+      // toast('Канал переименован');
     },
   },
 });

@@ -1,6 +1,7 @@
 import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -51,6 +52,7 @@ const AddChannelModal = () => {
               name: values.channelName,
               creator: user.username,
             });
+            toast('Канал создан');
 
             setSubmitting(false);
             handleClose();
