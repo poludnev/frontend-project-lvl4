@@ -25,6 +25,7 @@ const Chat = () => {
       const { data } = await axios.get(routes.chatDataPath(), {
         headers: { ...header },
       });
+      console.log('fetch result', data);
       dispatch(upLoadChannels(data.channels));
       dispatch(upLoadMessages(data.messages));
       setLoading(false);
