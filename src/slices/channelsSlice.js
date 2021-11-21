@@ -20,7 +20,7 @@ export const channelsSlice = createSlice({
     addChannel: (state, action) => {
       state.channelsData.push(action.payload);
       _.set(state, 'currentChannelID', action.payload);
-      toast('Канал создан');
+      // toast('Канал создан');
     },
     deleteChannel: (state, action) => {
       if (action.payload === state.currentChannelID) {
