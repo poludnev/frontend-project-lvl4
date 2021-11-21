@@ -12,6 +12,7 @@ const SocketProvider = ({ socket, children }) => {
   const createChannel = (channel) => {
     socket.emit('newChannel', channel, (response) => {
       if (response.status !== 'ok') console.error('socket error, response: ', response);
+      
     });
   };
 

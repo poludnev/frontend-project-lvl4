@@ -10,6 +10,7 @@ import ApiProvider from './providers/ApiProvider.jsx';
 import store from './store.js';
 import { addMessage } from './slices/messagesSlice.js';
 import geti18nInstance from './i18n/i18n.js';
+
 // import getRollbarConfig from './rollbar/config.js';
 import { addChannel, deleteChannel, changeNameChannel } from './slices/channelsSlice.js';
 // console.log(process.env.NODE_ENV);

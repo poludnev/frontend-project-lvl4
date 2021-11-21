@@ -10,12 +10,18 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Navbar, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.min.css';
+import { injectStyle } from "react-toastify/dist/inject-style";
 
 import UserContext from '../contexts/userContext.jsx';
 import Chat from './Chat.jsx';
 import LogInForm from './LogIn.jsx';
 import SignUpForm from './SignUp.jsx';
 import Page404 from './Page404.jsx';
+
+injectStyle();
 
 const App = () => {
   const { user, logOut } = useContext(UserContext);
@@ -25,6 +31,7 @@ const App = () => {
   return (
     <Router>
       <div className="d-flex flex-column h-100" aria-hidden={isShown}>
+        <ToastContainer/>
         <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
           <div className="container">
             <Navbar.Brand as={Link} to="/">
