@@ -42,7 +42,7 @@ const x = JSON.parse(JSON.stringify(state.channelsData))
 
 
 
-      _.set(state, 'channelsData', action.payload);
+      _.set(state, 'channelsData', Object.values({ ...x, ...y }));
 
       
     },
