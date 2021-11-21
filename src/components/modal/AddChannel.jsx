@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { hideModal } from '../../slices/modalSlice';
 import UserContext from '../../contexts/userContext.jsx';
-import SocketContext from '../../contexts/socketContext.jsx';
+import SocketContext from '../../contexts/apiContext.jsx';
 
 const AddChannelModal = () => {
   const { t } = useTranslation();

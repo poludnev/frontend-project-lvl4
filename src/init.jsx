@@ -6,7 +6,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import App from './components/App.jsx';
 import AuthProvider from './providers/AuthProvider.jsx';
-import SocketProvider from './providers/SocketProvider.jsx';
+import ApiProvider from './providers/ApiProvider.jsx';
 import store from './store.js';
 import { addMessage } from './slices/messagesSlice.js';
 import geti18nInstance from './i18n/i18n.js';
@@ -51,15 +51,17 @@ const init = async (socket) => {
     store.dispatch(changeNameChannel(channel));
   });
 
+  
+
   return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <Provider store={store}>
           <I18nextProvider i18n={i18nInstance}>
             <AuthProvider>
-              <SocketProvider socket={socket}>
+              <ApiProvider socket={socket}>
                 <App />
-              </SocketProvider>
+              </ApiProvider>
             </AuthProvider>
           </I18nextProvider>
         </Provider>

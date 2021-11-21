@@ -3,11 +3,12 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import { Form, Button, InputGroup, FloatingLabel } from 'react-bootstrap';
+import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import chatCensor from 'leo-profanity';
 import * as Yup from 'yup';
 import UserContext from '../../contexts/userContext.jsx';
-import SocketContext from '../../contexts/socketContext.jsx';
+import apiContext from '../../contexts/apiContext.jsx';
 
 const Messages = () => {
   const { t } = useTranslation();
@@ -16,7 +17,7 @@ const Messages = () => {
   });
   const inputRef = useRef();
   const { user } = useContext(UserContext);
-  const socket = useContext(SocketContext);
+  const api = useContext(apiContext);
   const [isSubmitting, setSubmitting] = useState(false);
   const messagesData = useSelector((state) => state.messages.messagesData);
 
@@ -40,7 +41,7 @@ const Messages = () => {
         {username}
       </b>
       &nbsp;:&nbsp;
-      {text}
+      {chatCensor.clean(text)}
     </div>
   );
 
@@ -67,7 +68,7 @@ const Messages = () => {
             validationSchema={MessageSchema}
             onSubmit={async (values, actions) => {
               setSubmitting(true);
-              await socket.sendMessage({
+              await api.sendMessage({
                 username: user.username,
                 text: values.message,
                 channelID: currentChannelID,
@@ -85,11 +86,7 @@ const Messages = () => {
             }) => (
               <Form noValidate onSubmit={handleSubmit} className="py-1 border rounded-2">
                 <InputGroup>
-                  <FloatingLabel
-                      controlId="username"
-                      label={t('messages.messagePlaceHolder')}
-                      className="mb-3"
-                    >
+                  
 
                   <Form.Control
                     className="border-0 p-0 ps-2"
@@ -98,11 +95,12 @@ const Messages = () => {
                     placeholder={t('messages.messagePlaceHolder')}
                     ref={inputRef}
                     data-testid="new-message"
+                    aria-label="Новое сообщение"
                     value={values.message}
                     onChange={handleChange}
                     isInvalid={!!errors.message}
                   />
-                  </FloatingLabel>
+
                 
 
                   <Button

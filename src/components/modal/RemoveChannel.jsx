@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../../slices/modalSlice';
-import SocketContext from '../../contexts/socketContext.jsx';
+import SocketContext from '../../contexts/apiContext.jsx';
 
 const RemoveChannelModal = () => {
   const { t } = useTranslation();
