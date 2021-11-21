@@ -19,6 +19,7 @@ const Chat = () => {
   const { t } = useTranslation();
 
   const fetchContent = async () => {
+    console.log('fetch content');
     try {
       const header = AuthHeader();
       const { data } = await axios.get(routes.chatDataPath(), {
