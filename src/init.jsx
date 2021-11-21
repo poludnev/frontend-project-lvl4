@@ -43,6 +43,7 @@ const init = async (socket) => {
     store.dispatch(addMessage(msg));
   });
   socket.on('newChannel', (channel) => {
+    console.log('new channel socket')
     store.dispatch(addChannel(channel));
   });
   socket.on('removeChannel', ({ id }) => {
