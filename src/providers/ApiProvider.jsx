@@ -14,7 +14,6 @@ const SocketProvider = ({ socket, children }) => {
     socket.emit('newChannel', channel, (response) => {
       console.log('create channel response', response);
       if (response.status !== 'ok') console.error('socket error, response: ', response);
-      
     });
   };
 
@@ -36,6 +35,7 @@ const SocketProvider = ({ socket, children }) => {
         createChannel,
         removeChannel,
         renameChannel,
+        socket,
       }}
     >
       {children}
