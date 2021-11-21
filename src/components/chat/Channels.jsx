@@ -72,12 +72,13 @@ const Channels = () => {
                 <Dropdown.Toggle
                   variant={id === currentChannelID ? 'secondary' : 'light'}
                   className="flex-grow-0 dropdown-toggle dropdown-toggle-split btn"
+                  aria-label="Управление каналом"
                 />
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={removeChannelHandler(id)}>
+                  <Dropdown.Item onClick={removeChannelHandler(id)} aria-label="Переименовать">
                     {t('channels.remove')}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={renameChannelHandler(id)}>
+                  <Dropdown.Item onClick={renameChannelHandler(id)} aria-label="Удалить">
                     {t('channels.rename')}
                   </Dropdown.Item>
                 </Dropdown.Menu>
