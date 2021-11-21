@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import { Form, Button, InputGroup } from 'react-bootstrap';
+import { Form, Button, InputGroup, FloatingLabel } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import UserContext from '../../contexts/userContext.jsx';
@@ -85,7 +85,12 @@ const Messages = () => {
             }) => (
               <Form noValidate onSubmit={handleSubmit} className="py-1 border rounded-2">
                 <InputGroup>
-                  <Form.Label>Новое сообщение</Form.Label>
+                  <FloatingLabel
+                      controlId="username"
+                      label={t('messages.messagePlaceHolder')}
+                      className="mb-3"
+                    >
+
                   <Form.Control
                     className="border-0 p-0 ps-2"
                     type="text"
@@ -97,6 +102,7 @@ const Messages = () => {
                     onChange={handleChange}
                     isInvalid={!!errors.message}
                   />
+                  </FloatingLabel>
                 
 
                   <Button
