@@ -38,10 +38,10 @@ const Chat = () => {
         logOut();
         return;
       }
-      if (error.isAxiosError && error.response.status === 500) {
+      // if (error.isAxiosError && error.response.status === 500) {
+        // console.error(error);
         toast('Ошибка соединения');
-        console.error(error);
-      }
+      // }
       console.error(error);
     }
   };
