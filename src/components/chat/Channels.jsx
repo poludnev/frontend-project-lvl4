@@ -75,10 +75,10 @@ const Channels = () => {
                   aria-label="Управление каналом"
                 />
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={removeChannelHandler(id)} aria-label="Переименовать">
+                  <Dropdown.Item onClick={removeChannelHandler(id)} aria-label="Удалить">
                     {t('channels.remove')}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={renameChannelHandler(id)} aria-label="Удалить">
+                  <Dropdown.Item onClick={renameChannelHandler(id)} aria-label="Переименовать">
                     {t('channels.rename')}
                   </Dropdown.Item>
                 </Dropdown.Menu>

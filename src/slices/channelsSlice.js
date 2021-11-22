@@ -29,11 +29,11 @@ export const channelsSlice = createSlice({
 const x = JSON.parse(JSON.stringify(state.channelsData))
   .reduce((acc, val) => { acc[val.id] = val; return acc; }, {});
       
-      const y = action.payload.reduce((acc, val) => { acc[val.id] = val; return acc; }, {});
+      // const y = action.payload.reduce((acc, val) => { acc[val.id] = val; return acc; }, {});
 
-      console.log('x', x, y);
+      // console.log('x', x, y);
 
-      console.log(Object.keys({ ...x, ...y }));
+      // console.log(Object.keys({ ...x, ...y }));
 
       // console.log({...JSON.parse(JSON.stringify(state.channelsData))
       //   .reduce((acc, val) => { acc[val.id] = val; return acc; }, {}),
@@ -42,7 +42,8 @@ const x = JSON.parse(JSON.stringify(state.channelsData))
 
 
 
-      _.set(state, 'channelsData', Object.values({ ...x, ...y }));
+      // _.set(state, 'channelsData', Object.values({ ...x, ...y }));
+      _.set(state, 'channelsData', action.payload);
 
       
     },
