@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "hexlet frontend project 4",
-  "main": "src/index.js",
+  "main": "src/init.jsx",
   "type": "module",
   "scripts": {
     "test": "echo 'no tests for this project'",
