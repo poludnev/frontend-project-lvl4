@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import UserContext from '../contexts/userContext.jsx';
@@ -14,18 +15,20 @@ import Messages from './chat/Messages.jsx';
 const Chat = () => {
   const { logOut, AuthHeader } = useContext(UserContext);
   const [isLoading, setLoading] = useState(true);
+  const { isShown, type } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const fetchContent = async () => {
-    console.log('fetch content');
+    console.log('fetch content start');
+    console.log('moadal state before fetch, isShown:', isShown, type);
     try {
       const header = AuthHeader();
       const { data } = await axios.get(routes.chatDataPath(), {
         headers: { ...header },
       });
-      console.log('fetch result', data);
-      console.log()
+      console.log('moadal state after fetch, isShown:', isShown, type);
+      console.log('fetch finished, result:', data);
       dispatch(upLoadChannels(data.channels));
       dispatch(upLoadMessages(data.messages));
       setLoading(false);
