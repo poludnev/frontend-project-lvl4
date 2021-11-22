@@ -21,12 +21,13 @@ const Chat = () => {
 
   const fetchContent = async () => {
     console.log('fetch content');
+    console.log('moadal state before fetch, isShown', isShown, type);
     try {
       const header = AuthHeader();
       const { data } = await axios.get(routes.chatDataPath(), {
         headers: { ...header },
       });
-      console.log('moadal state, isShown', isShown, type);
+      console.log('moadal state after fetch, isShown', isShown, type);
       console.log('fetch result', data);
       dispatch(upLoadChannels(data.channels));
       dispatch(upLoadMessages(data.messages));
