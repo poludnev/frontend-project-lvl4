@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 // import { useDispatch } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import UserContext from '../contexts/userContext.jsx';
@@ -36,6 +37,9 @@ const Chat = () => {
       if (error.isAxiosError && error.response.status === 401) {
         logOut();
         return;
+      }
+      if (error.isAxiosError && error.response.status === 500) {
+        toast('Ошибка соединения'); 
       }
       throw error;
     }
