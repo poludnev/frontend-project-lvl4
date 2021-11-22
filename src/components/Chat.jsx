@@ -39,9 +39,10 @@ const Chat = () => {
         return;
       }
       if (error.isAxiosError && error.response.status === 500) {
-        toast('Ошибка соединения'); 
-        throw error;
+        toast('Ошибка соединения');
+        console.error(error);
       }
+      console.error(error);
     }
   };
 
