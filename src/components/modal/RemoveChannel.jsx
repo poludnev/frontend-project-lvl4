@@ -29,7 +29,7 @@ const RemoveChannelModal = () => {
     await socket.removeChannel({ id });
     setSubmitting(false);
     handleClose();
-    toast('Канал удвлен');
+    toast('Канал удалён');
   };
 
   return (
