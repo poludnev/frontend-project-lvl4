@@ -4,6 +4,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
 import { hideModal } from '../../slices/modalSlice';
 import SocketContext from '../../contexts/apiContext.jsx';
 
@@ -28,6 +29,7 @@ const RemoveChannelModal = () => {
     await socket.removeChannel({ id });
     setSubmitting(false);
     handleClose();
+    toast('Канал удвлен');
   };
 
   return (
