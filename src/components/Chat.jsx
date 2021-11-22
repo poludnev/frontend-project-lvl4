@@ -40,8 +40,8 @@ const Chat = () => {
       }
       if (error.isAxiosError && error.response.status === 500) {
         toast('Ошибка соединения'); 
+        throw error;
       }
-      throw error;
     }
   };
 
