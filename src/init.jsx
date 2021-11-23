@@ -6,14 +6,12 @@ import { I18nextProvider } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import App from './components/App.jsx';
 import AuthProvider from './providers/AuthProvider.jsx';
-import ApiProvider from './providers/ApiProvider.jsx';
+import ApiContext from './contexts/apiContext.jsx';
 import store from './store.js';
-import { addMessage } from './slices/messagesSlice.js';
+import createApi from './api/index.js';
 import geti18nInstance from './i18n/i18n.js';
 
-import { addChannel, deleteChannel, changeNameChannel, setCurrentChannel } from './slices/channelsSlice.js';
-
-const init = async (socket) => {
+const init = async (socketClient) => {
   const i18nInstance = await geti18nInstance();
   const rollbarConfig = {
     accessToken: process.env.ROLLBAR_TOKEN,
@@ -24,21 +22,7 @@ const init = async (socket) => {
     },
   };
 
-  socket.on('newMessage', (msg) => {
-    store.dispatch(addMessage(msg));
-  });
-  socket.on('newChannel', (channel) => {
-    store.dispatch(addChannel(channel));
-    store.dispatch(setCurrentChannel(channel.id));
-  });
-  socket.on('removeChannel', ({ id }) => {
-    store.dispatch(deleteChannel(id));
-  });
-  socket.on('renameChannel', (channel) => {
-    store.dispatch(changeNameChannel(channel));
-  });
-
-  
+  const api = createApi(socketClient, store);
 
   return (
     <RollbarProvider config={rollbarConfig}>
@@ -46,9 +30,9 @@ const init = async (socket) => {
         <Provider store={store}>
           <I18nextProvider i18n={i18nInstance}>
             <AuthProvider>
-              <ApiProvider socket={socket}>
+              <ApiContext.Provider value={api}>
                 <App />
-              </ApiProvider>
+              </ApiContext.Provider>
             </AuthProvider>
           </I18nextProvider>
         </Provider>
