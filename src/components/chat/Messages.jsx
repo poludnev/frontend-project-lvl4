@@ -1,5 +1,5 @@
 import React, {
-  useContext, useState, useEffect, useRef,
+  useState, useEffect, useRef,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik } from 'formik';
@@ -8,61 +8,39 @@ import { useTranslation } from 'react-i18next';
 import chatCensor from 'leo-profanity';
 import * as Yup from 'yup';
 import * as Scroll from 'react-scroll';
-import UserContext from '../../contexts/userContext.jsx';
-import apiContext from '../../contexts/apiContext.jsx';
-
-const scroll = Scroll.animateScroll;
-
-
-const MessageBox = ({ messages }) => {
-  useEffect(() => {
-    scroll.scrollToBottom({
-      containerID: 'messages-box',
-    });
-  });
-  return (
-    <div id="messages-box" className="chat-messages overflow-auto px-5">
-      {messages}
-    </div>
-  )
-}
+import { useApi, useAuth } from '../../hooks';
 
 const Messages = () => {
+  const scroll = Scroll.animateScroll;
   const { t } = useTranslation();
-  const MessageSchema = Yup.object().shape({
-    message: Yup.string().trim().required('Required'),
-  });
-  const inputRef = useRef();
-  const { user } = useContext(UserContext);
-  const api = useContext(apiContext);
-  const [isSubmitting, setSubmitting] = useState(false);
-  const messagesData = useSelector((state) => state.messages.messagesData);
 
+  const inputRef = useRef();
+  const { user } = useAuth();
+  const api = useApi();
+  const [isSubmitting, setSubmitting] = useState(false);
+
+  const messagesData = useSelector((state) => state.messages.messagesData);
   const { currentChannelID, channelsData } = useSelector((state) => state.channels);
 
   const currentChannelData = channelsData.find(({ id }) => id === currentChannelID);
   const currentChannelName = currentChannelData ? currentChannelData.name : null;
-
   const messagesByCurrentChannel = messagesData.filter(
     ({ channelID }) => channelID === currentChannelID,
   );
 
+  const messageValidationSchema = Yup.object().shape({
+    message: Yup.string().trim().required('Required'),
+  });
+
   useEffect(() => {
     inputRef.current.focus();
-    // scroll.scrollToBottom({
-    //   containerId: 'messages-box',
-    //   duration: 500,
-    // });
-    return () => setSubmitting(false);
   }, [currentChannelID]);
 
   useEffect(() => {
-    // inputRef.current.focus();
     scroll.scrollToBottom({
       containerId: 'messages-box',
-      duration: 500,
+      duration: 200,
     });
-    return () => setSubmitting(false);
   }, [currentChannelID, messagesData]);
 
   const renderMessage = ({ id, username, text }) => (
@@ -74,8 +52,6 @@ const Messages = () => {
       {chatCensor.clean(text)}
     </div>
   );
-
-
 
   return (
     <div className="col p-0 h-100">
@@ -89,9 +65,6 @@ const Messages = () => {
             {t('messages.counter.count', { count: messagesByCurrentChannel.length })}
           </span>
         </div>
-        {/* <MessageBox messages={messagesByCurrentChannel.map(renderMessage)}>
-
-        </MessageBox> */}
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {messagesByCurrentChannel.map(renderMessage)}
         </div>
@@ -100,7 +73,7 @@ const Messages = () => {
             initialValues={{
               message: '',
             }}
-            validationSchema={MessageSchema}
+            validationSchema={messageValidationSchema}
             onSubmit={async (values, actions) => {
               setSubmitting(true);
               await api.sendMessage({
@@ -121,8 +94,6 @@ const Messages = () => {
             }) => (
               <Form noValidate onSubmit={handleSubmit} className="py-1 border rounded-2">
                 <InputGroup>
-                  
-
                   <Form.Control
                     className="border-0 p-0 ps-2"
                     type="text"
@@ -135,9 +106,6 @@ const Messages = () => {
                     onChange={handleChange}
                     isInvalid={!!errors.message}
                   />
-
-                
-
                   <Button
                     variant="outline-secondary"
                     className="btn-group-vertical border-0"
