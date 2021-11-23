@@ -11,7 +11,6 @@ import * as Scroll from 'react-scroll';
 import { useApi, useAuth } from '../../hooks';
 
 const Messages = () => {
-  const scroll = Scroll.animateScroll;
   const { t } = useTranslation();
 
   const inputRef = useRef();
@@ -37,6 +36,7 @@ const Messages = () => {
   }, [currentChannelID]);
 
   useEffect(() => {
+    const scroll = Scroll.animateScroll;
     scroll.scrollToBottom({
       containerId: 'messages-box',
       duration: 200,

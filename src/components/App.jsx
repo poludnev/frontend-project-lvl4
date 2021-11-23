@@ -29,7 +29,7 @@ const App = () => {
   return (
     <Router>
       <div className="d-flex flex-column h-100" aria-hidden={isShown}>
-        <ToastContainer/>
+        <ToastContainer />
         <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
           <div className="container">
             <Navbar.Brand as={Link} to="/">

@@ -1,5 +1,7 @@
 import { addMessage } from '../slices/messagesSlice.js';
-import { addChannel, deleteChannel, changeNameChannel, setCurrentChannel } from '../slices/channelsSlice.js';
+import {
+  addChannel, deleteChannel, changeNameChannel, setCurrentChannel,
+} from '../slices/channelsSlice.js';
 
 const createApi = (socket, store) => {
   socket.on('newMessage', (msg) => {
