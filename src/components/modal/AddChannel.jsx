@@ -1,7 +1,7 @@
 import React, {
   useEffect, useRef, useState,
 } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -46,13 +46,12 @@ const AddChannelModal = () => {
           }}
           validationSchema={NewChannelSchema}
           onSubmit={async (values) => {
-            console.log('start submitting');
             setSubmitting(true);
             api.createChannel({
               name: values.channelName,
               creator: user.username,
             });
-            toast('Канал создан');
+            toast(t('modals.add.toast'));
             setSubmitting(false);
             handleClose();
           }}
@@ -63,12 +62,11 @@ const AddChannelModal = () => {
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Control
                 ref={inputRef}
-                onFocus={() => console.log('focused')}
-                onBlur={() => console.log('blured')}
                 type="text"
                 name="channelName"
                 data-testid="add-channel"
-                aria-label="Имя канала"
+                aria-label={t('modals.add.label')}
+                placeholder={t('modals.add.label')}
                 value={values.channelName}
                 onChange={handleChange}
                 disabled={isSubmitting}
@@ -87,7 +85,7 @@ const AddChannelModal = () => {
                 >
                   {t('modals.add.cancelButton')}
                 </Button>
-                <Button type="submit" onClick={() =>{ console.log('button clicked')} }disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting}>
                   {t('modals.add.submitButton')}
                 </Button>
               </div>

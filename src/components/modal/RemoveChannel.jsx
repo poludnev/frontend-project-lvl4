@@ -1,16 +1,16 @@
 import React, {
-  useContext, useEffect, useRef, useState,
+  useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { hideModal } from '../../slices/modalSlice';
-import SocketContext from '../../contexts/apiContext.jsx';
+import { useApi } from '../../hooks';
 
 const RemoveChannelModal = () => {
   const { t } = useTranslation();
-  const socket = useContext(SocketContext);
+  const api = useApi();
   const cancelRef = useRef();
   useEffect(() => {
     cancelRef.current.focus();
@@ -25,11 +25,10 @@ const RemoveChannelModal = () => {
 
   const removeChannelHandler = async () => {
     setSubmitting(true);
-
-    await socket.removeChannel({ id });
+    await api.removeChannel({ id });
     setSubmitting(false);
     handleClose();
-    toast('Канал удалён');
+    toast(t('modals.remove.toast'));
   };
 
   return (

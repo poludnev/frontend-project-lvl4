@@ -52,7 +52,7 @@ const RenameChannelModal = () => {
             });
 
             setSubmitting(false);
-            toast('Канал переименован');
+            toast(t('modals.rename.toast'));
             handleClose();
           }}
         >
@@ -64,9 +64,8 @@ const RenameChannelModal = () => {
                 type="text"
                 name="channelName"
                 data-testid="rename-channel"
-                label-text="Новое имя канала"
-                aria-label="Новое имя канала"
-                placeholder="Новое имя канала"
+                aria-label={t('modals.rename.label')}
+                placeholder={t('modals.rename.label')}
                 value={values.channelName}
                 onChange={handleChange}
                 disabled={isSubmitting}

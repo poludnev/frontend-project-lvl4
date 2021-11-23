@@ -38,7 +38,6 @@ const App = () => {
             {user && <Button onClick={logOut}>{t('logOut')}</Button>}
           </div>
         </Navbar>
-
         <Switch>
           <Route
             exact
