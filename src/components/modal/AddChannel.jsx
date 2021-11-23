@@ -1,5 +1,5 @@
 import React, {
-  useContext, useEffect, useRef, useState,
+  useEffect, useRef, useState,
 } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,15 +8,14 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { hideModal } from '../../slices/modalSlice';
-import UserContext from '../../contexts/userContext.jsx';
-import SocketContext from '../../contexts/apiContext.jsx';
+import { useApi, useAuth } from '../../hooks';
 
 const AddChannelModal = () => {
   const { t } = useTranslation();
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
+  const api = useApi();
   const [isSubmitting, setSubmitting] = useState(false);
-  const socket = useContext(SocketContext);
-  const inputChannelRef = useRef();
+  const inputRef = useRef();
   const isShown = useSelector((state) => state.modal.isShown);
   const dispatch = useDispatch();
 
@@ -30,9 +29,11 @@ const AddChannelModal = () => {
       .max(20, t('errors.tooLong'))
       .notOneOf(channelsNames, t('errors.channelExists')),
   });
+
   useEffect(() => {
-    inputChannelRef.current.focus();
-  });
+    inputRef.current.focus();
+  }, []);
+
   return (
     <Modal show={isShown} onHide={handleClose} centered>
       <Modal.Header closeButton>
@@ -47,13 +48,11 @@ const AddChannelModal = () => {
           onSubmit={async (values) => {
             console.log('start submitting');
             setSubmitting(true);
-
-            socket.createChannel({
+            api.createChannel({
               name: values.channelName,
               creator: user.username,
             });
             toast('Канал создан');
-
             setSubmitting(false);
             handleClose();
           }}
@@ -63,6 +62,9 @@ const AddChannelModal = () => {
           }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Control
+                ref={inputRef}
+                onFocus={() => console.log('focused')}
+                onBlur={() => console.log('blured')}
                 type="text"
                 name="channelName"
                 data-testid="add-channel"
@@ -71,7 +73,6 @@ const AddChannelModal = () => {
                 onChange={handleChange}
                 disabled={isSubmitting}
                 isInvalid={submitCount > 0}
-                ref={inputChannelRef}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.channelName || t('errors.tooLong')}

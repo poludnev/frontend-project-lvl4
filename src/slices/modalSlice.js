@@ -20,8 +20,9 @@ export const modalSlice = createSlice({
       type: null,
       extra: null,
     }),
+    toggleModal: (state, action) => action.payload,
   },
 });
 
-export const { showModal, hideModal } = modalSlice.actions;
+export const { showModal, hideModal, toggleModal } = modalSlice.actions;
 export default modalSlice.reducer;

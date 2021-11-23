@@ -7,8 +7,25 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import chatCensor from 'leo-profanity';
 import * as Yup from 'yup';
+import * as Scroll from 'react-scroll';
 import UserContext from '../../contexts/userContext.jsx';
 import apiContext from '../../contexts/apiContext.jsx';
+
+const scroll = Scroll.animateScroll;
+
+
+const MessageBox = ({ messages }) => {
+  useEffect(() => {
+    scroll.scrollToBottom({
+      containerID: 'messages-box',
+    });
+  });
+  return (
+    <div id="messages-box" className="chat-messages overflow-auto px-5">
+      {messages}
+    </div>
+  )
+}
 
 const Messages = () => {
   const { t } = useTranslation();
@@ -32,8 +49,21 @@ const Messages = () => {
 
   useEffect(() => {
     inputRef.current.focus();
+    // scroll.scrollToBottom({
+    //   containerId: 'messages-box',
+    //   duration: 500,
+    // });
     return () => setSubmitting(false);
-  });
+  }, [currentChannelID]);
+
+  useEffect(() => {
+    // inputRef.current.focus();
+    scroll.scrollToBottom({
+      containerId: 'messages-box',
+      duration: 500,
+    });
+    return () => setSubmitting(false);
+  }, [currentChannelID, messagesData]);
 
   const renderMessage = ({ id, username, text }) => (
     <div key={id} className="text-break mb-2">
@@ -44,6 +74,8 @@ const Messages = () => {
       {chatCensor.clean(text)}
     </div>
   );
+
+
 
   return (
     <div className="col p-0 h-100">
@@ -57,6 +89,9 @@ const Messages = () => {
             {t('messages.counter.count', { count: messagesByCurrentChannel.length })}
           </span>
         </div>
+        {/* <MessageBox messages={messagesByCurrentChannel.map(renderMessage)}>
+
+        </MessageBox> */}
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {messagesByCurrentChannel.map(renderMessage)}
         </div>

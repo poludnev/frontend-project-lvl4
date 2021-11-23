@@ -11,24 +11,10 @@ import store from './store.js';
 import { addMessage } from './slices/messagesSlice.js';
 import geti18nInstance from './i18n/i18n.js';
 
-// import getRollbarConfig from './rollbar/config.js';
-import { addChannel, deleteChannel, changeNameChannel } from './slices/channelsSlice.js';
-// console.log(process.env.NODE_ENV);
-// console.log(process.env.ROLLBAR_TOKEN);
-// const getRollbarConfig = () => ({
-//   accessToken: 'cb90c916b6474920ab9d4c1c12b8d126',
-//   captureUncaught: true,
-//   captureUnhandledRejections: true,
-//   payload: {
-//     environment: 'production',
-//   },
-// });
+import { addChannel, deleteChannel, changeNameChannel, setCurrentChannel } from './slices/channelsSlice.js';
 
 const init = async (socket) => {
   const i18nInstance = await geti18nInstance();
-
-  // console.log(process);
-
   const rollbarConfig = {
     accessToken: process.env.ROLLBAR_TOKEN,
     captureUncaught: true,
@@ -43,6 +29,7 @@ const init = async (socket) => {
   });
   socket.on('newChannel', (channel) => {
     store.dispatch(addChannel(channel));
+    store.dispatch(setCurrentChannel(channel.id));
   });
   socket.on('removeChannel', ({ id }) => {
     store.dispatch(deleteChannel(id));

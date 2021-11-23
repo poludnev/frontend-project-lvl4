@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SocketContext from '../contexts/apiContext.jsx';
+import ApiContext from '../contexts/apiContext.jsx';
 
 const SocketProvider = ({ socket, children }) => {
   const sendMessage = (msg) => {
@@ -28,7 +28,7 @@ const SocketProvider = ({ socket, children }) => {
     });
   };
   return (
-    <SocketContext.Provider
+    <ApiContext.Provider
       value={{
         sendMessage,
         createChannel,
@@ -37,7 +37,7 @@ const SocketProvider = ({ socket, children }) => {
       }}
     >
       {children}
-    </SocketContext.Provider>
+    </ApiContext.Provider>
   );
 };
 

@@ -12,6 +12,8 @@ import { upLoadChannels } from '../slices/channelsSlice';
 import { upLoadMessages } from '../slices/messagesSlice';
 import Channels from './chat/Channels.jsx';
 import Messages from './chat/Messages.jsx';
+// import TestAdd from './modal/testAdd.jsx';
+import Modal from './modal/Modal.jsx';
 
 const Chat = () => {
   const { logOut, AuthHeader } = useContext(UserContext);
@@ -63,7 +65,7 @@ const Chat = () => {
         <div className="container h-100 my-4 overflow-hidden rounded shadow">
           <div className="row h-100 bg-white flex-md-row">
             <Channels />
-            <Messages />
+              <Messages />
           </div>
         </div>
       )}
