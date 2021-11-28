@@ -1,25 +1,25 @@
 import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { hideModal } from '../../slices/modalSlice';
+// import { hideModal } from '../../slices/modalSlice';
 import SocketContext from '../../contexts/apiContext.jsx';
 
-const RenameChannelModal = () => {
+const RenameChannelModal = ({isShown, closeModal}) => {
   const { t } = useTranslation();
   const [isSubmitting, setSubmitting] = useState(false);
   const socket = useContext(SocketContext);
-  const inputChannelRef = useRef();
-  const isShown = useSelector((state) => state.modal.isShown);
+  const inputRef = useRef();
+  // const isShown = useSelector((state) => state.modal.isShown);
   const { id } = useSelector((state) => state.modal.extra);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const handleClose = () => dispatch(hideModal());
+  // const handleClose = () => dispatch(hideModal());
   const channelsNames = useSelector((state) => state.channels.channelsData.map((ch) => ch.name));
   const NewChannelNameSchema = Yup.object().shape({
     channelName: Yup.string()
@@ -30,10 +30,10 @@ const RenameChannelModal = () => {
       .notOneOf(channelsNames, 'already exists'),
   });
   useEffect(() => {
-    inputChannelRef.current.focus();
+    if (inputRef.current) inputRef.current.focus();
   });
   return (
-    <Modal show={isShown} onHide={handleClose} centered>
+    <Modal show={isShown} onHide={closeModal} centered>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.rename.title')}</Modal.Title>
       </Modal.Header>
@@ -53,7 +53,7 @@ const RenameChannelModal = () => {
 
             setSubmitting(false);
             toast(t('modals.rename.toast'));
-            handleClose();
+            closeModal();
           }}
         >
           {({
@@ -70,7 +70,7 @@ const RenameChannelModal = () => {
                 onChange={handleChange}
                 disabled={isSubmitting}
                 isInvalid={submitCount > 0}
-                ref={inputChannelRef}
+                ref={inputRef}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.channelName || t('errors.tooLong')}
@@ -79,7 +79,7 @@ const RenameChannelModal = () => {
                 <Button
                   type="button"
                   disabled={isSubmitting}
-                  onClick={handleClose}
+                  onClick={closeModal}
                   variant="secondary"
                   className="me-2"
                 >

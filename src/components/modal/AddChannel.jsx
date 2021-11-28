@@ -2,24 +2,24 @@ import React, {
   useEffect, useRef, useState,
 } from 'react';
 import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { hideModal } from '../../slices/modalSlice';
+// import { hideModal } from '../../slices/modalSlice';
 import { useApi, useAuth } from '../../hooks';
 
-const AddChannelModal = () => {
+const AddChannelModal = ({isShown, closeModal}) => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const api = useApi();
   const [isSubmitting, setSubmitting] = useState(false);
-  const inputRef = useRef();
-  const isShown = useSelector((state) => state.modal.isShown);
-  const dispatch = useDispatch();
+  
+  // const isShown = useSelector((state) => state.modal.isShown);
+  // const dispatch = useDispatch();
 
-  const handleClose = () => dispatch(hideModal());
+  // const handleClose = () => dispatch(onHide());
   const channelsNames = useSelector((state) => state.channels.channelsData.map((ch) => ch.name));
   const NewChannelSchema = Yup.object().shape({
     channelName: Yup.string()
@@ -30,12 +30,15 @@ const AddChannelModal = () => {
       .notOneOf(channelsNames, t('errors.channelExists')),
   });
 
+
+  const inputRef = useRef();
+
   useEffect(() => {
-    inputRef.current.focus();
+    if (inputRef.current) inputRef.current.focus();
   }, []);
 
   return (
-    <Modal show={isShown} onHide={handleClose} centered>
+    <Modal show={isShown} onHide={closeModal} centered>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
@@ -53,7 +56,7 @@ const AddChannelModal = () => {
             });
             toast(t('modals.add.toast'));
             setSubmitting(false);
-            handleClose();
+            closeModal();
           }}
         >
           {({
@@ -79,7 +82,7 @@ const AddChannelModal = () => {
                 <Button
                   type="button"
                   disabled={isSubmitting}
-                  onClick={handleClose}
+                  onClick={closeModal}
                   variant="secondary"
                   className="me-2"
                 >

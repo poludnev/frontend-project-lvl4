@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -11,6 +11,7 @@ import { upLoadChannels } from '../slices/channelsSlice';
 import { upLoadMessages } from '../slices/messagesSlice';
 import Channels from './chat/Channels.jsx';
 import Messages from './chat/Messages.jsx';
+import Modal from './modal/Modal.jsx';
 
 const Chat = () => {
   const { logOut, AuthHeader } = useAuth();
@@ -59,6 +60,7 @@ const Chat = () => {
           <div className="row h-100 bg-white flex-md-row">
             <Channels />
             <Messages />
+            <Modal/>
           </div>
         </div>
       )}
