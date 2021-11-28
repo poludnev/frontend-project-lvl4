@@ -97,10 +97,7 @@ const LogInForm = () => {
                     <Form.Group controlId="password">
 
                     
-                    <Form.Label
-                      
-                      
-                      className="mb-3"
+                    <Form.Label className="mb-3"
                     >{t('logIn.passwordLabel')}</Form.Label>
                       <Form.Control
                         type="password"

@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import {
   Card,
   Form,
-  FloatingLabel,
+  // FloatingLabel,
   Button,
 } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -79,11 +79,15 @@ const SignUpForm = () => {
                   <Form noValidate onSubmit={handleSubmit} className="w-100">
                     <h1 className="text-center mb-4">{t('signUp.title')}</h1>
 
-                    <FloatingLabel
+                    {/* <FloatingLabel
                       controlId="userName"
                       label={t('signUp.usernameLabel')}
                       className="mb-3"
-                    >
+                    > */}
+                    <Form.Group controlId="userName">
+                      <Form.Label>{t('signUp.usernameLabel')}</Form.Label>
+
+                    
                       <Form.Control
                         type="text"
                         name="username"
@@ -94,15 +98,19 @@ const SignUpForm = () => {
                         onChange={handleChange}
                         ref={userInput}
                       />
+                      
                       <Form.Control.Feedback type="invalid" tooltip>
                         {isSignUpFailed ? t('errors.userExists') : errors.username}
                       </Form.Control.Feedback>
-                    </FloatingLabel>
-                    <FloatingLabel
+                      </Form.Group>
+                    {/* </FloatingLabel> */}
+                    {/* <FloatingLabel
                       controlId="password"
                       label={t('signUp.passwordLabel')}
                       className="mb-3"
-                    >
+                    > */}
+                    <Form.Group controlId="password">
+                      <Form.Label>{t('signUp.passwordLabel')}</Form.Label>
                       <Form.Control
                         type="password"
                         name="password"
@@ -114,12 +122,15 @@ const SignUpForm = () => {
                       <Form.Control.Feedback type="invalid" tooltip>
                         {errors.password}
                       </Form.Control.Feedback>
-                    </FloatingLabel>
-                    <FloatingLabel
+                      </Form.Group>
+                    {/* </FloatingLabel> */}
+                    {/* <FloatingLabel
                       controlId="passwordConfirmation"
                       label={t('signUp.passwordConfirmationLabel')}
                       className="mb-3"
-                    >
+                    > */}
+                    <Form.Group controlId="passwordConfirmation">
+                      <Form.Label>{t('signUp.passwordConfirmationLabel')}</Form.Label>
                       <Form.Control
                         type="password"
                         name="passwordConfirmation"
@@ -131,7 +142,8 @@ const SignUpForm = () => {
                       <Form.Control.Feedback type="invalid" tooltip>
                         {errors.passwordConfirmation}
                       </Form.Control.Feedback>
-                    </FloatingLabel>
+                      </Form.Group>
+                    {/* </FloatingLabel> */}
                     <Button
                       variant="outline-primary"
                       type="submit"
