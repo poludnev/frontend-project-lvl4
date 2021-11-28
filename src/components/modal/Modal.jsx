@@ -18,7 +18,7 @@ const Modal = () => {
     if (!isShown) return null;
     const Component = modalsMap[type];
     return (<Component isShown closeModal={() => dispatch(hideModal())} />);
-};
+  };
   const { isShown, type } = useSelector(selectModal);
   return renderModalComponent(isShown, type);
 };

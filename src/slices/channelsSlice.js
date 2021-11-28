@@ -6,6 +6,7 @@ const initialState = {
   currentChannelID: 1,
 };
 
+/* eslint-disable no-param-reassign */
 export const channelsSlice = createSlice({
   name: 'channels',
   initialState,
@@ -43,6 +44,8 @@ export const channelsSlice = createSlice({
     },
   },
 });
+
+/* eslint-disable no-param-reassign */
 
 export const {
   upLoadChannels, setCurrentChannel, addChannel, deleteChannel, changeNameChannel,
