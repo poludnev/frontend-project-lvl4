@@ -9,7 +9,7 @@ import { showModal } from '../../slices/modalSlice';
 const Channels = () => {
   const { t } = useTranslation();
   const { channelsData, currentChannelID } = useSelector((state) => state.channels);
-  const { isShown, type } = useSelector((state) => state.modal);
+  const { isShown } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
   const selectChannelHandler = (id) => () => {
