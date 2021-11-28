@@ -9,6 +9,8 @@ import chatCensor from 'leo-profanity';
 import * as Yup from 'yup';
 import * as Scroll from 'react-scroll';
 import { useApi, useAuth } from '../../hooks';
+import { selectCurrentChannelMessages } from '../../slices/messagesSlice';
+import { selectCurrentChannel } from '../../slices/channelsSlice';
 
 const Messages = () => {
   const { t } = useTranslation();
@@ -19,14 +21,13 @@ const Messages = () => {
   const api = useApi();
   const [isSubmitting, setSubmitting] = useState(false);
 
-  const messagesData = useSelector((state) => state.messages.messagesData);
-  const { currentChannelID, channelsData } = useSelector((state) => state.channels);
+  // const messagesData = useSelector((state) => state.messages.messagesData);
+  // const { currentChannelID, channelsData } = useSelector((state) => state.channels);
 
-  const currentChannelData = channelsData.find(({ id }) => id === currentChannelID);
-  const currentChannelName = currentChannelData ? currentChannelData.name : null;
-  const messagesByCurrentChannel = messagesData.filter(
-    ({ channelID }) => channelID === currentChannelID,
-  );
+  const { id: currentChannelID, name: currentChannelName } = useSelector(selectCurrentChannel);
+  // console.log('currentChannelData', currentChannelData)
+  // const currentChannelName = currentChannelData ? currentChannelData.name : null;
+  const currentChannelMessages = useSelector(selectCurrentChannelMessages);
 
   const messageValidationSchema = Yup.object().shape({
     message: Yup.string().trim().required('Required'),
@@ -42,7 +43,7 @@ const Messages = () => {
       containerId: 'messages-box',
       duration: 200,
     });
-  }, [currentChannelID, messagesData]);
+  }, [currentChannelID]);
 
   const renderMessage = ({ id, username, text }) => (
     <div key={id} className="text-break mb-2">
@@ -63,11 +64,11 @@ const Messages = () => {
             {currentChannelName}
           </p>
           <span className="text-muted">
-            {t('messages.counter.count', { count: messagesByCurrentChannel.length })}
+            {t('messages.counter.count', { count: currentChannelMessages.length })}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
-          {messagesByCurrentChannel.map(renderMessage)}
+          {currentChannelMessages.map(renderMessage)}
         </div>
         <div className="mt-auto px-5 py-3">
           <Formik

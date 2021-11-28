@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 // import { hideModal } from '../../slices/modalSlice';
+import { selectChannelsNames } from '../../slices/channelsSlice';
 import SocketContext from '../../contexts/apiContext.jsx';
 
 const RenameChannelModal = ({isShown, closeModal}) => {
@@ -20,14 +21,14 @@ const RenameChannelModal = ({isShown, closeModal}) => {
   // const dispatch = useDispatch();
 
   // const handleClose = () => dispatch(hideModal());
-  const channelsNames = useSelector((state) => state.channels.channelsData.map((ch) => ch.name));
+  const channelsNames = useSelector(selectChannelsNames);
   const NewChannelNameSchema = Yup.object().shape({
     channelName: Yup.string()
       .required(t('errors.required'))
       .trim()
       .min(3, t('errors.tooShort'))
       .max(20, t('errors.tooLong'))
-      .notOneOf(channelsNames, 'already exists'),
+      .notOneOf(channelsNames, t('errors.channelExists')),
   });
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();

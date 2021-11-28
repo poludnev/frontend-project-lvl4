@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
   channelsData: [],
@@ -47,5 +47,18 @@ export const channelsSlice = createSlice({
 export const {
   upLoadChannels, setCurrentChannel, addChannel, deleteChannel, changeNameChannel,
 } = channelsSlice.actions;
+
+export const selectChannels = (state) => state.channels.channelsData;
+export const selectCurrentChannelId = (state) => state.channels.currentChannelID;
+export const selectChannelsNames = createSelector(
+  selectChannels,
+  (channels) => channels.map(({ name }) => name),
+);
+
+export const selectCurrentChannel = createSelector(
+  selectChannels,
+  selectCurrentChannelId,
+  (channels, currentChannelID) => channels.find(({ id }) => id === currentChannelID),
+);
 
 export default channelsSlice.reducer;

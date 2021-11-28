@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { createSlice } from '@reduxjs/toolkit';
-import { deleteChannel } from './channelsSlice.js';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { deleteChannel, selectCurrentChannelId } from './channelsSlice.js';
 
 const initialState = {
   messagesData: [],
@@ -28,5 +28,12 @@ export const messagesSlice = createSlice({
 });
 
 export const { upLoadMessages, addMessage } = messagesSlice.actions;
+
+export const selectCurrentChannelMessages = createSelector(
+  (state) => state.messages.messagesData,
+  selectCurrentChannelId,
+  (messages, currentChannelID) => messages.filter(
+    ({ channelID }) => channelID === currentChannelID),
+);
 
 export default messagesSlice.reducer;
