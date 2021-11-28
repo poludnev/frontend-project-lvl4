@@ -16,7 +16,8 @@ export const channelsSlice = createSlice({
       const x = JSON.parse(JSON.stringify(state.channelsData))
         .reduce((acc, val) => { acc[val.id] = val; return acc; }, {});
       const y = action.payload.reduce((acc, val) => { acc[val.id] = val; return acc; }, {});
-      _.set(state, 'channelsData', Object.values({ ...x, ...y }));
+      state.channelsData = Object.values({ ...x, ...y });
+      // _.set(state, 'channelsData', Object.values({ ...x, ...y }));
       // _.set(state, 'channelsData', action.payload);
     },
     setCurrentChannel: (state, action) => {
