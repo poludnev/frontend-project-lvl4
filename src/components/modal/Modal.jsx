@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectModal, hideModal } from '../../slices/modalSlice';
-import AddChannelModal from './AddChannel';
-import RemoveChannelModal from './RemoveChannel';
-import RenameChannelModal from './RenameChannel';
+import AddChannelModal from './AddChannel.jsx';
+import RemoveChannelModal from './RemoveChannel.jsx';
+import RenameChannelModal from './RenameChannel.jsx';
 
 const modalsMap = {
   add: AddChannelModal,

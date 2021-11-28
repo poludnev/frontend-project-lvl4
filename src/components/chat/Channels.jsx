@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannel } from '../../slices/channelsSlice';
 import { showModal } from '../../slices/modalSlice';
-import modals from '../modal/modals';
+// import modals from '../modal/modals.jsx';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -27,10 +27,10 @@ const Channels = () => {
     dispatch(showModal({ type: 'rename', extra: { id } }));
   };
 
-  const renderModal = (modalType) => {
-    const Modal = modals(modalType);
-    return <Modal />;
-  };
+  // const renderModal = (modalType) => {
+  //   const Modal = modals(modalType);
+  //   return <Modal />;
+  // };
 
   return (
     <div className="channels col-4 col-md-2 border-end pt-5 px-0 bg-light">
@@ -97,7 +97,7 @@ const Channels = () => {
             </li>
           )))}
       </ul>
-      {isShown && renderModal(type)}
+      {/* {isShown && renderModal(type)} */}
     </div>
   );
 };
