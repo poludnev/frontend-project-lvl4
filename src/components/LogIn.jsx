@@ -85,7 +85,7 @@ const LogInForm = () => {
                       controlId="username"
                       label={t('logIn.usernameLabel')}
                       className="mb-3"
-                    />
+                    >{t('logIn.usernameLabel')}</Form.Label>
                       <Form.Control
                         type="text"
                         name="username"
@@ -100,7 +100,7 @@ const LogInForm = () => {
                       controlId="password"
                       label={t('logIn.passwordLabel')}
                       className="mb-3"
-                    />
+                    >{t('logIn.passwordLabel')}</Form.Label>
                       <Form.Control
                         type="password"
                         name="password"
