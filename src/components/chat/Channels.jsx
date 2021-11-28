@@ -55,7 +55,7 @@ const Channels = () => {
           <span className="visually-hidden">+</span>
         </button>
       </div>
-      <ul className="nav flex-column nav-pills nav-fill px-2">
+      <ul className="nav flex-column nav-pills nav-fill px-2" >
         {channelsData.map(({ id, name, removable }) => (
           removable ? (
             <li key={id} className="nav-item w-100">
@@ -76,10 +76,10 @@ const Channels = () => {
                   title="Управление каналом"
                 >{'Управление каналом'}</Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={removeChannelHandler(id)} aria-label="Удалить">
+                  <Dropdown.Item onClick={removeChannelHandler(id)} aria-label="Удалить" aria-hidden={isShown}>
                     {t('channels.remove')}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={renameChannelHandler(id)} aria-label="Переименовать">
+                  <Dropdown.Item onClick={renameChannelHandler(id)} aria-label="Переименовать" aria-hidden={isShown}>
                     {t('channels.rename')}
                   </Dropdown.Item>
                 </Dropdown.Menu>

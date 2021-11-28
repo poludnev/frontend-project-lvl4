@@ -12,7 +12,7 @@ import { useApi, useAuth } from '../../hooks';
 
 const Messages = () => {
   const { t } = useTranslation();
-    const isShown = useSelector((state) => state.modal.isShown);
+  const isShown = useSelector((state) => state.modal.isShown);
 
   const inputRef = useRef();
   const { user } = useAuth();
