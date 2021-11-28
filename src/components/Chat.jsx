@@ -40,7 +40,7 @@ const Chat = () => {
   useEffect(() => {
     fetchContent();
     return () => setLoading(false);
-  });
+  }, []);
 
   return (
     <>
