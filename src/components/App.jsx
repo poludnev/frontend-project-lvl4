@@ -28,7 +28,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="d-flex flex-column h-100" aria-hidden={isShown}>
+      <div className="d-flex flex-column h-100" aria-hidden={false}>
         <ToastContainer />
         <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
           <div className="container">
