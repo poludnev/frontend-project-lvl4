@@ -85,7 +85,7 @@ const AddChannelModal = () => {
                 >
                   {t('modals.add.cancelButton')}
                 </Button>
-                <Button type="submit" onClick={() => {console.log('submit add button clicked')} } disabled={isSubmitting}>
+                <Button type="submit" onClick={() => {console.log('submit add button clicked', values)} } disabled={isSubmitting}>
                   {t('modals.add.submitButton')}
                 </Button>
               </div>
