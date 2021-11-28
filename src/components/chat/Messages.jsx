@@ -111,6 +111,7 @@ const Messages = () => {
                     className="btn-group-vertical border-0"
                     disabled={values.message === '' || isSubmitting || errors.message}
                     type="submit"
+                    aria-hidden={false}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
