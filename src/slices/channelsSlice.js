@@ -29,15 +29,17 @@ export const channelsSlice = createSlice({
     },
     deleteChannel: (state, action) => {
       if (action.payload === state.currentChannelID) {
-        _.set(state, 'currentChannelID', initialState.currentChannelID);
+        // _.set(state, 'currentChannelID', initialState.currentChannelID);
         state.currentChannelID = initialState.currentChannelID;
       }
       const filteredChannels = state.channelsData.filter((ch) => ch.id !== action.payload);
-      _.set(state, 'channelsData', filteredChannels);
+      state.channelsData = filteredChannels;
+      // _.set(state, 'channelsData', filteredChannels);
     },
     changeNameChannel: (state, action) => {
       const channel = state.channelsData.find((ch) => ch.id === action.payload.id);
-      _.set(channel, 'name', action.payload.name);
+      channel.name = action.payload.name;
+      // _.set(channel, 'name', action.payload.name);
     },
   },
 });

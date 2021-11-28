@@ -16,6 +16,7 @@ const Channels = () => {
     dispatch(setCurrentChannel(id));
   };
   const addNewChannelHandler = () => {
+    console.log('clicked add channel handler')
     dispatch(showModal({ type: 'add', extra: null }));
   };
 
