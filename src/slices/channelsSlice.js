@@ -30,6 +30,7 @@ export const channelsSlice = createSlice({
     deleteChannel: (state, action) => {
       if (action.payload === state.currentChannelID) {
         _.set(state, 'currentChannelID', initialState.currentChannelID);
+        state.currentChannelID = initialState.currentChannelID;
       }
       const filteredChannels = state.channelsData.filter((ch) => ch.id !== action.payload);
       _.set(state, 'channelsData', filteredChannels);
