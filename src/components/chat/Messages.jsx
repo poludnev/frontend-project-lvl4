@@ -12,6 +12,7 @@ import { useApi, useAuth } from '../../hooks';
 
 const Messages = () => {
   const { t } = useTranslation();
+    const isShown = useSelector((state) => state.modal.isShown);
 
   const inputRef = useRef();
   const { user } = useAuth();
@@ -54,7 +55,7 @@ const Messages = () => {
   );
 
   return (
-    <div className="col p-0 h-100">
+    <div className="col p-0 h-100" aria-hidden={isShown}>
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
@@ -111,7 +112,7 @@ const Messages = () => {
                     className="btn-group-vertical border-0"
                     disabled={values.message === '' || isSubmitting || errors.message}
                     type="submit"
-                    aria-hidden={true}
+                    
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
