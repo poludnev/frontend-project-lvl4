@@ -81,11 +81,8 @@ const LogInForm = () => {
                     onSubmit={handleSubmit}
                     className="col-12 col-md-6 mt-3 mt-mb-0 w-100"
                   >
-                    <Form.Label
-                      controlId="username"
-                      label={t('logIn.usernameLabel')}
-                      className="mb-3"
-                    >{t('logIn.usernameLabel')}</Form.Label>
+                    <Form.Group controlId="username">
+                      <Form.Label className="mb-3">{t('logIn.usernameLabel')}</Form.Label>
                       <Form.Control
                         type="text"
                         name="username"
@@ -96,9 +93,13 @@ const LogInForm = () => {
                         onChange={handleChange}
                         ref={userInputRef}
                       />
+                    </Form.Group>
+                    <Form.Group controlId="password">
+
+                    
                     <Form.Label
-                      controlId="password"
-                      label={t('logIn.passwordLabel')}
+                      
+                      
                       className="mb-3"
                     >{t('logIn.passwordLabel')}</Form.Label>
                       <Form.Control
@@ -110,6 +111,7 @@ const LogInForm = () => {
                         value={values.password}
                         onChange={handleChange}
                       />
+                    </Form.Group>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {isAuthFailed
                           ? t('logIn.signInFailure')
