@@ -17,8 +17,9 @@
   "rules": {
     "import/extensions": 0,
     "jsx-quotes": ["error", "prefer-double"],
-    "no-param-reassign": 0,
     "no-console": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "no-param-reassign": 0
   }
 }

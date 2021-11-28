@@ -16,7 +16,6 @@ const Channels = () => {
     dispatch(setCurrentChannel(id));
   };
   const addNewChannelHandler = () => {
-    console.log('clicked add channel handler')
     dispatch(showModal({ type: 'add', extra: null }));
   };
 
@@ -55,7 +54,7 @@ const Channels = () => {
           <span className="visually-hidden">+</span>
         </button>
       </div>
-      <ul className="nav flex-column nav-pills nav-fill px-2" >
+      <ul className="nav flex-column nav-pills nav-fill px-2">
         {channelsData.map(({ id, name, removable }) => (
           removable ? (
             <li key={id} className="nav-item w-100">

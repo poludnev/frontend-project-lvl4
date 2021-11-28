@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 // import { hideModal } from '../../slices/modalSlice';
 import { useApi } from '../../hooks';
 
-const RemoveChannelModal = ({isShown, closeModal}) => {
+const RemoveChannelModal = ({ isShown, closeModal }) => {
   const { t } = useTranslation();
   const api = useApi();
   const cancelRef = useRef();

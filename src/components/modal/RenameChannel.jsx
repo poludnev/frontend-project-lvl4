@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { selectChannelsNames } from '../../slices/channelsSlice';
 import SocketContext from '../../contexts/apiContext.jsx';
 
-const RenameChannelModal = ({isShown, closeModal}) => {
+const RenameChannelModal = ({ isShown, closeModal }) => {
   const { t } = useTranslation();
   const [isSubmitting, setSubmitting] = useState(false);
   const socket = useContext(SocketContext);

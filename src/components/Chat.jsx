@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -60,7 +60,7 @@ const Chat = () => {
           <div className="row h-100 bg-white flex-md-row">
             <Channels />
             <Messages />
-            <Modal/>
+            <Modal />
           </div>
         </div>
       )}

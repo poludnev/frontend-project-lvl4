@@ -11,12 +11,11 @@ import * as Yup from 'yup';
 import { selectChannelsNames } from '../../slices/channelsSlice';
 import { useApi, useAuth } from '../../hooks';
 
-const AddChannelModal = ({isShown, closeModal}) => {
+const AddChannelModal = ({ isShown, closeModal }) => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const api = useApi();
   const [isSubmitting, setSubmitting] = useState(false);
-  
   // const isShown = useSelector((state) => state.modal.isShown);
   // const dispatch = useDispatch();
 
@@ -30,7 +29,6 @@ const AddChannelModal = ({isShown, closeModal}) => {
       .max(20, t('errors.tooLong'))
       .notOneOf(channelsNames, t('errors.channelExists')),
   });
-
 
   const inputRef = useRef();
 
@@ -89,7 +87,7 @@ const AddChannelModal = ({isShown, closeModal}) => {
                 >
                   {t('modals.add.cancelButton')}
                 </Button>
-                <Button type="submit" onClick={() => {console.log('submit add button clicked', values, errors)} } disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting}>
                   {t('modals.add.submitButton')}
                 </Button>
               </div>

@@ -112,9 +112,7 @@ const Messages = () => {
                     variant="outline-secondary"
                     className="btn-group-vertical border-0"
                     disabled={values.message === '' || isSubmitting || errors.message}
-                    type="submit"
-                    
-                  >
+                    type="submit">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 16 16"

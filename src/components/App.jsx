@@ -24,7 +24,7 @@ import Page404 from './Page404.jsx';
 const App = () => {
   const { user, logOut } = useContext(UserContext);
   const { t } = useTranslation();
-  const isShown = useSelector((state) => state.modal.isShown);
+  // const isShown = useSelector((state) => state.modal.isShown);
 
   return (
     <Router>
