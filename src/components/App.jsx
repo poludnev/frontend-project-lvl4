@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Navbar, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { injectStyle } from 'react-toastify/dist/inject-style';
+// import { injectStyle } from 'react-toastify/dist/inject-style';
 
 import UserContext from '../contexts/userContext.jsx';
 import Chat from './Chat.jsx';
@@ -19,7 +19,7 @@ import LogInForm from './LogIn.jsx';
 import SignUpForm from './SignUp.jsx';
 import Page404 from './Page404.jsx';
 
-injectStyle();
+// injectStyle();
 
 const App = () => {
   const { user, logOut } = useContext(UserContext);
