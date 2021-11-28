@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import {
   Card,
   Form,
-  FloatingLabel,
+  // FloatingLabel,
   Button,
 } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -81,11 +81,11 @@ const LogInForm = () => {
                     onSubmit={handleSubmit}
                     className="col-12 col-md-6 mt-3 mt-mb-0 w-100"
                   >
-                    <FloatingLabel
+                    <Form.Label
                       controlId="username"
                       label={t('logIn.usernameLabel')}
                       className="mb-3"
-                    >
+                    />
                       <Form.Control
                         type="text"
                         name="username"
@@ -96,12 +96,11 @@ const LogInForm = () => {
                         onChange={handleChange}
                         ref={userInputRef}
                       />
-                    </FloatingLabel>
-                    <FloatingLabel
+                    <Form.Label
                       controlId="password"
                       label={t('logIn.passwordLabel')}
                       className="mb-3"
-                    >
+                    />
                       <Form.Control
                         type="password"
                         name="password"
@@ -116,7 +115,7 @@ const LogInForm = () => {
                           ? t('logIn.signInFailure')
                           : errors.password}
                       </Form.Control.Feedback>
-                    </FloatingLabel>
+                    {/* </FloatingLabel> */}
                     <Button
                       variant="outline-primary"
                       type="submit"
