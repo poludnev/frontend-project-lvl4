@@ -72,8 +72,7 @@ const Channels = () => {
                   variant={id === currentChannelID ? 'secondary' : 'light'}
                   className="flex-grow-0 dropdown-toggle dropdown-toggle-split btn"
                   aria-label="Управление каналом"
-                  name="Управление каналом"
-                />Управление каналом
+                ><span className="visually-hidden">Управление каналом</span></Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={removeChannelHandler(id)} aria-label="Удалить">
                     {t('channels.remove')}
