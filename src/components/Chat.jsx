@@ -32,7 +32,11 @@ const Chat = () => {
         logOut();
         return;
       }
-      toast(t('errors.networkError'));
+      if (error.isAxiosError && error.response.status === 500) {
+        toast(t('errors.networkError'));
+        console.error(error.response.statusText);
+      }
+      toast(t('errors.otherError'));
       console.error(error.response.statusText);
     }
   };

@@ -46,6 +46,7 @@ export default {
       userExists: 'Такой пользователь уже существует',
       channelExists: 'Должно быть уникальным',
       networkError: 'Ошибка соединения',
+      otherError: 'Ошибка!',
     },
     modals: {
       add: {
