@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-// import { hideModal } from '../../slices/modalSlice';
 import { useApi } from '../../hooks';
 
 const RemoveChannelModal = ({ isShown, closeModal }) => {
@@ -15,13 +14,8 @@ const RemoveChannelModal = ({ isShown, closeModal }) => {
   useEffect(() => {
     if (cancelRef.current) cancelRef.current.focus();
   }, []);
-  // const isShown = useSelector((state) => state.modal.isShown);
   const { id } = useSelector((state) => state.modal.extra);
-  // const dispatch = useDispatch();
-
   const [isSubmitting, setSubmitting] = useState(false);
-
-  // const handleClose = () => dispatch(hideModal());
 
   const removeChannelHandler = async () => {
     setSubmitting(true);

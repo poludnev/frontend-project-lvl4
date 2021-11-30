@@ -21,12 +21,7 @@ const Messages = () => {
   const api = useApi();
   const [isSubmitting, setSubmitting] = useState(false);
 
-  // const messagesData = useSelector((state) => state.messages.messagesData);
-  // const { currentChannelID, channelsData } = useSelector((state) => state.channels);
-
   const { id: currentChannelID, name: currentChannelName } = useSelector(selectCurrentChannel);
-  // console.log('currentChannelData', currentChannelData)
-  // const currentChannelName = currentChannelData ? currentChannelData.name : null;
   const currentChannelMessages = useSelector(selectCurrentChannelMessages);
 
   const messageValidationSchema = Yup.object().shape({

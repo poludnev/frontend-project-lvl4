@@ -7,7 +7,6 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-// import { hideModal } from '../../slices/modalSlice';
 import { selectChannelsNames } from '../../slices/channelsSlice';
 import SocketContext from '../../contexts/apiContext.jsx';
 
@@ -16,11 +15,7 @@ const RenameChannelModal = ({ isShown, closeModal }) => {
   const [isSubmitting, setSubmitting] = useState(false);
   const socket = useContext(SocketContext);
   const inputRef = useRef();
-  // const isShown = useSelector((state) => state.modal.isShown);
   const { id } = useSelector((state) => state.modal.extra);
-  // const dispatch = useDispatch();
-
-  // const handleClose = () => dispatch(hideModal());
   const channelsNames = useSelector(selectChannelsNames);
   const NewChannelNameSchema = Yup.object().shape({
     channelName: Yup.string()

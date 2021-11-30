@@ -7,7 +7,6 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-// import { hideModal } from '../../slices/modalSlice';
 import { selectChannelsNames } from '../../slices/channelsSlice';
 import { useApi, useAuth } from '../../hooks';
 
@@ -16,11 +15,8 @@ const AddChannelModal = ({ isShown, closeModal }) => {
   const { user } = useAuth();
   const api = useApi();
   const [isSubmitting, setSubmitting] = useState(false);
-  // const isShown = useSelector((state) => state.modal.isShown);
-  // const dispatch = useDispatch();
-
-  // const handleClose = () => dispatch(onHide());
   const channelsNames = useSelector(selectChannelsNames);
+  
   const NewChannelSchema = Yup.object().shape({
     channelName: Yup.string()
       .required(t('errors.required'))

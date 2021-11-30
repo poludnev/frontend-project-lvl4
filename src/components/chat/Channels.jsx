@@ -4,7 +4,6 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannel } from '../../slices/channelsSlice';
 import { showModal } from '../../slices/modalSlice';
-// import modals from '../modal/modals.jsx';
 
 const Channels = () => {
   const { t } = useTranslation();
