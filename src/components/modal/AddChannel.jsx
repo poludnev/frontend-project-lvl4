@@ -16,7 +16,7 @@ const AddChannelModal = ({ isShown, closeModal }) => {
   const api = useApi();
   const [isSubmitting, setSubmitting] = useState(false);
   const channelsNames = useSelector(selectChannelsNames);
-  
+
   const NewChannelSchema = Yup.object().shape({
     channelName: Yup.string()
       .required(t('errors.required'))
