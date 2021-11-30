@@ -10,7 +10,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Navbar, Button } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
-import { useSelector } from 'react-redux';
 
 import UserContext from '../contexts/userContext.jsx';
 import Chat from './Chat.jsx';
@@ -18,12 +17,10 @@ import LogInForm from './LogIn.jsx';
 import SignUpForm from './SignUp.jsx';
 import Page404 from './Page404.jsx';
 
-
-
 const App = () => {
   const { user, logOut } = useContext(UserContext);
   const { t } = useTranslation();
-  
+
   return (
     <Router>
       <div className="d-flex flex-column h-100">

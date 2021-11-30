@@ -9,7 +9,6 @@ import { showModal } from '../../slices/modalSlice';
 const Channels = () => {
   const { t } = useTranslation();
   const { channelsData, currentChannelID } = useSelector((state) => state.channels);
-  const { isShown } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
   const selectChannelHandler = (id) => () => {
@@ -26,11 +25,6 @@ const Channels = () => {
   const renameChannelHandler = (id) => () => {
     dispatch(showModal({ type: 'rename', extra: { id } }));
   };
-
-  // const renderModal = (modalType) => {
-  //   const Modal = modals(modalType);
-  //   return <Modal />;
-  // };
 
   return (
     <div className="channels col-4 col-md-2 border-end pt-5 px-0 bg-light">
@@ -97,7 +91,6 @@ const Channels = () => {
             </li>
           )))}
       </ul>
-      {/* {isShown && renderModal(type)} */}
     </div>
   );
 };
