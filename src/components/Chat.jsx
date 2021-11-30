@@ -42,7 +42,9 @@ const Chat = () => {
     }
   };
 
-  useEffect(fetchContent, []);
+  useEffect(() => {
+    fetchContent();
+  }, [fetchContent]);
 
   return (
     <>
