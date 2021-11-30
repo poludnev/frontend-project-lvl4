@@ -18,11 +18,12 @@ import LogInForm from './LogIn.jsx';
 import SignUpForm from './SignUp.jsx';
 import Page404 from './Page404.jsx';
 
-const isShown = useSelector((state) => state.modal.isShown);
+
 
 const App = () => {
   const { user, logOut } = useContext(UserContext);
   const { t } = useTranslation();
+  const isShown = useSelector((state) => state.modal.isShown);
 
   return (
     <Router>
