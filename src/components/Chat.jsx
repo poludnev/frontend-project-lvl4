@@ -19,10 +19,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  
-
-  useEffect(() => {
-    const fetchContent = async () => {
+  const fetchContent = async () => {
     try {
       const header = AuthHeader();
       const { data } = await axios.get(routes.chatDataPath(), {
@@ -44,8 +41,8 @@ const Chat = () => {
       console.error(error.response.statusText);
     }
   };
-    fetchContent();
-  }, []);
+
+  useEffect(fetchContent, []);
 
   return (
     <>
