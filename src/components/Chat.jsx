@@ -19,16 +19,39 @@ const Chat = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const fetchContent = async () => {
-    try {
-      const header = AuthHeader();
-      const { data } = await axios.get(routes.chatDataPath(), {
-        headers: { ...header },
-      });
+  // const fetchContent = async () => {
+  //   try {
+  //     const header = AuthHeader();
+  //     const { data } = await axios.get(routes.chatDataPath(), {
+  //       headers: { ...header },
+  //     });
+  //     // dispatch(upLoadChannels(data.channels));
+  //     // dispatch(upLoadMessages(data.messages));
+  //     setLoading(false);
+  //   } catch (error) {
+  //     if (error.isAxiosError && error.response.status === 401) {
+  //       logOut();
+  //       return;
+  //     }
+  //     if (error.isAxiosError && error.response.status === 500) {
+  //       toast(t('errors.networkError'));
+  //       console.error(error.response.statusText);
+  //     }
+  //     toast(t('errors.otherError'));
+  //     console.error(error.response.statusText);
+  //   }
+  // };
+
+  useEffect(() => {
+
+    axios.get(routes.chatDataPath(), {
+        headers: { ...AuthHeader() },
+    }).then(({ data }) => {
+      console.log('response', data);
       dispatch(upLoadChannels(data.channels));
       dispatch(upLoadMessages(data.messages));
       setLoading(false);
-    } catch (error) {
+    }).catch((error) => {
       if (error.isAxiosError && error.response.status === 401) {
         logOut();
         return;
@@ -39,11 +62,11 @@ const Chat = () => {
       }
       toast(t('errors.otherError'));
       console.error(error.response.statusText);
-    }
-  };
+        
+      })
 
-  useEffect(() => {
-    fetchContent();
+
+    // fetchContent();
   }, []);
 
   return (
