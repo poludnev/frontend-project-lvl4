@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -19,11 +19,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-//   const fetchBusinesses = useCallback(() => {
-//   ...
-// }, [])
-
-  const fetchContent = useCallback(async () => {
+  const fetchContent = async () => {
     try {
       const header = AuthHeader();
       const { data } = await axios.get(routes.chatDataPath(), {
@@ -44,11 +40,11 @@ const Chat = () => {
       toast(t('errors.otherError'));
       console.error(error.response.statusText);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchContent();
-  }, [fetchContent]);
+  }, []);
 
   return (
     <>
